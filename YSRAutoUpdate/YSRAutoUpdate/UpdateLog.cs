@@ -53,10 +53,22 @@
 // 19 Custom Title Bar 구현, == > label로 타이틀명, TrackBar로 Opastiy, X버튼 = Application.Exit().
 // 19 label과 tableLayoutTable 마우스 다운 시 창(handle) move 적용.
 // 20 화면 최상위 해제 기능, 최상위 이미지, taskbar 표시, 최소화, 아이콘 추가, 최상위 설정 저장, 버젼번호 추가, 로그 저장, 폼 실행 후부터 함수 실행.
+// 21 셋폼을 만드는 중...
 */
 
+
+// 파일경로를 가져왔지만 lnk파일은 타겟 주소만 가져온다....
+// 파일, 주소 = NuGet에서 WindowsAPICodePack-Core 1.2, WindowsAPICodePack-Core-Shell 1.2 설치
+
+// 텍스트박스 숫자만 입력가능하게 하였다. keypress+imemode(disable)
+
+// 범용적으로 쓸 수 있게
+// 세부 설정 기능: TETBL 최소, 최대, 병의원이름, 파일이나 링크 주소 수정 기능
+// AppPlayer : 현재 앱플레이어
+// 버튼 다시 누르면 일시정지 or 정지
+
+
 // 업데이트 내역도 저장(성공내역) 할까?
-// 나중에 TETBL 번호를 추가 하는 기능을 할까?
 
 // NuGet 패키지 정리하여 용량을 줄이기 (필수는 제외, 예.OpenCV)
 // 전체함수에 추가하기 l = null;                                                               // 3. 리소스 반환

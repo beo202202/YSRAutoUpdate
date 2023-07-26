@@ -969,6 +969,13 @@ namespace YSR
             l = null;
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            // 설정 창 올리기
+            SetForm frm = new SetForm();
+            frm.ShowDialog();
+        }
+
         // 의사랑 자동 업데이트
         public void button9_Click(object sender, EventArgs e)
         {

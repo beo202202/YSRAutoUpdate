@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button3 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.comboBox4 = new System.Windows.Forms.ComboBox();
@@ -42,6 +43,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.labelProgressBar2 = new YSRAutoUpdate.LabelProgressBar();
+            this.labelProgressBar1 = new YSRAutoUpdate.LabelProgressBar();
             this.button9 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.lboxLog = new System.Windows.Forms.ListBox();
@@ -53,8 +56,6 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button2 = new System.Windows.Forms.Button();
-            this.labelProgressBar2 = new YSRAutoUpdate.LabelProgressBar();
-            this.labelProgressBar1 = new YSRAutoUpdate.LabelProgressBar();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -83,11 +84,12 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 15F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 15F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(435, 538);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(435, 635);
             this.tableLayoutPanel1.TabIndex = 19;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button3);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.comboBox4);
@@ -101,10 +103,21 @@
             this.groupBox1.Controls.Add(this.radioButton1);
             this.groupBox1.Location = new System.Drawing.Point(3, 431);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(429, 104);
+            this.groupBox1.Size = new System.Drawing.Size(429, 123);
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(369, 95);
+            this.button3.Margin = new System.Windows.Forms.Padding(0);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(51, 20);
+            this.button3.TabIndex = 31;
+            this.button3.Text = "설정";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // label4
             // 
@@ -409,6 +422,36 @@
             this.radioButton1.Text = "자동 업데이트";
             this.radioButton1.UseVisualStyleBackColor = true;
             // 
+            // labelProgressBar2
+            // 
+            this.labelProgressBar2.CustomText = "";
+            this.labelProgressBar2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelProgressBar2.Location = new System.Drawing.Point(0, 413);
+            this.labelProgressBar2.Margin = new System.Windows.Forms.Padding(0);
+            this.labelProgressBar2.Name = "labelProgressBar2";
+            this.labelProgressBar2.ProgressColor = System.Drawing.Color.LightGreen;
+            this.labelProgressBar2.Size = new System.Drawing.Size(435, 15);
+            this.labelProgressBar2.TabIndex = 25;
+            this.labelProgressBar2.TextColor = System.Drawing.Color.Black;
+            this.labelProgressBar2.TextFont = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold);
+            this.labelProgressBar2.VisualMode = YSRAutoUpdate.ProgressBarDisplayMode.CurrProgress;
+            // 
+            // labelProgressBar1
+            // 
+            this.labelProgressBar1.CustomText = "";
+            this.labelProgressBar1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelProgressBar1.Location = new System.Drawing.Point(0, 398);
+            this.labelProgressBar1.Margin = new System.Windows.Forms.Padding(0);
+            this.labelProgressBar1.MarqueeAnimationSpeed = 1000;
+            this.labelProgressBar1.Maximum = 84;
+            this.labelProgressBar1.Name = "labelProgressBar1";
+            this.labelProgressBar1.ProgressColor = System.Drawing.Color.LightGreen;
+            this.labelProgressBar1.Size = new System.Drawing.Size(435, 15);
+            this.labelProgressBar1.TabIndex = 24;
+            this.labelProgressBar1.TextColor = System.Drawing.Color.Black;
+            this.labelProgressBar1.TextFont = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold);
+            this.labelProgressBar1.VisualMode = YSRAutoUpdate.ProgressBarDisplayMode.CurrProgress;
+            // 
             // button9
             // 
             this.button9.BackColor = System.Drawing.Color.SandyBrown;
@@ -586,43 +629,13 @@
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // labelProgressBar2
-            // 
-            this.labelProgressBar2.CustomText = "";
-            this.labelProgressBar2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelProgressBar2.Location = new System.Drawing.Point(0, 413);
-            this.labelProgressBar2.Margin = new System.Windows.Forms.Padding(0);
-            this.labelProgressBar2.Name = "labelProgressBar2";
-            this.labelProgressBar2.ProgressColor = System.Drawing.Color.LightGreen;
-            this.labelProgressBar2.Size = new System.Drawing.Size(435, 15);
-            this.labelProgressBar2.TabIndex = 25;
-            this.labelProgressBar2.TextColor = System.Drawing.Color.Black;
-            this.labelProgressBar2.TextFont = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold);
-            this.labelProgressBar2.VisualMode = YSRAutoUpdate.ProgressBarDisplayMode.CurrProgress;
-            // 
-            // labelProgressBar1
-            // 
-            this.labelProgressBar1.CustomText = "";
-            this.labelProgressBar1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelProgressBar1.Location = new System.Drawing.Point(0, 398);
-            this.labelProgressBar1.Margin = new System.Windows.Forms.Padding(0);
-            this.labelProgressBar1.MarqueeAnimationSpeed = 1000;
-            this.labelProgressBar1.Maximum = 84;
-            this.labelProgressBar1.Name = "labelProgressBar1";
-            this.labelProgressBar1.ProgressColor = System.Drawing.Color.LightGreen;
-            this.labelProgressBar1.Size = new System.Drawing.Size(435, 15);
-            this.labelProgressBar1.TabIndex = 24;
-            this.labelProgressBar1.TextColor = System.Drawing.Color.Black;
-            this.labelProgressBar1.TextFont = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold);
-            this.labelProgressBar1.VisualMode = YSRAutoUpdate.ProgressBarDisplayMode.CurrProgress;
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(435, 540);
+            this.ClientSize = new System.Drawing.Size(435, 659);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -653,7 +666,6 @@
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.ListBox lboxLog;
         private YSRAutoUpdate.LabelProgressBar labelProgressBar1;
         private YSRAutoUpdate.LabelProgressBar labelProgressBar2;
         private System.Windows.Forms.Label label2;
@@ -673,6 +685,8 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label6;
         public System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button button3;
+        public System.Windows.Forms.ListBox lboxLog;
     }
 }
 

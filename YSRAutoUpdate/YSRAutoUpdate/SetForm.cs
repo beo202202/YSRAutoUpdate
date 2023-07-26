@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.WindowsAPICodePack.Dialogs;
+using System;
+using System.Diagnostics;
+using System.Net;
 using System.Windows.Forms;
 
 namespace YSR
@@ -23,12 +26,12 @@ namespace YSR
             //값 불러오기
             //값 표현하기
             //XML Read
-            // var setForm = new SetForm();
-            //setForm.Log();
-            MessageBox.Show("1");
+
+            //MessageBox.Show("1");
             //파일이 존재 하지 않으면...
             if (!System.IO.File.Exists(strLocalFolder + strXmlFile))
-                MessageBox.Show("없네요.");
+                //MessageBox.Show("없네요.");
+                l.Log(Main.main.lboxLog, "저장된 세팅이 없습니다.");
             return;
 
             /*
@@ -126,5 +129,62 @@ namespace YSR
 
         }
 
+        public string ChangeFolderPath()
+        {
+            string FilePath = "";
+            CommonOpenFileDialog dialog = new CommonOpenFileDialog();
+            {
+                dialog.IsFolderPicker = true;
+
+                if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+                {
+                    FilePath = dialog.FileName;
+                }
+            }
+            return FilePath;
+        }
+
+
+
+
+        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //숫자와 백스페이스를 제외한 나머지를 바로 처리
+            if (!(char.IsDigit(e.KeyChar) || e.KeyChar == Convert.ToChar(Keys.Back)))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //숫자와 백스페이스를 제외한 나머지를 바로 처리
+            if (!(char.IsDigit(e.KeyChar) || e.KeyChar == Convert.ToChar(Keys.Back)))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textBox1_MouseClick(object sender, MouseEventArgs e)
+        {
+            textBox1.Text = ChangeFolderPath();
+        }
+
+        private void textBox4_MouseClick(object sender, MouseEventArgs e)
+        {
+            var ofd = new OpenFileDialog();
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+                textBox4.Text = ofd.FileName;
+            
+        }
+
+
+
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Process.Start(textBox4.Text);
+        }
     }
 }
