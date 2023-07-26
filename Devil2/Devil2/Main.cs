@@ -95,6 +95,10 @@ namespace Devil2
         [DllImport("user32.dll")]
         public static extern IntPtr FindWindowEx(IntPtr hWnd1, IntPtr hWnd2, string lpsz1, string lpsz2);
 
+        [DllImport("user32.dll")]
+        public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+        private const int SW_SHOWNORMAL = 1;
+
         [DllImport("User32.Dll", EntryPoint = "PostMessageA")]
         public static extern bool PostMessage(IntPtr hWnd, uint msg, int wParam, IntPtr lParam);
 
@@ -587,11 +591,27 @@ namespace Devil2
                 {
                     //찾은 플레이어를 바탕으로 Graphics 정보를 가져옵니다.
                     Graphics Graphicsdata = Graphics.FromHwnd(findwindow);
+                    //Log(enLogLevel.Info, $"Graphicsdata: " + Graphicsdata);
 
                     //찾은 플레이어 창 크기 및 위치를 가져옵니다. 
                     Rectangle rect = Rectangle.Round(Graphicsdata.VisibleClipBounds);
+                    //Log(enLogLevel.Info, $"rect: " + rect);
 
                     //플레이어 창 크기 만큼의 비트맵을 선언해줍니다.
+                    if(rect.Width == 0)
+                    {
+                        Log(enLogLevel.Info, $"캡처 오류 원인_최소화");
+
+                        ShowWindow(findwindow, SW_SHOWNORMAL);
+                        Log(enLogLevel.Info, $"캡처 오류 원인_최소화_노멀조치");
+
+                        //찾은 플레이어를 바탕으로 Graphics 정보를 가져옵니다.
+                        Graphicsdata = Graphics.FromHwnd(findwindow);
+
+                        //찾은 플레이어 창 크기 및 위치를 가져옵니다. 
+                        rect = Rectangle.Round(Graphicsdata.VisibleClipBounds);
+                    }
+                    //Log(enLogLevel.Info, $"rect.Width: " + rect.Width + "rect.Height: " + rect.Height);
                     Bitmap bmp = new Bitmap(rect.Width, rect.Height);
 
                     int nFlags = 0; //초기화
@@ -628,7 +648,7 @@ namespace Devil2
                 {
                     //폼 다시 노말로(최소화취소)
                     //this.WindowState = FormWindowState.Normal;
-                    Log(enLogLevel.Info, $"앱플레이어 찾음_캡쳐 오류_최소화");
+                    Log(enLogLevel.Info, $"앱플레이어 찾음_캡쳐 오류");
                 }
             }
             else
@@ -637,6 +657,7 @@ namespace Devil2
                 //textBox1.AppendText("앱플레이어 못 찾았어요.\r\n");
                 Log(enLogLevel.Info, $"앱플레이어를 못 찾았습니다.");
             }
+            Log(enLogLevel.Info, $"캡처되었습니다.");
         }
 
         //ucpanel2 불러오기

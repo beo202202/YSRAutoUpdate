@@ -56,7 +56,7 @@
             this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button1.Location = new System.Drawing.Point(3, 3);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(97, 44);
+            this.button1.Size = new System.Drawing.Size(160, 44);
             this.button1.TabIndex = 0;
             this.button1.Text = "LDPlayer 핸들";
             this.button1.UseVisualStyleBackColor = true;
@@ -65,9 +65,9 @@
             // button2
             // 
             this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button2.Location = new System.Drawing.Point(106, 3);
+            this.button2.Location = new System.Drawing.Point(169, 3);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(97, 44);
+            this.button2.Size = new System.Drawing.Size(160, 44);
             this.button2.TabIndex = 1;
             this.button2.Text = "블루스택5 핸들";
             this.button2.UseVisualStyleBackColor = true;
@@ -76,9 +76,9 @@
             // button3
             // 
             this.button3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button3.Location = new System.Drawing.Point(209, 3);
+            this.button3.Location = new System.Drawing.Point(335, 3);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(99, 44);
+            this.button3.Size = new System.Drawing.Size(161, 44);
             this.button3.TabIndex = 2;
             this.button3.Text = "지우기3";
             this.button3.UseVisualStyleBackColor = true;
@@ -89,7 +89,7 @@
             this.button4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button4.Location = new System.Drawing.Point(3, 53);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(97, 44);
+            this.button4.Size = new System.Drawing.Size(160, 44);
             this.button4.TabIndex = 3;
             this.button4.Text = "이미지찾기4";
             this.button4.UseVisualStyleBackColor = true;
@@ -98,9 +98,9 @@
             // button5
             // 
             this.button5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button5.Location = new System.Drawing.Point(106, 53);
+            this.button5.Location = new System.Drawing.Point(169, 53);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(97, 44);
+            this.button5.Size = new System.Drawing.Size(160, 44);
             this.button5.TabIndex = 4;
             this.button5.Text = "테스트5";
             this.button5.UseVisualStyleBackColor = true;
@@ -108,9 +108,9 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(326, 3);
+            this.pictureBox1.Location = new System.Drawing.Point(514, 3);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(317, 519);
+            this.pictureBox1.Size = new System.Drawing.Size(129, 519);
             this.pictureBox1.TabIndex = 6;
             this.pictureBox1.TabStop = false;
             // 
@@ -125,11 +125,11 @@
             // button6
             // 
             this.button6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button6.Location = new System.Drawing.Point(209, 53);
+            this.button6.Location = new System.Drawing.Point(335, 53);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(99, 44);
+            this.button6.Size = new System.Drawing.Size(161, 44);
             this.button6.TabIndex = 9;
-            this.button6.Text = "캡쳐6";
+            this.button6.Text = "캡처6";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
@@ -138,16 +138,16 @@
             this.pictureBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox3.Location = new System.Drawing.Point(3, 3);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(311, 97);
+            this.pictureBox3.Size = new System.Drawing.Size(499, 97);
             this.pictureBox3.TabIndex = 11;
             this.pictureBox3.TabStop = false;
             // 
             // btnSet
             // 
             this.btnSet.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnSet.Location = new System.Drawing.Point(106, 103);
+            this.btnSet.Location = new System.Drawing.Point(169, 103);
             this.btnSet.Name = "btnSet";
-            this.btnSet.Size = new System.Drawing.Size(97, 45);
+            this.btnSet.Size = new System.Drawing.Size(160, 45);
             this.btnSet.TabIndex = 12;
             this.btnSet.Text = "설정";
             this.btnSet.UseVisualStyleBackColor = true;
@@ -156,9 +156,9 @@
             // btnSet2
             // 
             this.btnSet2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnSet2.Location = new System.Drawing.Point(209, 103);
+            this.btnSet2.Location = new System.Drawing.Point(335, 103);
             this.btnSet2.Name = "btnSet2";
-            this.btnSet2.Size = new System.Drawing.Size(99, 45);
+            this.btnSet2.Size = new System.Drawing.Size(161, 45);
             this.btnSet2.TabIndex = 15;
             this.btnSet2.Text = "닫기";
             this.btnSet2.UseVisualStyleBackColor = true;
@@ -167,8 +167,8 @@
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 52.68041F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 13.91753F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.pictureBox1, 1, 0);
@@ -195,7 +195,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(317, 519);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(505, 519);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // tableLayoutPanel3
@@ -219,7 +219,7 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(311, 151);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(499, 151);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
             // panel1
@@ -228,10 +228,10 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 106);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(311, 253);
+            this.panel1.Size = new System.Drawing.Size(499, 253);
             this.panel1.TabIndex = 13;
             // 
-            // Form1
+            // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -240,7 +240,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Location = new System.Drawing.Point(10, 10);
-            this.Name = "Form1";
+            this.Name = "Main";
             this.ShowIcon = false;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
