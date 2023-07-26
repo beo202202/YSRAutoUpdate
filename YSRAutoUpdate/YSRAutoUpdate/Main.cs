@@ -1,41 +1,55 @@
 ﻿// 2022-01-16 포스트 캡쳐 기능
-// 2022-08-16 환경설정 xml 일부 저장기능
 
-// 2022-08-18 로그가 실행이 드디어 됨. 그러나 너무 길어진 거 같음. 그럴바에 메인에 로그 넣는게 낫지 않나
 
-// 2022-08-19 비활성 마우스 입력이 안되는 것 같다.
-// 2022-08-19 텍스트만 썼는데도 불구하고 메모리가 조금씩 올라간다 해결 방법은?
+// 2022년 8월
+/*
+    // 2022-08-16 환경설정 xml 일부 저장기능
 
-// 2022-08-22 질문창 Y가 클릭이 안되어서 SIK (키보드 입력으로 대체) PostMessage 로 해도 되는 것인가?
-// 2022-08-22 키보드 입력 대신 SendMessage 버튼 클릭으로 대체
+    // 2022-08-18 로그가 실행이 드디어 됨. 그러나 너무 길어진 거 같음. 그럴바에 메인에 로그 넣는게 낫지 않나
 
-// 2022-08-24 32비트로 이미지 교체 완료, 이미지 비교 시 32비트로 비교를 해야하는데 24비트는 안된다. 캡처 도구 로만 캡처하자(알캡처, 포토샵 안됨 ㅠ.ㅠ)
-// 2022-08-24 24비트로 비교하려면 비트 변환을 해야한다.
-// 2022-08-24 AppPlayerName을 쓰는 지역변수가 있어서 공유를 할 수 없었다. 변경 해주니 전역변수로 공유 할 수 있었다.
+    // 2022-08-19 비활성 마우스 입력이 안되는 것 같다.
+    // 2022-08-19 텍스트만 썼는데도 불구하고 메모리가 조금씩 올라간다 해결 방법은?
 
-// 2022-08-25 while문 중 두 줄이상에서 값이 변했는데 안나오는 이유를 모르겠다. >> while문은 반복을 완료하고 값을 검사한다.
-// 2022-08-25 while문에서 SendMessage랑 잘 안맞는가 보다. 계속 멈추는 이유를 찾았다. PostMessage로 바꾸니 작동을 한다.
-// 2022-08-25 한꺼번에 업데이트가 안되어 하나씩 업데이트 하기로 하였다.
-// 2022-08-25 창 찾는중...3 에서 종료되어 넘어가지 않고 무한 루프를 한다.
+    // 2022-08-22 질문창 Y가 클릭이 안되어서 SIK (키보드 입력으로 대체) PostMessage 로 해도 되는 것인가?
+    // 2022-08-22 키보드 입력 대신 SendMessage 버튼 클릭으로 대체
 
-// 2022-08-26 while은 빨리 돌기 때문에 Delay를 걸어놔야한다.
-// 2022-08-26 send로 다시 바꾸었다.
-// 2022-08-26 'YSRAutoUpdate' 로 바꾸었다.
-// 2022-08-26 로그 출력 문자들을 정리해보려 했으나 완성 못시켰다.
+    // 2022-08-24 32비트로 이미지 교체 완료, 이미지 비교 시 32비트로 비교를 해야하는데 24비트는 안된다. 캡처 도구 로만 캡처하자(알캡처, 포토샵 안됨 ㅠ.ㅠ)
+    // 2022-08-24 24비트로 비교하려면 비트 변환을 해야한다.
+    // 2022-08-24 AppPlayerName을 쓰는 지역변수가 있어서 공유를 할 수 없었다. 변경 해주니 전역변수로 공유 할 수 있었다.
 
-// 2022-08-29 로그 폰트 문제였다.
-// 2022-08-29 post로 다시 바꾸었다. post= 쪽지만 보내기, send 바로 답장 받기
-// 2022-08-29 자동모드 진행 중 추가
-// 2022-08-29 자동모드를 스레드로 바꿈
-// 2022-08-29 while문을 넣으면 폼이 안보임
+    // 2022-08-25 while문 중 두 줄이상에서 값이 변했는데 안나오는 이유를 모르겠다. >> while문은 반복을 완료하고 값을 검사한다.
+    // 2022-08-25 while문에서 SendMessage랑 잘 안맞는가 보다. 계속 멈추는 이유를 찾았다. PostMessage로 바꾸니 작동을 한다.
+    // 2022-08-25 한꺼번에 업데이트가 안되어 하나씩 업데이트 하기로 하였다.
+    // 2022-08-25 창 찾는중...3 에서 종료되어 넘어가지 않고 무한 루프를 한다.
 
-// 2022-08-30 폼 띄우기 전에 while 문이 들어가버렸던 문제 해결
-// 2022-08-30 스레드로 나뉘었으나 Join.. 문제 생김 원인 불명
+    // 2022-08-26 while은 빨리 돌기 때문에 Delay를 걸어놔야한다.
+    // 2022-08-26 send로 다시 바꾸었다.
+    // 2022-08-26 'YSRAutoUpdate' 로 바꾸었다.
+    // 2022-08-26 로그 출력 문자들을 정리해보려 했으나 완성 못시켰다.
 
-// 2022-08-31 send로 바꿈
-// 핸들 항상 위로. 핸들 숨기기 등 넣음.
+    // 2022-08-29 로그 폰트 문제였다.
+    // 2022-08-29 post로 다시 바꾸었다. post= 쪽지만 보내기, send 바로 답장 받기
+    // 2022-08-29 자동모드 진행 중 추가
+    // 2022-08-29 자동모드를 스레드로 바꿈
+    // 2022-08-29 while문을 넣으면 폼이 안보임
 
-// 설정창 투입, 저장
+    // 2022-08-30 폼 띄우기 전에 while 문이 들어가버렸던 문제 해결
+    // 2022-08-30 스레드로 나뉘었으나 Join.. 문제 생김 원인 불명
+
+    // 2022-08-31 send로 바꿈, 핸들 항상 위로. 핸들 숨기기 등 넣음.
+*/
+
+// 2022년 9월
+/*
+// 09-01 labelProgressBar1, 2 추가, DB 미연결 시 오류 추가, YSR2000 - SQL Anywhere 네트워크 서버, WATCOM SQL NT234c 비활성 DB 네트워크 추가, 자동모드 종료 추가
+
+*/
+
+
+// 아이콘 이미지 변경, 
+// 설정창을 
+
+// 설정창 투입, 저장, opacity 투명도 설정기능도 넣기 현재창 상대창
 
 // 스레드 개편은 못함. 잘 안됨. 그냥 그대로.
 // 스레드로 바꾸면 while로 멈춤이 없으려나? 프로그램 활성화 비활성화 맨 뒤 맨 앞 문제인가?
@@ -68,6 +82,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
+using YSRAutoUpdate;
 
 namespace YSR
 {
@@ -77,23 +92,83 @@ namespace YSR
         
         public Main()
         {
-            InitializeComponent();
+            InitializeComponent(); //이게 있어야하나?
 
             이미지받아오기();
             //자동모드진행중();
+
+            this.Load += Form_Load;
         }
 
+        /// <summary>
+        /// 폼 로드 이벤트 핸들러
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Form_Load(object sender, EventArgs e)
         {
             SetWindowPos(this.Handle, HWND_TOPMOST, 0, 0, 0, 0, WINDOW_FLAGS2);
             //this.TopMost = true;
+            //progressBar1.Step = 20;
 
             //로그 클래스 개체 선언
             LogClass l = new LogClass();
 
+            // 프로그레스바 값 주는 예
+            //InitProgressBar(uiLpb_1, 24);
+            //InitProgressBar(uiLpb_2, 54);
+            //InitProgressBar(uiLpb_3, 66);
+            //InitProgressBar(uiLpb_4, 98);
+
+
+
             l.Log(lboxLog, "준비완료");
             l = null;
-        }        
+        }
+
+        private void InitProgressBar(LabelProgressBar progressBar, int value)
+        {
+            SetProgressValue(progressBar, value);
+            SetProgressColor(progressBar, value);
+        }
+
+        /// <summary>
+        /// Set ProgressBar value
+        /// </summary>
+        /// <param name="value"></param>
+        private void SetProgressValue(LabelProgressBar progressBar, int value)
+        {
+            if (progressBar.InvokeRequired == true)
+            {
+                progressBar.Invoke(new MethodInvoker(delegate ()
+                {
+                    progressBar.Value = value;
+                }));
+            }
+            else
+            {
+                progressBar.Value = value;
+            }
+        }
+
+        /// <summary>
+        /// Set ProgressBar color
+        /// </summary>
+        /// <param name="value"></param>
+        private void SetProgressColor(LabelProgressBar progressBar, int value)
+        {
+            if (0 <= value && value < 25)
+                progressBar.ProgressColor = Color.FromArgb(116, 182, 102);
+
+            else if (25 <= value && value < 50)
+                progressBar.ProgressColor = Color.FromArgb(118, 190, 219);
+
+            else if (50 <= value && value < 75)
+                progressBar.ProgressColor = Color.FromArgb(230, 176, 95);
+
+            else
+                progressBar.ProgressColor = Color.FromArgb(201, 92, 84);
+        }
 
         private void 이미지받아오기()
         {
@@ -123,19 +198,79 @@ namespace YSR
             }
         }
 
+        // 라벨 프로그레스바로 바꾸고, 함수로 바꾸고 색깔도 변하게 하고 
+        //prviate void SetProgressBar()
 
         public void 의사랑자동업데이트()
         {
+            InitProgressBar(labelProgressBar1, 0);
+            //Delay(1000);
+            InitProgressBar(labelProgressBar2, 0);
+
+            this.textBox1.BackColor = Color.FromArgb(192, 0, 0);
+            this.textBox1.ForeColor = Color.White;
             //로그 클래스 개체 선언
             LogClass l = new LogClass();
             int A = 5306; // 처음 시작 값
-            int i, j;
+            int i, j, k, m;
             i = 0;
             j = 0;
+            k = 0;
+            m = 0;
             String exe_name; //b;
 
-            while (A < 5390) // 마지막 값 -1
+            Thread thread2 = new Thread(() => 자동모드진행중());
+            thread2.Start();
+
+
+            i = 의사랑핸들("YSR2000 - SQL Anywhere 네트워크 서버", 0);
+            if (i == 1)
             {
+                if (this.textBox1.InvokeRequired == true)
+                {
+                    this.textBox1.Invoke((MethodInvoker)delegate
+                    {                        
+                        this.textBox1.BackColor = Color.Yellow;
+                        this.textBox1.ForeColor = Color.Black;
+                        this.textBox1.Text = "데이터베이스와 연결이 되었습니다.".PadLeft(57);
+                        thread2.Suspend();
+                        //Delay(1000);
+                    });
+                }
+            }
+            else
+            {
+                if (thread2.ThreadState.ToString() != "Unstarted")
+                {
+                    thread2.Abort();
+                    if (this.textBox1.InvokeRequired == true)
+                    {
+                        this.textBox1.Invoke((MethodInvoker)delegate
+                        {
+                            this.textBox1.BackColor = Color.Yellow;
+                            this.textBox1.ForeColor = Color.Black;
+                            this.textBox1.Text = "데이터베이스와 연결이 되어 있지 않습니다".PadLeft(57);
+                        });
+                    }
+                }
+                InitProgressBar(labelProgressBar1, 84);
+                InitProgressBar(labelProgressBar2, 100);
+                A = 9999;
+            }
+            
+            //l.Log(lboxLog, thread2.ThreadState.ToString());
+         
+
+            while (A < 5310) // 마지막 값 -1 5390
+            {
+                if (thread2.ThreadState.ToString() == "Suspended")
+                {
+                    this.textBox1.BackColor = Color.FromArgb(192, 0, 0);
+                    this.textBox1.ForeColor = Color.White;
+                    thread2.Resume();
+                } 
+                //l.Log(lboxLog, thread2.ThreadState.ToString());
+
                 // 계속 실행
                 // 실행파일 경로와 이름
                 //exe_name = Application.StartupPath + "\\process.exe";
@@ -147,24 +282,29 @@ namespace YSR
 
                 // 의사랑핸들("TfmMain", "") [의사랑2012] 업데이트 창이 뜨거나 질문창이 뜨거나 정보창이 뜰때까지 while
                 //l.Log(lboxLog, "창 찾는 중...1");
+                InitProgressBar(labelProgressBar2, 30);
+
                 i = 0;
                 while (i == 0)
                 {
                     //자동모드진행중();
-                    i = 의사랑핸들(null, 0);
+                    i = 의사랑핸들(null, 0);                    
                     Delay(100);
                 }
-                //lBoxLog.Items.Insert()
 
+                InitProgressBar(labelProgressBar2, 50);
                 //l.Log(lboxLog, "창 찾는 중...2");
                 i = 0;
-                while (i == 0)
+                while (i == 0 && m == 0)
                 {
                     //자동모드진행중();
                     i += 의사랑핸들("[안내] 아래 내용을 반드시 확인해 주시기  바랍니다.", 1);
+                    Delay(100);                    
+                    m = 의사랑핸들("오류", 1);
                     Delay(100);
                     i += 의사랑핸들("질문", 0);
-                    if (i > 0)
+                    Delay(100);
+                    if (i > 0 || m == 1)
                     {
                         Delay(100);
                         break;
@@ -172,15 +312,39 @@ namespace YSR
                     Delay(100);
                 }
 
+                InitProgressBar(labelProgressBar2, 70);
                 j = searchIMG(3, "이미지찾기"); //다시 한 번 실행하시겠습니까? (질문창)                 // b를 지우고 핸들을 아예 넣어버릴까?
-                if (j == 1)
+
+                if (m == 1 && j == 0)
                 {
+                    if (thread2.ThreadState.ToString() != "Unstarted")
+                    {
+                        thread2.Abort();
+                        if (this.textBox1.InvokeRequired == true)
+                        {
+                            this.textBox1.Invoke((MethodInvoker)delegate
+                            {
+                                this.textBox1.BackColor = Color.Yellow;
+                                this.textBox1.ForeColor = Color.Black;
+                                this.textBox1.Text = "데이터베이스와 연결이 되어 있지 않습니다".PadLeft(57);
+                            });
+                        }
+                    }
+                    InitProgressBar(labelProgressBar1, 84);
+                    InitProgressBar(labelProgressBar2, 100);
+                    A = 9999;
+                }                
+                else if (m == 0 && j == 1)
+                {
+                    InitProgressBar(labelProgressBar2, 100);
                     l.Log(lboxLog, "이미 업데이트 되었음.");
                     의사랑핸들("질문", 2); // "아니오" 버튼 클릭                    
-                    Delay(100);
+                    Delay(100);                    
                 }
-                else
+                else if (m== 0 && j ==0)
                 {
+                    InitProgressBar(labelProgressBar2, 80);
+                
                     l.Log(lboxLog, "업데이트 중...");
                     // 4개 창 모두 없을 때 반복문 나온다.
                     i = 0;
@@ -202,14 +366,37 @@ namespace YSR
                         Delay(100);
                     }
                 }
-                //l.Log(lboxLog, "pass");
-                A += 1;
+                A++;
+                k++;
+                InitProgressBar(labelProgressBar1, k);
+                InitProgressBar(labelProgressBar2, 100);           
+            
+                //l.Log(lboxLog, "pass");                
             }
+            InitProgressBar(labelProgressBar1, 84);
             l.Log(lboxLog, "종료");
+            Delay(500);
             l.Log(lboxLog, "종료");
+            Delay(500);
             l.Log(lboxLog, "종료");
+            Delay(500);
             l.Log(lboxLog, "종료");
+            Delay(500);
             l.Log(lboxLog, "종료");
+            Delay(500);
+            if (thread2.ThreadState.ToString() != "Unstarted")
+            {
+                thread2.Abort();
+                if (this.textBox1.InvokeRequired == true)
+                {
+                    this.textBox1.Invoke((MethodInvoker)delegate
+                    {
+                        this.textBox1.BackColor = Color.Yellow;
+                        this.textBox1.ForeColor = Color.Black;
+                        this.textBox1.Text = "자동모드 종료".PadLeft(67);
+                    });
+                }
+            }
             //종료
 
             //핸들이 없으면 값이 null
@@ -507,7 +694,7 @@ namespace YSR
                 else
                 {
                     //플레이어를 못찾을경우
-                    l.Log(lboxLog, $"앱플레이어 못 찾았어요" + a + ".");
+                    //l.Log(lboxLog, $"앱플레이어 못 찾았어요" + a + ".");
                     i = 0;
                 }
             }
@@ -534,7 +721,7 @@ namespace YSR
             myTimer.Dispose();
         }
 
-        string TState1;
+        //string TState1;
         //string TState2;
 
         #region Button Click
@@ -546,65 +733,17 @@ namespace YSR
             l.Log(lboxLog, $"{btn.Text} 버튼 Click");
 
             Thread thread1 = new Thread(() => 의사랑자동업데이트());
-            Thread thread2 = new Thread(() => 자동모드진행중());
-            thread2.IsBackground = true;
+            
+            //thread2.IsBackground = true;
 
             if (radioButton1.Checked)
             {
-                // 스레드가 살아있거나 동작 중이라면
-                if (TState1 == "Running")
-                {
-                    //스레드 중지
-                    try
-                    {
-                        thread1.Abort();
-                        //thread1.Join();
-                    }
-                        catch{ }
-                    TState1 = "Stopped";
-                    try
-                    {
-                        thread2.Abort();
-                        //thread2.Join();
-                    }
-                    catch
-                    { }
-                    //TState2 = "Stopped";
-                    //l.Log(lboxLog, TState1);
-                    //l.Log(lboxLog, TState2);
-                }
-                else
-                {
-                    //l.Log(lboxLog, TState1);
-                    //l.Log(lboxLog, TState2);
-                    thread1.Start();
-                    //TState1 = "Running";
-                    thread2.Start();
-                    //TState2 = "Running";
-                    //l.Log(lboxLog, TState1);
-                    //l.Log(lboxLog, TState2);
-                    //l.Log(lboxLog, thread1.ThreadState.ToString());
-                    //l.Log(lboxLog, thread2.ThreadState.ToString());
-                }
-                //의사랑자동업데이트();
+                thread1.Start();
             }
             else if (radioButton2.Checked)
             {
-                l.Log(lboxLog, thread1.ThreadState.ToString());
-                l.Log(lboxLog, thread2.ThreadState.ToString());
-                //l.Log(lboxLog, CurrentThread.ToString());
-
-                //thread1.Abort();
-                //thread1.Join();
-                //thread2.Abort();
-                //thread2.Join();
-
-                //자동모드진행중();
-
-                //fn_start(자동모드진행중, 100, 500);
-
-
-                //자동모드진행중();
+                
+                //progressBar1.Value = 100;
 
             }
         }
@@ -613,7 +752,7 @@ namespace YSR
         int indexNumber;
 
         //int 점점점갯수;
-        string 자동모드_점점점 = "ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ";
+        string 자동모드_점점점 = "ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ";
 
         public void 자동모드진행중()
         {
@@ -622,7 +761,7 @@ namespace YSR
             while (true)
             {
                 int 점점점갯수 = Math.Abs(자동모드_점점점.Length - (indexNumber % ((자동모드_점점점.Length) * 2)));
-                int 위치 = 20 + Math.Abs(자동모드_점점점.Length - (indexNumber % ((자동모드_점점점.Length) * 2)));
+                int 위치 = 21 + Math.Abs(자동모드_점점점.Length - (indexNumber % ((자동모드_점점점.Length) * 2)));
 
                 // Invoke를 통해 해당 Object에 대한 접근 권한을 얻기
                 // textBox1 객체에 접근하기 위해 Invoke 가 요구된다면
@@ -630,7 +769,7 @@ namespace YSR
                 {
                     this.textBox1.Invoke((MethodInvoker)delegate
                     {
-                        this.textBox1.Text = string.Format("자동모드 진행 중 [ {0,9} ] {1,21}",
+                        this.textBox1.Text = string.Format("자동모드 진행 중 [ {0,9} ] {1,20}",
                     indexNumber.ToString().PadLeft(9, '0'), 자동모드_점점점.Substring(점점점갯수).PadLeft(위치, ' '));
                     });
                 }
@@ -657,6 +796,89 @@ namespace YSR
             IntPtr hd, hd1, hd2, hd3;
             switch (APN)
             {
+                case "YSR2000 - SQL Anywhere 네트워크 서버":
+                    AppPlayerName = "YSR2000 - SQL Anywhere 네트워크 서버";
+                    hd = FindWindow(null, AppPlayerName); //"TMessageTagForm" or "TMessageForm"
+                    //SetWindowPos(hd, HWND_BOTTOM, 0, 0, 0, 0, WINDOW_FLAGS);
+                    //hd1 = FindWindowEx(hd, IntPtr.Zero, "TButton", "확인(&O)");
+                    //SetWindowPos(hd1, HWND_BOTTOM, 0, 0, 0, 0, WINDOW_FLAGS);
+                    //hd2 = FindWindowEx(hd, IntPtr.Zero, "TButton", "아니오(&N)");
+                    //SetWindowPos(hd2, HWND_BOTTOM, 0, 0, 0, 0, WINDOW_FLAGS);
+
+                    if (hd != IntPtr.Zero)
+                    {
+                        //l.Log(lboxLog, $"질문 창 찾음.");
+                        int x = 0;
+                        int y = 0;
+
+                        //l.Log(lboxLog, $"부모:    " + hd.ToString());
+                        //l.Log(lboxLog, $"자식1:    " + hd1.ToString());
+                        //l.Log(lboxLog, $"자식2:    " + hd1.ToString());
+
+                        IntPtr lparam = new IntPtr(x | (y << 0));
+                        switch (i)
+                        {
+                            case 0:
+                                //l.Log(lboxLog, $"버튼 클릭 안함.");
+                                break;
+                            default:
+                                l.Log(lboxLog, $"의사랑핸들\\네트워크 서버\\오류\\클릭값");
+                                break;
+                        }
+                        j = 1;
+                    }
+                    else
+                    {
+                        //못 찾은 경우
+                        //l.Log(lboxLog, $"질문 창을 못 찼았어요.");
+                        j = 0;
+                    }
+                    break;
+
+                case "오류":
+                    AppPlayerName = "오류";
+                    hd = FindWindow("TMessageForm", AppPlayerName); //"TMessageTagForm" or "TMessageForm"
+                    //SetWindowPos(hd, HWND_BOTTOM, 0, 0, 0, 0, WINDOW_FLAGS);
+                    hd1 = FindWindowEx(hd, IntPtr.Zero, "TButton", "확인(&O)");
+                    //SetWindowPos(hd1, HWND_BOTTOM, 0, 0, 0, 0, WINDOW_FLAGS);
+                    //hd2 = FindWindowEx(hd, IntPtr.Zero, "TButton", "아니오(&N)");
+                    //SetWindowPos(hd2, HWND_BOTTOM, 0, 0, 0, 0, WINDOW_FLAGS);
+
+                    if (hd != IntPtr.Zero)
+                    {
+                        //l.Log(lboxLog, $"질문 창 찾음.");
+                        int x = 0;
+                        int y = 0;
+
+                        //l.Log(lboxLog, $"부모:    " + hd.ToString());
+                        //l.Log(lboxLog, $"자식1:    " + hd1.ToString());
+                        //l.Log(lboxLog, $"자식2:    " + hd1.ToString());
+
+                        IntPtr lparam = new IntPtr(x | (y << 0));
+                        switch (i)
+                        {
+                            case 0:
+                                //l.Log(lboxLog, $"버튼 클릭 안함.");
+                                break;
+                            case 1:
+                                SendMessage(hd1, BM_CLICK, 0, lparam); // 확인
+                                //l.Log(lboxLog, $"(예) 버튼 클릭");
+                                //Delay(1000);
+                                break;
+                            default:
+                                l.Log(lboxLog, $"의사랑핸들\\오류\\오류\\클릭값");
+                                break;
+                        }
+                        j = 1;
+                    }
+                    else
+                    {
+                        //못 찾은 경우
+                        //l.Log(lboxLog, $"질문 창을 못 찼았어요.");
+                        j = 0;
+                    }
+                    break;
+
                 case null:
                     // 의사랑 2012 업데이트 창이 있는가
                     AppPlayerName = null;

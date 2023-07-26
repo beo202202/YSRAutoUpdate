@@ -167,6 +167,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="common\oGlobal.cs" />
+    <Compile Include="LabelProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="LogClass.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
