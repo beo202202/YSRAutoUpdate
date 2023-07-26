@@ -41,20 +41,21 @@
 
 // 2022년 9월
 /*
-// 09-01 labelProgressBar1, 2 추가, DB 미연결 시 오류 추가, YSR2000 - SQL Anywhere 네트워크 서버, WATCOM SQL NT234c 비활성 DB 네트워크 추가, 자동모드 종료 추가
-// 09-05 여러가지 추가하였으나 추후 자세히 기재, 콤보값 변경 시 자동 변경 기능... 미구현
-// 09-06 이미지 오류, 파일 다시 추가로 해결, comboBox1.SelectedIndex = 0 으로 초기화 구현
-
+// 01 labelProgressBar1, 2 추가, DB 미연결 시 오류 추가, YSR2000 - SQL Anywhere 네트워크 서버, WATCOM SQL NT234c 비활성 DB 네트워크 추가, 자동모드 종료 추가
+// 05 labelProgressBar 최대값 자동 변경 기능 구현, 여러가지 추가하였으나 추후 자세히 기재, 콤보값 변경 시 자동 변경 기능... 미구현,
+// 06 이미지 오류, 파일 다시 추가로 해결, comboBox1.SelectedIndex = 0 으로 초기화 구현
+// 07 메시지2 계산이 좀 걸리는 듯 함. 확인 해서 다시 바꿀지 결정해야할 듯. >> 단순 디버그 오류 인 듯,
+// 07 TETBL 자동 업데이트에 설정값을 넣기, 자동 업데이트 중에는 TETBL 설정 막기
+// 07 자동모드중_스레드 오류 수정
+// 07 SelectedIndexChanged 에서 SelectionChangeCommitted 로 변경. 이 후 자동 업데이트에 기존 네트워크가 있으면 종료 시키고 다시 네트워크 연결하기
 */
 
-// 09-06 메시지2 계산이 좀 걸리는 듯 함. 확인 해서 다시 바꿀지 결정해야할 듯.
-// 테스트1 메시지에서 테스트2 메시지로 왜 못 넘어가는가! 오른쪽이 더 작게 만들면 왜 안되는가! Index로 바꿔야하나
+// 외부 프로그램 종료가 왜 안될까
 
 
 // 서울안과, 보리수의원 등 DB 실행 기능 어떠한가
 // 설정창 투입, 저장, opacity 투명도 설정기능도 넣기 현재창 상대창
 // 업데이트 내역도 저장(성공내역)
-// Label 최대치도 수치 변경이 가능한가
 
 // 아이콘 이미지 변경, 
 // 스레드 개편은 못함. 잘 안됨. 그냥 그대로.
@@ -97,10 +98,11 @@ namespace YSR
     public partial class Main : Form
     {
         String AppPlayerName = ""; //저장된 값 불러올까?
-        int labelMAX;
         public static Main main;
+        
         public Main()
         {
+            main = this;
             InitializeComponent(); //이게 있어야하나?
             
             이미지받아오기();
@@ -108,89 +110,20 @@ namespace YSR
             this.Load += Form_Load;
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, System.EventArgs e)
-        {
-            MessageBox.Show(comboBox1.SelectedIndex.ToString());
-            
-            //MessageBox.Show(j.ToString());
-            //MessageBox.Show(Convert.ToInt32(comboBox1.SelectedItem).ToString());
-            //comboBox1.Items.Clear();
-            //for (int i = 5306; i <= Convert.ToInt32(comboBox2.SelectedItem); i++)
-            //{
-            //    comboBox1.Items.Add(i);
-            //}
-            //comboBox1.Text = j.ToString();
-            //MessageBox.Show(j.ToString());
-            //MessageBox.Show(comboBox1.Text);
-            if (Convert.ToInt32(comboBox1.SelectedItem) > 0 && Convert.ToInt32(comboBox2.SelectedItem) > 0) // 값이 0이하면 캔슬하기
-            {
-                // 콤보1이 콤보2보다 크다면
-                if (Convert.ToInt32(comboBox1.SelectedItem) > Convert.ToInt32(comboBox2.SelectedItem))
-                {
-                    MessageBox.Show("최소값이 최대값보다 큽니다.");
-                    //초기화하고 다시 정렬
-                    comboBox1.Items.Clear();
-                    for (int i = 5306; i <= Convert.ToInt32(comboBox2.SelectedItem); i++)
-                    {
-                        comboBox1.Items.Add(i);
-                    }                    
-                    Delay(1000);
-                    // 콤보1 초기값 설정
-                    comboBox1.SelectedIndex = 0;
-                }
-                else
-                {
-                    int labelMAX = Convert.ToInt32(comboBox2.SelectedItem) - Convert.ToInt32(comboBox1.SelectedItem) + 1;
-                    Config.SavaIniFile();
-                    labelProgressBar1.Maximum = labelMAX;
-                }
-            }        
-        }
-
-        private void comboBox2_SelectedIndexChanged(object sender, System.EventArgs e)
-        {
-            //MessageBox.Show(comboBox2.SelectedIndex.ToString());
-            MessageBox.Show("테스트1");
-            MessageBox.Show(Convert.ToInt32(comboBox1.SelectedItem).ToString());
-            MessageBox.Show(Convert.ToInt32(comboBox2.SelectedItem).ToString());
-            if (Convert.ToInt32(comboBox1.SelectedItem) > 0 && Convert.ToInt32(comboBox2.SelectedItem) > 0) // 값이 0이하면 캔슬하기
-            {
-                MessageBox.Show("테스트2");
-                // 콤보1이 콤보2보다 크다면
-                if (Convert.ToInt32(comboBox1.SelectedItem) > Convert.ToInt32(comboBox2.SelectedItem))
-                {
-                    MessageBox.Show("최소값이 최대값보다 큽니다.");
-                    //초기화하고 다시 정렬
-                    comboBox1.Items.Clear();
-                    for (int i = 5306; i <= Convert.ToInt32(comboBox2.SelectedItem); i++)
-                    {
-                        comboBox1.Items.Add(i);
-                    }
-                    Delay(1000);
-                    // 콤보1 초기값 설정
-                    comboBox1.SelectedIndex = 0;
-                }
-                else
-                {
-                    int labelMAX = Convert.ToInt32(comboBox2.SelectedItem) - Convert.ToInt32(comboBox1.SelectedItem) + 1;
-                    Config.SavaIniFile();
-                    labelProgressBar1.Maximum = labelMAX;
-                }
-            }
-        }
-
         private void Form_Load(object sender, EventArgs e)
-        {
-            main = this;
+        {            
             Config.LoadIniFile();
-            int j = 0;
-            j = Convert.ToInt32(comboBox1.SelectedItem);
+            COM_MIN = Convert.ToInt32(comboBox1.SelectedItem);
+            COM_MAX = Convert.ToInt32(comboBox2.SelectedItem);
+            labelMAX = COM_MAX - COM_MIN + 1;
+            labelProgressBar1.Maximum = labelMAX;
+
             comboBox1.Items.Clear();
-            for (int i = 5306; i <= Convert.ToInt32(comboBox2.SelectedItem); i++)
+            for (int i = 5306; i <= COM_MAX; i++)
             {
                 comboBox1.Items.Add(i);
             }
-
+            comboBox1.SelectedItem = COM_MIN;
 
             //comboBox1.SelectedIndex = 0;
             //comboBox1.Text = j.ToString();
@@ -216,6 +149,168 @@ namespace YSR
             l = null;
         }
 
+        int labelMAX, COM_MIN, COM_MAX;
+        private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            //MessageBox.Show(comboBox1.SelectedIndex.ToString());
+            if ((Convert.ToInt32(comboBox1.SelectedItem) > 0) && (Convert.ToInt32(comboBox2.SelectedItem) > 0)) // 값이 0이하면 캔슬하기
+            {
+                // 콤보1이 콤보2보다 크다면
+                if (Convert.ToInt32(comboBox1.SelectedItem) > Convert.ToInt32(comboBox2.SelectedItem))
+                {
+                    MessageBox.Show("최소값이 최대값보다 큽니다.");
+                    //초기화하고 다시 정렬
+                    comboBox1.Items.Clear();
+                    for (int i = 5306; i <= Convert.ToInt32(comboBox2.SelectedItem); i++)
+                    {
+                        comboBox1.Items.Add(i);
+                    }
+                    Delay(1000);
+                    // 콤보1 초기값 설정
+                    comboBox1.SelectedIndex = 0;
+                }
+                else
+                {
+                    COM_MIN = Convert.ToInt32(comboBox1.SelectedItem);
+                    COM_MAX = Convert.ToInt32(comboBox2.SelectedItem);
+                    labelMAX = COM_MAX - COM_MIN + 1;
+                    Config.SavaIniFile();
+                    labelProgressBar1.Maximum = labelMAX;
+
+                    comboBox1.Items.Clear();
+                    for (int i = 5306; i <= COM_MAX; i++)
+                    {
+                        comboBox1.Items.Add(i);
+                    }
+                    comboBox1.SelectedItem = COM_MIN;
+                }
+            }
+        }
+
+        private void comboBox2_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            //MessageBox.Show(comboBox1.SelectedIndex.ToString());
+            if ((Convert.ToInt32(comboBox1.SelectedItem) > 0) && (Convert.ToInt32(comboBox2.SelectedItem) > 0)) // 값이 0이하면 캔슬하기
+            {
+                // 콤보1이 콤보2보다 크다면
+                if (Convert.ToInt32(comboBox1.SelectedItem) > Convert.ToInt32(comboBox2.SelectedItem))
+                {
+                    MessageBox.Show("최소값이 최대값보다 큽니다.");
+                    //초기화하고 다시 정렬
+                    comboBox1.Items.Clear();
+                    for (int i = 5306; i <= Convert.ToInt32(comboBox2.SelectedItem); i++)
+                    {
+                        comboBox1.Items.Add(i);
+                    }
+                    //Delay(1000);
+                    // 콤보1 초기값 설정
+                    comboBox1.SelectedIndex = 0;
+                }
+                else
+                {
+                    COM_MIN = Convert.ToInt32(comboBox1.SelectedItem);
+                    COM_MAX = Convert.ToInt32(comboBox2.SelectedItem);
+                    labelMAX = COM_MAX - COM_MIN + 1;
+                    Config.SavaIniFile();
+                    labelProgressBar1.Maximum = labelMAX;
+
+                    comboBox1.Items.Clear();
+                    for (int i = 5306; i <= COM_MAX; i++)
+                    {
+                        comboBox1.Items.Add(i);
+                    }
+                    comboBox1.SelectedItem = COM_MIN;
+                }
+            }
+        }
+
+        private void comboBox3_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            //MessageBox.Show("뭐가 문제냐2");
+            Config.SavaIniFile();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            //MessageBox.Show(comboBox1.SelectedIndex.ToString());
+            if ((Convert.ToInt32(comboBox1.SelectedItem) > 0) && (Convert.ToInt32(comboBox2.SelectedItem) > 0)) // 값이 0이하면 캔슬하기
+            {
+                // 콤보1이 콤보2보다 크다면
+                if (Convert.ToInt32(comboBox1.SelectedItem) > Convert.ToInt32(comboBox2.SelectedItem))
+                {
+                    MessageBox.Show("최소값이 최대값보다 큽니다.");
+                    //초기화하고 다시 정렬
+                    comboBox1.Items.Clear();
+                    for (int i = 5306; i <= Convert.ToInt32(comboBox2.SelectedItem); i++)
+                    {
+                        comboBox1.Items.Add(i);
+                    }                    
+                    Delay(1000);
+                    // 콤보1 초기값 설정
+                    comboBox1.SelectedIndex = 0;
+                }
+                else
+                {
+                    COM_MIN = Convert.ToInt32(comboBox1.SelectedItem);
+                    COM_MAX = Convert.ToInt32(comboBox2.SelectedItem);
+                    labelMAX = COM_MAX - COM_MIN + 1;
+                    Config.SavaIniFile();
+                    labelProgressBar1.Maximum = labelMAX;
+                }
+            }        
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            int j = comboBox1.SelectedIndex;
+            //MessageBox.Show(comboBox1.SelectedIndex.ToString());
+            //MessageBox.Show("테스트1");
+            //MessageBox.Show(Convert.ToInt32(comboBox1.SelectedItem).ToString());
+            //MessageBox.Show(Convert.ToInt32(comboBox2.SelectedItem).ToString());
+            if ((Convert.ToInt32(comboBox1.SelectedItem) > 0) && (Convert.ToInt32(comboBox2.SelectedItem) > 0)) // 값이 0이하면 캔슬하기
+            {
+                //MessageBox.Show("테스트2");
+                // 콤보1이 콤보2보다 크다면
+                if (Convert.ToInt32(comboBox1.SelectedItem) > Convert.ToInt32(comboBox2.SelectedItem))
+                {
+                    MessageBox.Show("최소값이 최대값보다 큽니다.");
+                    //초기화하고 다시 정렬
+                    comboBox1.Items.Clear();
+                    for (int i = 5306; i <= Convert.ToInt32(comboBox2.SelectedItem); i++)
+                    {
+                        comboBox1.Items.Add(i);
+                    }
+                    //Delay(1000);
+                    // 콤보1 초기값 설정
+                    comboBox1.SelectedIndex = 0;
+                }
+                else
+                {
+                    comboBox1.Items.Clear();
+                    for (int i = 5306; i <= Convert.ToInt32(comboBox2.SelectedItem); i++)
+                    {
+                        comboBox1.Items.Add(i);
+                    }
+                    // 콤보1 저장값 불러오기
+                    comboBox1.SelectedIndex = j;
+
+                    COM_MIN = Convert.ToInt32(comboBox1.SelectedItem);
+                    COM_MAX = Convert.ToInt32(comboBox2.SelectedItem);
+                    labelMAX = COM_MAX - COM_MIN + 1;
+                    Config.SavaIniFile();
+                    labelProgressBar1.Maximum = labelMAX;
+                }
+            }
+        }
+
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //MessageBox.Show("뭐가 문제냐");
+            //Config.SavaIniFile();
+        }
+
+        
+
         //private void strADD(string str)
         //{
         //    MessageBox.Show(str);
@@ -238,14 +333,7 @@ namespace YSR
             {
                 progressBar.Invoke(new MethodInvoker(delegate ()
                 {
-                    try
-                    {
-                        progressBar.Value = value;
-                    }
-                    catch
-                    {
-                        MessageBox.Show("오류");
-                    }
+                    progressBar.Value = value;
                 }));
             }
             else
@@ -312,17 +400,15 @@ namespace YSR
             this.textBox1.ForeColor = Color.White;
             //로그 클래스 개체 선언
             LogClass l = new LogClass();
-            int A = 5306; // 처음 시작 값
-            int i, j, k, m;
-            i = 0;
-            j = 0;
-            k = 0;
-            m = 0;
+            int A = COM_MIN; // 시작 값
+            int B = COM_MAX; // 마지막 값
+            int i = 0;
+            int j = 0;
+            int k = 0;
+            int m = 0;
             String exe_name; //b;
 
-            Thread thread2 = new Thread(() => 자동모드진행중());
-            thread2.Start();
-
+            Thread thread2 = new Thread(() => 자동모드진행중());            
 
             i = 의사랑핸들("YSR2000 - SQL Anywhere 네트워크 서버", 0);
             if (i == 1)
@@ -334,8 +420,8 @@ namespace YSR
                         this.textBox1.BackColor = Color.Yellow;
                         this.textBox1.ForeColor = Color.Black;
                         this.textBox1.Text = "데이터베이스와 연결이 되었습니다.".PadLeft(57);
-                        thread2.Suspend();
-                        //Delay(1000);
+                        //thread2.Suspend();
+                        Delay(500);
                     });
                 }
             }
@@ -354,21 +440,22 @@ namespace YSR
                         });
                     }
                 }
-                InitProgressBar(labelProgressBar1, 84);
+                InitProgressBar(labelProgressBar1, labelMAX);
                 InitProgressBar(labelProgressBar2, 100);
-                A = 9999;
+                A = 99999999; // While 값에 안들어가게 하기
             }
-            
-            //l.Log(lboxLog, thread2.ThreadState.ToString());
-         
 
-            while (A < 5310) // 마지막 값 -1 5390
+            //l.Log(lboxLog, thread2.ThreadState.ToString());
+            thread2.Start();
+
+            while (A < B+1)
             {
-                if (thread2.ThreadState.ToString() == "Suspended")
+                //if (thread2.ThreadState.ToString() == "Suspended")
+                if (i == 1)
                 {
                     this.textBox1.BackColor = Color.FromArgb(192, 0, 0);
                     this.textBox1.ForeColor = Color.White;
-                    thread2.Resume();
+                    //thread2.Resume();
                 } 
                 //l.Log(lboxLog, thread2.ThreadState.ToString());
 
@@ -431,9 +518,9 @@ namespace YSR
                             });
                         }
                     }
-                    InitProgressBar(labelProgressBar1, 84);
+                    InitProgressBar(labelProgressBar1, labelMAX);
                     InitProgressBar(labelProgressBar2, 100);
-                    A = 9999;
+                    A = 99999999; // while값 벗어나기
                 }                
                 else if (m == 0 && j == 1)
                 {
@@ -474,7 +561,7 @@ namespace YSR
             
                 //l.Log(lboxLog, "pass");                
             }
-            InitProgressBar(labelProgressBar1, 84);
+            InitProgressBar(labelProgressBar1, labelMAX);
             l.Log(lboxLog, "종료");
             Delay(500);
             l.Log(lboxLog, "종료");
@@ -844,20 +931,42 @@ namespace YSR
                 thread1.Start();
             }
             else if (radioButton2.Checked)
-            {                
-                labelMAX = Convert.ToInt32(comboBox2.SelectedItem) - Convert.ToInt32(comboBox1.SelectedItem) + 1;
-                MessageBox.Show(comboBox2.SelectedItem.ToString());
-                labelProgressBar1.Maximum = labelMAX;
-                //Config.IDInsert();
-                //ini 생성 테스트
-                Config.LoadIniFile(); // 불러오기 아님? 해당 경로에 INI 파일 생성
+            {
+                의사랑핸들("YSR2000 - SQL Anywhere 네트워크 서버", 1);
+                //// 프로세스 프로그램 이름으로 찾아서 프로그램 종료
+                //Process[] p = Process.GetProcessesByName("SQL Anywhere Network Server");
+                //if (p.GetLength(0) > 0)
+                //    p[0].Kill();
 
-                //progressBar1.Value = 100;
+                //Process[] processList = Process.GetProcessesByName("SQL Anywhere Network Server");
+
+                //Process[] processList = Process.GetProcessesByName("notepad");
+                //for (int i = processList.Length - 1; i >= 0; i--)
+                //{
+                //    // processList[i].CloseMainWindow();
+                //    processList[i].Kill();
+                //    processList[i].Close();
+                //}
+
+                //foreach (Process process in Process.GetProcesses()) // 프로세스 목록들 모두에 대해
+                //{
+                //    if (process.ProcessName.StartsWith("SQL Anywhere Network Server"))  // notepad라는 이름이 발견되면
+                //    {
+                //        process.Kill();    // 그 프로세스를 강제 종료
+                //    }
+                //}
             }
             else if (radioButton3.Checked)
-            {
-                //Config.LoadIniFile(); // 해당 경로에 INI 파일 생성
-                Config.SavaIniFile(); //Config.ini 파일 경로에 저장
+            {                
+                int x = 0;
+                int y = 0;
+                // 타이틀 바의 이름으로 찾아서 프로그램 종료
+                //활성화 시키고 종료시켜야하나?
+                IntPtr hwd = FindWindow(null, "YSR2000 - SQL Anywhere 네트워크 서버");
+                IntPtr lparam = new IntPtr(x | (y << 0));
+                if (hwd.ToString() != "0")
+                    SendMessage(hwd, 0x0010, 0, lparam);
+                PostMessage(hwd, 0x0010, 0, lparam);
             }
         }
         #endregion Button Click
@@ -914,26 +1023,30 @@ namespace YSR
                     AppPlayerName = "YSR2000 - SQL Anywhere 네트워크 서버";
                     hd = FindWindow(null, AppPlayerName); //"TMessageTagForm" or "TMessageForm"
                     //SetWindowPos(hd, HWND_BOTTOM, 0, 0, 0, 0, WINDOW_FLAGS);
-                    //hd1 = FindWindowEx(hd, IntPtr.Zero, "TButton", "확인(&O)");
+                    hd1 = FindWindowEx(hd, IntPtr.Zero, null, "");
                     //SetWindowPos(hd1, HWND_BOTTOM, 0, 0, 0, 0, WINDOW_FLAGS);
-                    //hd2 = FindWindowEx(hd, IntPtr.Zero, "TButton", "아니오(&N)");
+                    hd2 = FindWindowEx(hd1, IntPtr.Zero, "Button", "종료(&H)");
                     //SetWindowPos(hd2, HWND_BOTTOM, 0, 0, 0, 0, WINDOW_FLAGS);
 
                     if (hd != IntPtr.Zero)
                     {
-                        //l.Log(lboxLog, $"질문 창 찾음.");
+                        //l.Log(lboxLog, $" 창 찾음.");
                         int x = 0;
                         int y = 0;
 
-                        //l.Log(lboxLog, $"부모:    " + hd.ToString());
-                        //l.Log(lboxLog, $"자식1:    " + hd1.ToString());
-                        //l.Log(lboxLog, $"자식2:    " + hd1.ToString());
+                        l.Log(lboxLog, $"부모:    " + hd.ToString());
+                        l.Log(lboxLog, $"자식1:    " + hd1.ToString());
+                        l.Log(lboxLog, $"자식2:    " + hd2.ToString());
 
                         IntPtr lparam = new IntPtr(x | (y << 0));
                         switch (i)
                         {
                             case 0:
                                 //l.Log(lboxLog, $"버튼 클릭 안함.");
+                                break;
+                            case 1:
+                                SendMessage(hd2, BM_CLICK, 0, lparam); // 확인
+                                //l.Log(lboxLog, $"버튼 클릭.");
                                 break;
                             default:
                                 l.Log(lboxLog, $"의사랑핸들\\네트워크 서버\\오류\\클릭값");

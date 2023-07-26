@@ -7,24 +7,8 @@ using System.Windows.Forms;
 
 namespace YSR
 {
-    // 델리게이트 선언
-    public delegate void StrAddHandler(String str);
     public static class Config
     {
-        static public void IDInsert()
-        {
-            Main.main.textBox2.Text = "test";
-        }
-
-        // 이벤트 선언
-        public static event StrAddHandler ItemStr;
-
-        // 폼에서 이곳을 불러내면 이곳에서 폼의 해당 컨트롤에 글자를 추가하거나 표시한다.
-        public static void STR()
-        {
-            ItemStr("abce");
-        }
-
         // ini 파일을 불러올 때 사용되는 함수
         [System.Runtime.InteropServices.DllImport("kernel32")]
         public static extern int GetPrivateProfileString(string sAppName, string sKeyName, string sDefault, StringBuilder sReturnedString, int nSize,
@@ -37,18 +21,25 @@ namespace YSR
         public static string sINIPath = Environment.CurrentDirectory + "\\Config.ini";
         //@"C:\범범조조
         //\Config.ini"; // Environment.CurrentDirectory + "\\Config.ini";
+               
 
         /// <summary>
-        /// Database IP
+        /// TETBL MIN
         /// </summary>
         public static string sTETBLMIN = String.Empty;
 
         /// <summary>
-        /// Databbase User
+        /// TETBL MAX
         /// </summary>
         public static string sTETBLMAX = String.Empty;
 
-        
+        /// <summary>
+        /// TETBL NAME
+        /// </summary>
+        public static string sTETBLNAME = String.Empty;
+
+
+
 
         /// <summary>
         /// FTP IP
@@ -79,12 +70,23 @@ namespace YSR
             //Main m = new Main();
 
             ///<summary>
-            /// Database
+            /// TETBL
             ///</summary>
+            
             GetPrivateProfileString("TETBL", "MIN", "5306", Buf, 1024, sINIPath);
+            //sTETBLMIN = Buf.ToString();
+            //MessageBox.Show(sTETBLMIN);
             Main.main.comboBox1.SelectedItem = sTETBLMIN = Buf.ToString();
+
             GetPrivateProfileString("TETBL", "MAX", "5389", Buf, 1024, sINIPath);
+            //sTETBLMAX = Buf.ToString();
+            //MessageBox.Show(sTETBLMAX);
             Main.main.comboBox2.SelectedItem = sTETBLMAX = Buf.ToString();
+
+            GetPrivateProfileString("TETBL", "NAME", "의사랑공DB", Buf, 1024, sINIPath);
+            //sTETBLNAME = Buf.ToString();
+            //MessageBox.Show(sTETBLNAME);
+            Main.main.comboBox3.SelectedItem = sTETBLNAME = Buf.ToString();
 
             ///<summary>
             /// FTP
@@ -109,6 +111,7 @@ namespace YSR
             ///</summary>
             WritePrivateProfileString("TETBL", "MIN", Main.main.comboBox1.SelectedItem.ToString(), sINIPath);
             WritePrivateProfileString("TETBL", "MAX", Main.main.comboBox2.SelectedItem.ToString(), sINIPath);
+            WritePrivateProfileString("TETBL", "NAME", Main.main.comboBox3.SelectedItem.ToString(), sINIPath);
 
             ///<summary>
             /// UpdateResume
