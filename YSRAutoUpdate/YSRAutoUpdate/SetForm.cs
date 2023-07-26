@@ -1,16 +1,9 @@
-﻿using Microsoft.VisualStudio.Utilities;
-using Microsoft.WindowsAPICodePack.Dialogs;
-using OpenCvSharp;
+﻿using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Net;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using System.Xml.Linq;
-using YSRAutoUpdate;
-using static System.Net.WebRequestMethods;
 
 namespace YSR
 {
@@ -35,12 +28,12 @@ namespace YSR
             LogClass l = new LogClass();
 
             환경설정3();
-            
+
             //파일이 존재 하지 않으면...
             if (!System.IO.File.Exists(strLocalFolder + strXmlFile))
                 //MessageBox.Show("없네요.");
                 l.Log(Main.main.lboxLog, "저장된 세팅이 없습니다.");
-            return;            
+            return;
         }
 
         private void 환경설정3()
@@ -51,7 +44,7 @@ namespace YSR
             l.Log(Main.main.lboxLog, "환경설정2를 불러오는 중...");
             Config.LoadIniFile2();
             l.Log(Main.main.lboxLog, "환경설정2를 불러왔습니다.");
-            
+
             l = null;
         }
 
@@ -67,7 +60,9 @@ namespace YSR
             string sNAME1, string sNAME2, string sNAME3, string sNAME4, string sNAME5,
             string sNAME6, string sNAME7, string sNAME8, string sNAME9, string sNAME10,
             string sCLINIC1PATH, string sCLINIC2PATH, string sCLINIC3PATH, string sCLINIC4PATH, string sCLINIC5PATH,
-            string sCLINIC6PATH, string sCLINIC7PATH, string sCLINIC8PATH, string sCLINIC9PATH, string sCLINIC10PATH)
+            string sCLINIC6PATH, string sCLINIC7PATH, string sCLINIC8PATH, string sCLINIC9PATH, string sCLINIC10PATH,
+            string VS1, string VS2, string VS3, string VS4, string VS5,
+            string VS6, string VS7, string VS8, string VS9, string VS10)
             = Config.LoadIniFile0();
 
             //+(오류) 현재값이 없는 초기값이라면? 콤보1,콤보2가 0이다....
@@ -181,7 +176,9 @@ namespace YSR
             string sNAME1, string sNAME2, string sNAME3, string sNAME4, string sNAME5,
             string sNAME6, string sNAME7, string sNAME8, string sNAME9, string sNAME10,
             string sCLINIC1PATH, string sCLINIC2PATH, string sCLINIC3PATH, string sCLINIC4PATH, string sCLINIC5PATH,
-            string sCLINIC6PATH, string sCLINIC7PATH, string sCLINIC8PATH, string sCLINIC9PATH, string sCLINIC10PATH)
+            string sCLINIC6PATH, string sCLINIC7PATH, string sCLINIC8PATH, string sCLINIC9PATH, string sCLINIC10PATH,
+            string VS1, string VS2, string VS3, string VS4, string VS5,
+            string VS6, string VS7, string VS8, string VS9, string VS10)
             = Config.LoadIniFile0();
 
             // 설정값이 바뀌면 인덱스값이 바뀐다.... 생각해야한다.
@@ -276,8 +273,8 @@ namespace YSR
                 dialog.IsFolderPicker = false; // true : 폴더 선택 / false : 파일 선택
                 dialog.Title = "병의원 파일 선택";
                 dialog.Filters.Add(new CommonFileDialogFilter("링크 파일 (*.lnk)", "*.lnk"));
-                dialog.DefaultExtension = ".lnk";                
-                
+                dialog.DefaultExtension = ".lnk";
+
                 dialog.EnsureFileExists = false;
 
                 //dialog.DefaultExt = ".lnk;
@@ -330,7 +327,7 @@ namespace YSR
                 //textBox4.Text = sfn.Substring(0, sfn.Length - 4); // 아래와 같이 확장자명 제거 기능
                 //textBox4.Text = Path.GetFileNameWithoutExtension(ofd.FileName);
                 //textBox14.Text = ofd.FileName;
-            }            
+            }
             l = null;
         }
 

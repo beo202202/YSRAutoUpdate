@@ -22,7 +22,7 @@ namespace YSR
 
                 foreach (Process p in procs)
                 {
-                    if (p.ProcessName.Equals("YSR") == true) // YSRAutoUpdate로 바꿔야하나... 확인..해야함.                                    
+                    if (p.ProcessName.Equals("YSRAutoUpdate") == true) // YSRAutoUpdate로 바꿔야하나... 확인..해야함.                                    
                         cnt++;
                 }
                 if (cnt > 1)

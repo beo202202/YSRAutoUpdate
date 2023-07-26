@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace YSR
 {
@@ -109,6 +105,20 @@ namespace YSR
         public static string sCLINIC9PATH = String.Empty;
         public static string sCLINIC10PATH = String.Empty;
 
+        /// <summary>
+        /// TETBLVS
+        /// </summary>
+        public static string VS1 = String.Empty;
+        public static string VS2 = String.Empty;
+        public static string VS3 = String.Empty;
+        public static string VS4 = String.Empty;
+        public static string VS5 = String.Empty;
+        public static string VS6 = String.Empty;
+        public static string VS7 = String.Empty;
+        public static string VS8 = String.Empty;
+        public static string VS9 = String.Empty;
+        public static string VS10 = String.Empty;
+
         ///// <summary>
         ///// FTP IP
         ///// </summary>
@@ -134,8 +144,9 @@ namespace YSR
 
         public static (string, string, string, string, string, string, string, string, string, string, string, string,
             string, string, string, string, string, string, string, string, string, string,
-            string, string, string, string, string, string, string, string, string, string, 
-            string, string, string) LoadIniFile0()
+            string, string, string, string, string, string, string, string, string, string,
+            string, string, string, string, string, string, string, string, string, string, string, string, string)
+            LoadIniFile0()
         {
             StringBuilder Buf = new StringBuilder(1024);
 
@@ -165,7 +176,7 @@ namespace YSR
             sTETBLSMIN = Buf.ToString();
             //SetForm.setform.textBox2.Text = sTETBLSMIN = Buf.ToString();
 
-            GetPrivateProfileString("TETBL2", "sMAX", "5389", Buf, 1024, sINIPath);
+            GetPrivateProfileString("TETBL2", "sMAX", "5400", Buf, 1024, sINIPath);
             sTETBLSMAX = Buf.ToString();
             //SetForm.setform.textBox3.Text = sTETBLSMAX = Buf.ToString();
 
@@ -298,11 +309,42 @@ namespace YSR
             sCLINIC10PATH = Buf.ToString();
             //SetForm.setform.textBox23.Text = sCLINIC10PATH = Buf.ToString();
 
+            GetPrivateProfileString("TETBLVS", "VS1", "0000", Buf, 1024, sINIPath);
+            VS1 = Buf.ToString();
+
+            GetPrivateProfileString("TETBLVS", "VS2", "0000", Buf, 1024, sINIPath);
+            VS2 = Buf.ToString();
+
+            GetPrivateProfileString("TETBLVS", "VS3", "0000", Buf, 1024, sINIPath);
+            VS3 = Buf.ToString();
+
+            GetPrivateProfileString("TETBLVS", "VS4", "0000", Buf, 1024, sINIPath);
+            VS4 = Buf.ToString();
+
+            GetPrivateProfileString("TETBLVS", "VS5", "0000", Buf, 1024, sINIPath);
+            VS5 = Buf.ToString();
+
+            GetPrivateProfileString("TETBLVS", "VS6", "0000", Buf, 1024, sINIPath);
+            VS6 = Buf.ToString();
+
+            GetPrivateProfileString("TETBLVS", "VS7", "0000", Buf, 1024, sINIPath);
+            VS7 = Buf.ToString();
+
+            GetPrivateProfileString("TETBLVS", "VS8", "0000", Buf, 1024, sINIPath);
+            VS8 = Buf.ToString();
+
+            GetPrivateProfileString("TETBLVS", "VS9", "0000", Buf, 1024, sINIPath);
+            VS9 = Buf.ToString();
+
+            GetPrivateProfileString("TETBLVS", "VS10", "0000", Buf, 1024, sINIPath);
+            VS10 = Buf.ToString();
+
             return (sTETBLMIN, sTETBLMAX, sTETBLPATH, sTETBLSMIN, sTETBLSMAX,
             sCHECK1, sCHECK2, sCHECK3, sCHECK4, sCHECK5, sCHECK6, sCHECK7, sCHECK8, sCHECK9, sCHECK10,
             sNAME1, sNAME2, sNAME3, sNAME4, sNAME5, sNAME6, sNAME7, sNAME8, sNAME9, sNAME10,
             sCLINIC1PATH, sCLINIC2PATH, sCLINIC3PATH, sCLINIC4PATH, sCLINIC5PATH,
-            sCLINIC6PATH, sCLINIC7PATH, sCLINIC8PATH, sCLINIC9PATH, sCLINIC10PATH);
+            sCLINIC6PATH, sCLINIC7PATH, sCLINIC8PATH, sCLINIC9PATH, sCLINIC10PATH,
+            VS1, VS2, VS3, VS4, VS5, VS6, VS7, VS8, VS9, VS10);
         }
 
         public static void LoadIniFile()
@@ -352,7 +394,7 @@ namespace YSR
         public static void LoadIniFile2()
         {
             StringBuilder Buf = new StringBuilder(1024);
-            
+
             ///<summary>
             /// TETBL2
             ///</summary>
@@ -476,6 +518,44 @@ namespace YSR
 
         }
 
+        //public static void LoadIniFile3()
+        //{
+        //    StringBuilder Buf = new StringBuilder(1024);
+
+        //    ///<summary>
+        //    /// CLINIC NAME
+        //    ///</summary>
+        //    GetPrivateProfileString("CLINICNAME", "sNAME1", "", Buf, 1024, sINIPath);
+        //    SetForm.setform.textBox4.Text = sNAME1 = Buf.ToString();
+
+        //    GetPrivateProfileString("CLINICNAME", "sNAME2", "", Buf, 1024, sINIPath);
+        //    SetForm.setform.textBox5.Text = sNAME2 = Buf.ToString();
+
+        //    GetPrivateProfileString("CLINICNAME", "sNAME3", "", Buf, 1024, sINIPath);
+        //    SetForm.setform.textBox6.Text = sNAME3 = Buf.ToString();
+
+        //    GetPrivateProfileString("CLINICNAME", "sNAME4", "", Buf, 1024, sINIPath);
+        //    SetForm.setform.textBox7.Text = sNAME4 = Buf.ToString();
+
+        //    GetPrivateProfileString("CLINICNAME", "sNAME5", "", Buf, 1024, sINIPath);
+        //    SetForm.setform.textBox8.Text = sNAME5 = Buf.ToString();
+
+        //    GetPrivateProfileString("CLINICNAME", "sNAME6", "", Buf, 1024, sINIPath);
+        //    SetForm.setform.textBox9.Text = sNAME6 = Buf.ToString();
+
+        //    GetPrivateProfileString("CLINICNAME", "sNAME7", "", Buf, 1024, sINIPath);
+        //    SetForm.setform.textBox10.Text = sNAME7 = Buf.ToString();
+
+        //    GetPrivateProfileString("CLINICNAME", "sNAME8", "", Buf, 1024, sINIPath);
+        //    SetForm.setform.textBox11.Text = sNAME8 = Buf.ToString();
+
+        //    GetPrivateProfileString("CLINICNAME", "sNAME9", "", Buf, 1024, sINIPath);
+        //    SetForm.setform.textBox12.Text = sNAME9 = Buf.ToString();
+
+        //    GetPrivateProfileString("CLINICNAME", "sNAME10", "", Buf, 1024, sINIPath);
+        //    SetForm.setform.textBox13.Text = sNAME10 = Buf.ToString();
+        //}
+
         public static void SavaIniFile()
         {
             ///<summary>
@@ -562,6 +642,81 @@ namespace YSR
 
         }
 
+        public static void SavaIniFile3(int a)
+        {
+            ///<summary>
+            /// TETBL3
+            ///</summary>
+            // 각 병원별 성공 마지막 TETLBL 숫자
+            // 알고리즘에 저장기능도 넣고 실시간 라벨 표현도 하기.
+            // 로드도 수정해야함.
+
+            /*
+             * 여기서 값을 받아서 비교문을 써서 저장을 하기
+             * 
+             * 처음 값(널값) 일 경우도 생각
+             */
+
+            /*
+             * 네임과 V를 저장해야하나 아니면 V만 저장해야할까...
+             * NAME1, 2,3,4.5.6.7.8.9.10 값을 불러온다.
+             * swtich(Main.main.comboBox3.SelectedItem.ToString()) // 실행되고 있는 병의원과 비교해본다.
+             * {
+             *      case: NAME1
+             *              TETBL3의 NAME1V에 버젼 저장
+             *      case: NAME2
+             *              TETBL3의 NAME2V에 버젼 저장
+             *              .
+             *              .
+             *              .
+             * }
+             * 
+             */
+
+            //업데이트 시 라벨도 자동으로 변경되게 해야한다.
+            switch (a)
+            {
+                case 1:
+                    WritePrivateProfileString("TETBLVS", "VS1", Main.main.label9.Text.ToString(), sINIPath);
+                    break;
+
+                case 2:
+                    WritePrivateProfileString("TETBLVS", "VS2", Main.main.label9.Text.ToString(), sINIPath);
+                    break;
+
+                case 3:
+                    WritePrivateProfileString("TETBLVS", "VS3", Main.main.label9.Text.ToString(), sINIPath);
+                    break;
+
+                case 4:
+                    WritePrivateProfileString("TETBLVS", "VS4", Main.main.label9.Text.ToString(), sINIPath);
+                    break;
+
+                case 5:
+                    WritePrivateProfileString("TETBLVS", "VS5", Main.main.label9.Text.ToString(), sINIPath);
+                    break;
+
+                case 6:
+                    WritePrivateProfileString("TETBLVS", "VS6", Main.main.label9.Text.ToString(), sINIPath);
+                    break;
+
+                case 7:
+                    WritePrivateProfileString("TETBLVS", "VS7", Main.main.label9.Text.ToString(), sINIPath);
+                    break;
+
+                case 8:
+                    WritePrivateProfileString("TETBLVS", "VS8", Main.main.label9.Text.ToString(), sINIPath);
+                    break;
+
+                case 9:
+                    WritePrivateProfileString("TETBLVS", "VS9", Main.main.label9.Text.ToString(), sINIPath);
+                    break;
+
+                case 10:
+                    WritePrivateProfileString("TETBLVS", "VS10", Main.main.label9.Text.ToString(), sINIPath);
+                    break;
+            }
+        }
 
         public static void WriteUpdatingInfo(bool b)
         {

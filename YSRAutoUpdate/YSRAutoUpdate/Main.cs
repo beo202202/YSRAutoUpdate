@@ -1,11 +1,8 @@
-﻿using MessagePack.Formatters;
-using OpenCvSharp;
+﻿using OpenCvSharp;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics; // 외부 프로그램 실행
 using System.Drawing;
-using System.Linq.Expressions;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
@@ -36,7 +33,9 @@ namespace YSR
             string sNAME1, string sNAME2, string sNAME3, string sNAME4, string sNAME5,
             string sNAME6, string sNAME7, string sNAME8, string sNAME9, string sNAME10,
             string sCLINIC1PATH, string sCLINIC2PATH, string sCLINIC3PATH, string sCLINIC4PATH, string sCLINIC5PATH,
-            string sCLINIC6PATH, string sCLINIC7PATH, string sCLINIC8PATH, string sCLINIC9PATH, string sCLINIC10PATH)
+            string sCLINIC6PATH, string sCLINIC7PATH, string sCLINIC8PATH, string sCLINIC9PATH, string sCLINIC10PATH,
+            string VS1, string VS2, string VS3, string VS4, string VS5,
+            string VS6, string VS7, string VS8, string VS9, string VS10)
             = Config.LoadIniFile0();
 
             main = this;
@@ -71,6 +70,7 @@ namespace YSR
 
             trackBar1.Enabled = true;
             checkBox1.Enabled = true;
+            label9.Visible = true;
 
             //MessageBox.Show(comboBox3.SelectedItem.ToString());
             //MessageBox.Show(comboBox3.SelectedText);
@@ -81,53 +81,78 @@ namespace YSR
             if (sCHECK1 == "True" && comboBox3.SelectedItem.ToString() == sNAME1)
             {
                 textBox2.Text = sCLINIC1PATH;
+                label9.Text = VS1;
             }
             else if (sCHECK2 == "True" && comboBox3.SelectedItem.ToString() == sNAME2)
             {
                 textBox2.Text = sCLINIC2PATH;
+                label9.Text = VS2;
             }
             else if (sCHECK3 == "True" && comboBox3.SelectedItem.ToString() == sNAME3)
             {
                 textBox2.Text = sCLINIC3PATH;
+                label9.Text = VS3;
             }
             else if (sCHECK4 == "True" && comboBox3.SelectedItem.ToString() == sNAME4)
             {
                 textBox2.Text = sCLINIC4PATH;
+                label9.Text = VS4;
             }
             else if (sCHECK5 == "True" && comboBox3.SelectedItem.ToString() == sNAME5)
             {
                 textBox2.Text = sCLINIC5PATH;
+                label9.Text = VS5;
             }
             else if (sCHECK6 == "True" && comboBox3.SelectedItem.ToString() == sNAME6)
             {
                 textBox2.Text = sCLINIC6PATH;
+                label9.Text = VS6;
             }
             else if (sCHECK7 == "True" && comboBox3.SelectedItem.ToString() == sNAME7)
             {
                 textBox2.Text = sCLINIC7PATH;
+                label9.Text = VS7;
             }
             else if (sCHECK8 == "True" && comboBox3.SelectedItem.ToString() == sNAME8)
             {
                 textBox2.Text = sCLINIC8PATH;
+                label9.Text = VS8;
             }
             else if (sCHECK9 == "True" && comboBox3.SelectedItem.ToString() == sNAME9)
             {
                 textBox2.Text = sCLINIC9PATH;
+                label9.Text = VS9;
             }
             else if (sCHECK10 == "True" && comboBox3.SelectedItem.ToString() == sNAME10)
             {
                 textBox2.Text = sCLINIC10PATH;
+                label9.Text = VS10;
             }
             else // if (comboBox3.SelectedItem.ToString() == "" || comboBox3.SelectedItem.ToString() == null)
             {
                 l.Log(lboxLog, "설정이 필요합니다.");
             }
 
+            if (COM_MIN <= Convert.ToInt32(this.label9.Text))
+            {
+                if (COM_MAX > Convert.ToInt32(this.label9.Text))
+                    labelMAX = COM_MAX - Convert.ToInt32(this.label9.Text) + 1;
+                else
+                    labelMAX = 0;
+            }
+            else
+            {
+                labelMAX = COM_MAX - COM_MIN + 1;
+            }
+            //MessageBox.Show("labelMAX = " + labelMAX);                
+            labelProgressBar1.Maximum = labelMAX;
             //MessageBox.Show(textBox2.Text);
 
             l.Log(lboxLog, "준비완료");
 
             l = null;
+
+            MessageBox.Show("문의사항은 wnsdud0226@naver.com 로 주시길 바랍니다.");
         }
 
         private void 환경설정()
@@ -142,7 +167,9 @@ namespace YSR
             string sNAME1, string sNAME2, string sNAME3, string sNAME4, string sNAME5,
             string sNAME6, string sNAME7, string sNAME8, string sNAME9, string sNAME10,
             string sCLINIC1PATH, string sCLINIC2PATH, string sCLINIC3PATH, string sCLINIC4PATH, string sCLINIC5PATH,
-            string sCLINIC6PATH, string sCLINIC7PATH, string sCLINIC8PATH, string sCLINIC9PATH, string sCLINIC10PATH)
+            string sCLINIC6PATH, string sCLINIC7PATH, string sCLINIC8PATH, string sCLINIC9PATH, string sCLINIC10PATH,
+            string VS1, string VS2, string VS3, string VS4, string VS5,
+            string VS6, string VS7, string VS8, string VS9, string VS10)
             = Config.LoadIniFile0();
 
             //+(오류) 현재값이 없는 초기값이라면? 콤보1,콤보2가 0이다....
@@ -238,8 +265,18 @@ namespace YSR
             //MessageBox.Show("COM_MIN = " + COM_MIN);
             //MessageBox.Show("COM_MAX = " + COM_MAX);
 
-            labelMAX = COM_MAX - COM_MIN + 1;
-            //MessageBox.Show("labelMAX = " + labelMAX);
+            if (COM_MIN <= Convert.ToInt32(this.label9.Text))
+            {
+                if (COM_MAX > Convert.ToInt32(this.label9.Text))
+                    labelMAX = COM_MAX - Convert.ToInt32(this.label9.Text) + 1;
+                else
+                    labelMAX = 0;
+            }
+            else
+            {
+                labelMAX = COM_MAX - COM_MIN + 1;
+            }
+            //MessageBox.Show("labelMAX = " + labelMAX);                
             labelProgressBar1.Maximum = labelMAX;
 
             l = null;
@@ -256,7 +293,9 @@ namespace YSR
             string sNAME1, string sNAME2, string sNAME3, string sNAME4, string sNAME5,
             string sNAME6, string sNAME7, string sNAME8, string sNAME9, string sNAME10,
             string sCLINIC1PATH, string sCLINIC2PATH, string sCLINIC3PATH, string sCLINIC4PATH, string sCLINIC5PATH,
-            string sCLINIC6PATH, string sCLINIC7PATH, string sCLINIC8PATH, string sCLINIC9PATH, string sCLINIC10PATH)
+            string sCLINIC6PATH, string sCLINIC7PATH, string sCLINIC8PATH, string sCLINIC9PATH, string sCLINIC10PATH,
+            string VS1, string VS2, string VS3, string VS4, string VS5,
+            string VS6, string VS7, string VS8, string VS9, string VS10)
             = Config.LoadIniFile0();
 
             // 설정값이 바뀌면 인덱스값이 바뀐다.... 생각해야한다.
@@ -304,8 +343,6 @@ namespace YSR
                 comboBox3.Items.Add(sNAME10);
             }
 
-
-
             //comboBox3.SelectedIndex = 0;
             l = null;
         }
@@ -352,54 +389,79 @@ namespace YSR
             string sNAME1, string sNAME2, string sNAME3, string sNAME4, string sNAME5,
             string sNAME6, string sNAME7, string sNAME8, string sNAME9, string sNAME10,
             string sCLINIC1PATH, string sCLINIC2PATH, string sCLINIC3PATH, string sCLINIC4PATH, string sCLINIC5PATH,
-            string sCLINIC6PATH, string sCLINIC7PATH, string sCLINIC8PATH, string sCLINIC9PATH, string sCLINIC10PATH)
+            string sCLINIC6PATH, string sCLINIC7PATH, string sCLINIC8PATH, string sCLINIC9PATH, string sCLINIC10PATH,
+            string VS1, string VS2, string VS3, string VS4, string VS5,
+            string VS6, string VS7, string VS8, string VS9, string VS10)
             = Config.LoadIniFile0();
 
-            
             if (comboBox3.SelectedItem.ToString() == sNAME1)
             {
                 textBox2.Text = sCLINIC1PATH;
+                label9.Text = VS1;
             }
             else if (comboBox3.SelectedItem.ToString() == sNAME2)
             {
                 textBox2.Text = sCLINIC2PATH;
+                label9.Text = VS2;
             }
             else if (comboBox3.SelectedItem.ToString() == sNAME3)
             {
                 textBox2.Text = sCLINIC3PATH;
+                label9.Text = VS3;
             }
             else if (comboBox3.SelectedItem.ToString() == sNAME4)
             {
                 textBox2.Text = sCLINIC4PATH;
+                label9.Text = VS4;
             }
             else if (comboBox3.SelectedItem.ToString() == sNAME5)
             {
                 textBox2.Text = sCLINIC5PATH;
+                label9.Text = VS5;
             }
             else if (comboBox3.SelectedItem.ToString() == sNAME6)
             {
                 textBox2.Text = sCLINIC6PATH;
+                label9.Text = VS6;
             }
             else if (comboBox3.SelectedItem.ToString() == sNAME7)
             {
                 textBox2.Text = sCLINIC7PATH;
+                label9.Text = VS7;
             }
             else if (comboBox3.SelectedItem.ToString() == sNAME8)
             {
                 textBox2.Text = sCLINIC8PATH;
+                label9.Text = VS8;
             }
             else if (comboBox3.SelectedItem.ToString() == sNAME9)
             {
                 textBox2.Text = sCLINIC9PATH;
+                label9.Text = VS9;
             }
-            else if ( comboBox3.SelectedItem.ToString() == sNAME10)
+            else if (comboBox3.SelectedItem.ToString() == sNAME10)
             {
                 textBox2.Text = sCLINIC10PATH;
+                label9.Text = VS10;
             }
             else // if (comboBox3.SelectedItem.ToString() == "" || comboBox3.SelectedItem.ToString() == null)
             {
                 l.Log(lboxLog, "설정이 필요합니다.");
             }
+
+            if (COM_MIN <= Convert.ToInt32(this.label9.Text))
+            {
+                if (COM_MAX > Convert.ToInt32(this.label9.Text))
+                    labelMAX = COM_MAX - Convert.ToInt32(this.label9.Text) + 1;
+                else
+                    labelMAX = 0;
+            }
+            else
+            {
+                labelMAX = COM_MAX - COM_MIN + 1;
+            }
+            //MessageBox.Show("labelMAX = " + labelMAX);                
+            labelProgressBar1.Maximum = labelMAX;
 
             Config.SavaIniFile();
 
@@ -492,6 +554,51 @@ namespace YSR
 
         public void 의사랑자동업데이트()
         {
+            #region 버튼, 콤보박스 변경 불가
+            if (this.button9.InvokeRequired == true)
+            {
+                this.button9.Invoke((MethodInvoker)delegate
+                {
+                    button9.Enabled = false;
+                });
+            }
+            if (this.button3.InvokeRequired == true)
+            {
+                this.button3.Invoke((MethodInvoker)delegate
+                {
+                    button3.Enabled = false;
+                });
+            }
+            if (this.comboBox1.InvokeRequired == true)
+            {
+                this.comboBox1.Invoke((MethodInvoker)delegate
+                {
+                    comboBox1.Enabled = false;
+                });
+            }
+            if (this.comboBox2.InvokeRequired == true)
+            {
+                this.comboBox2.Invoke((MethodInvoker)delegate
+                {
+                    comboBox2.Enabled = false;
+                });
+            }
+            if (this.comboBox3.InvokeRequired == true)
+            {
+                this.comboBox3.Invoke((MethodInvoker)delegate
+                {
+                    comboBox3.Enabled = false;
+                });
+            }
+            if (this.comboBox4.InvokeRequired == true)
+            {
+                this.comboBox4.Invoke((MethodInvoker)delegate
+                {
+                    comboBox4.Enabled = false;
+                });
+            }
+            #endregion
+
             InitProgressBar(labelProgressBar1, 0);
             //Delay(1000);
             InitProgressBar(labelProgressBar2, 0);
@@ -508,7 +615,9 @@ namespace YSR
             string sNAME1, string sNAME2, string sNAME3, string sNAME4, string sNAME5,
             string sNAME6, string sNAME7, string sNAME8, string sNAME9, string sNAME10,
             string sCLINIC1PATH, string sCLINIC2PATH, string sCLINIC3PATH, string sCLINIC4PATH, string sCLINIC5PATH,
-            string sCLINIC6PATH, string sCLINIC7PATH, string sCLINIC8PATH, string sCLINIC9PATH, string sCLINIC10PATH)
+            string sCLINIC6PATH, string sCLINIC7PATH, string sCLINIC8PATH, string sCLINIC9PATH, string sCLINIC10PATH,
+            string SV1, string SV2, string SV3, string SV4, string SV5,
+            string SV6, string SV7, string SV8, string SV9, string SV10)
             = Config.LoadIniFile0();
 
             int A = COM_MIN; // 시작 값
@@ -525,8 +634,16 @@ namespace YSR
             Thread thread2 = new Thread(() => 자동모드진행중());
 
             의사랑핸들("YSR2000 - SQL Anywhere 네트워크 서버", 1); // DB 종료
+            의사랑핸들("정보", 1);
+            의사랑핸들("경고", 1); // DB 종료
             l.Log(lboxLog, "DB 확인 중");
-            Delay(500);
+            Delay(1000);
+
+            의사랑핸들("YSR2000 - SQL Anywhere 네트워크 서버", 1); // DB 종료
+            의사랑핸들("정보", 1);
+            의사랑핸들("경고", 1); // DB 종료
+
+
 
             if (this.comboBox3.InvokeRequired == true)
             {
@@ -588,7 +705,7 @@ namespace YSR
                     InitProgressBar(labelProgressBar1, labelMAX);
                     InitProgressBar(labelProgressBar2, 100);
                     l.Log(lboxLog, "지정된 DB파일을 찾을 수 없습니다.");
-                    l.Log(lboxLog, "자동 업데이트를 종료합니다.");                    
+                    l.Log(lboxLog, "자동 업데이트를 종료합니다.");
                     A = 99999999; // While 값에 안들어가게 하기
                     스레드1상태 = "실행안됨";
 
@@ -627,6 +744,16 @@ namespace YSR
             }
             thread2.Start();
 
+            if (A <= Convert.ToInt32(this.label9.Text))
+            {
+                A = Convert.ToInt32(this.label9.Text) + 1;
+
+                if (A > B)
+                {
+                    l.Log(lboxLog, "이미 업데이트가 되었습니다.");
+                }
+            }
+
             while (A < B + 1)
             {
                 //if (thread2.ThreadState.ToString() == "Suspended")
@@ -644,7 +771,7 @@ namespace YSR
                 exe_name = sTETBLPATH;
                 exe_name2 = "TETBL";
 
-                // 실행파일 실행
+                // 실행파일 실행                
                 //Process.Start(exe_name);
                 l.Log(lboxLog, exe_name2 + A + $" 실행");
 
@@ -687,7 +814,7 @@ namespace YSR
                     InitProgressBar(labelProgressBar1, labelMAX);
                     InitProgressBar(labelProgressBar2, 100);
                     l.Log(lboxLog, "지정된 TETBL파일을 찾을 수 없습니다.");
-                    l.Log(lboxLog, "자동 업데이트를 종료합니다.");                    
+                    l.Log(lboxLog, "자동 업데이트를 종료합니다.");
                     A = 99999999; // While 값에 안들어가게 하기
                     스레드1상태 = "실행안됨";
 
@@ -708,6 +835,13 @@ namespace YSR
                 InitProgressBar(labelProgressBar2, 50);
                 //l.Log(lboxLog, "창 찾는 중...2");
                 i = 0;
+
+                //if (A <= Convert.ToInt32(this.label9.Text))
+                //{
+                //    // 패스할 값들을 주기
+                //    i = 1;
+                //}
+
                 while (i == 0 && m == 0)
                 {
                     //자동모드진행중();
@@ -726,7 +860,9 @@ namespace YSR
                 }
 
                 InitProgressBar(labelProgressBar2, 70);
+                //MessageBox.Show(j.ToString());
                 j = searchIMG(3, "이미지찾기"); //다시 한 번 실행하시겠습니까? (질문창)                 // b를 지우고 핸들을 아예 넣어버릴까?
+                //MessageBox.Show(j.ToString());
 
                 if (m == 1 && j == 0)
                 {
@@ -752,6 +888,7 @@ namespace YSR
                 {
                     InitProgressBar(labelProgressBar2, 100);
                     l.Log(lboxLog, "이미 업데이트 되었음.");
+
                     의사랑핸들("질문", 2); // "아니오" 버튼 클릭                    
                     Delay(100);
                 }
@@ -774,6 +911,67 @@ namespace YSR
                         i += 의사랑핸들(null, 0);
                         if (i == 0)
                         {
+                            // 최종 라벨 업데이트
+                            if (this.label9.InvokeRequired == true)
+                            {
+                                this.label9.Invoke((MethodInvoker)delegate
+                                {
+                                    this.label9.Text = A.ToString();
+                                });
+                            }
+                            //저장하기3
+                            String CL = "기본값";
+                            if (this.comboBox3.InvokeRequired == true)
+                            {
+                                this.comboBox3.Invoke((MethodInvoker)delegate
+                                {
+                                    CL = this.comboBox3.Text;
+                                });
+                            }
+
+                            if (CL == sNAME1)
+                            {
+                                i = 1;
+                            }
+                            if (CL == sNAME2)
+                            {
+                                i = 2;
+                            }
+                            if (CL == sNAME3)
+                            {
+                                i = 3;
+                            }
+                            if (CL == sNAME4)
+                            {
+                                i = 4;
+                            }
+                            if (CL == sNAME5)
+                            {
+                                i = 5;
+                            }
+                            if (CL == sNAME6)
+                            {
+                                i = 6;
+                            }
+                            if (CL == sNAME7)
+                            {
+                                i = 7;
+                            }
+                            if (CL == sNAME8)
+                            {
+                                i = 8;
+                            }
+                            if (CL == sNAME9)
+                            {
+                                i = 9;
+                            }
+                            if (CL == sNAME10)
+                            {
+                                i = 10;
+                            }
+
+                            // i = 현재 의료기관 번호
+                            Config.SavaIniFile3(i);
                             l.Log(lboxLog, "업데이트 완료");
                             break;
                         }
@@ -789,16 +987,13 @@ namespace YSR
                 //l.Log(lboxLog, "pass");                
             }
             InitProgressBar(labelProgressBar1, labelMAX);
-            l.Log(lboxLog, "종료");
-            Delay(500);
-            l.Log(lboxLog, "종료");
-            Delay(500);
-            l.Log(lboxLog, "종료");
-            Delay(500);
-            l.Log(lboxLog, "종료");
-            Delay(500);
-            l.Log(lboxLog, "종료");
-            Delay(500);
+            l.Log(lboxLog, "종료 3초전");
+            Delay(1000);
+            l.Log(lboxLog, "종료 2초전");
+            Delay(1000);
+            l.Log(lboxLog, "종료 1초전");
+            Delay(1000);
+            l.Log(lboxLog, "종료 완료");
             if (thread2.ThreadState.ToString() != "Unstarted")
             {
                 thread2.Abort();
@@ -812,6 +1007,54 @@ namespace YSR
                     });
                 }
             }
+
+            #region 버튼, 콤보박스 변경 가능
+            if (this.button9.InvokeRequired == true)
+            {
+                this.button9.Invoke((MethodInvoker)delegate
+                {
+                    button9.Enabled = true;
+                });
+            }
+
+            if (this.button3.InvokeRequired == true)
+            {
+                this.button3.Invoke((MethodInvoker)delegate
+                {
+                    button3.Enabled = true;
+                });
+            }
+
+            if (this.comboBox1.InvokeRequired == true)
+            {
+                this.comboBox1.Invoke((MethodInvoker)delegate
+                {
+                    comboBox1.Enabled = true;
+                });
+            }
+            if (this.comboBox2.InvokeRequired == true)
+            {
+                this.comboBox2.Invoke((MethodInvoker)delegate
+                {
+                    comboBox2.Enabled = true;
+                });
+            }
+            if (this.comboBox3.InvokeRequired == true)
+            {
+                this.comboBox3.Invoke((MethodInvoker)delegate
+                {
+                    comboBox3.Enabled = true;
+                });
+            }
+            if (this.comboBox4.InvokeRequired == true)
+            {
+                this.comboBox4.Invoke((MethodInvoker)delegate
+                {
+                    comboBox4.Enabled = true;
+                });
+            }
+            #endregion
+
             //종료
 
             //핸들이 없으면 값이 null
@@ -1154,11 +1397,25 @@ namespace YSR
             LogClass l = new LogClass();
 
             l.Log(lboxLog, $"저장");
-            Config.SavaIniFile();
+            try
+            {
+                Config.SavaIniFile();
+            }
+            catch
+            {
+                MessageBox.Show("알맞게 설정해서 저장해주세요.");
+            }
+            finally
+            {
+                l.Log(lboxLog, $"종료");
+                l = null;
+                Application.ExitThread();
 
-            l.Log(lboxLog, $"종료");
-            l = null;
-            Application.Exit();
+                Environment.Exit(0);
+            }
+            Application.ExitThread();
+
+            Environment.Exit(0);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -1208,19 +1465,26 @@ namespace YSR
             //thread1.ThreadState.ToString() == "Unstarted" && 
             if (스레드1상태 == "실행안됨" && radioButton1.Checked) // 자동 업데이트 //스레드가 실행 중이 아니라면
             {
-                //MessageBox.Show(thread1.ThreadState.ToString());
-                thread1.Start();
-                스레드1상태 = "실행중";
+                if (comboBox3.SelectedItem == "새로 설정해주세요.")
+                {
+                    MessageBox.Show("의원을 새로 설정해주세요.");
+                }
+                else
+                {
+                    //MessageBox.Show(thread1.ThreadState.ToString());
+                    스레드1상태 = "실행중";
+                    thread1.Start();
+                }
             }
             else if (스레드1상태 == "실행중" && radioButton1.Checked) // 스레드가 실행 중이라면
             {
-                thread1.Suspend();
                 스레드1상태 = "일시 중단";
+                thread1.Suspend();
             }
             else if (스레드1상태 == "일시 중단" && radioButton1.Checked) // 스레드가 실행 중이라면
             {
-                thread1.Resume(); // 일시 중단된 스레드 다시 시작
                 스레드1상태 = "실행중";
+                thread1.Resume(); // 일시 중단된 스레드 다시 시작                
             }
             //{
             //    thread2.Abort();
@@ -1230,7 +1494,7 @@ namespace YSR
             // 
             else if (radioButton2.Checked) //테스트
             {
-                
+
             }
             else if (radioButton3.Checked) //테스트2
             {
@@ -1397,6 +1661,46 @@ namespace YSR
             IntPtr hd, hd1, hd2, hd3;
             switch (APN)
             {
+                case "경고":
+                    AppPlayerName = "경고";
+                    hd = FindWindow(null, AppPlayerName);
+                    hd1 = FindWindowEx(hd, IntPtr.Zero, "Button", "예(&Y)");
+
+                    if (hd != IntPtr.Zero)
+                    {
+                        //l.Log(lboxLog, $"질문 창 찾음.");
+                        int x = 0;
+                        int y = 0;
+
+                        //l.Log(lboxLog, $"부모:    " + hd.ToString());
+                        //l.Log(lboxLog, $"자식1:    " + hd1.ToString());
+                        //l.Log(lboxLog, $"자식2:    " + hd1.ToString());
+
+                        IntPtr lparam = new IntPtr(x | (y << 0));
+                        switch (i)
+                        {
+                            case 0:
+                                //l.Log(lboxLog, $"버튼 클릭 안함.");
+                                break;
+                            case 1:
+                                SendMessage(hd1, BM_CLICK, 0, lparam); // 예, 종료
+                                //l.Log(lboxLog, $"(예) 버튼 클릭");
+                                //Delay(1000);
+                                break;
+                            default:
+                                l.Log(lboxLog, $"의사랑핸들\\질문\\오류\\클릭값");
+                                break;
+                        }
+                        j = 1;
+                    }
+                    else
+                    {
+                        //못 찾은 경우
+                        //l.Log(lboxLog, $"질문 창을 못 찼았어요.");
+                        j = 0;
+                    }
+                    break;
+
                 case "YSR2000 - SQL Anywhere 네트워크 서버":
                     AppPlayerName = "YSR2000 - SQL Anywhere 네트워크 서버";
                     hd = FindWindow(null, AppPlayerName); //"TMessageTagForm" or "TMessageForm"
