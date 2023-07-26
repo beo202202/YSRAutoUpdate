@@ -194,7 +194,7 @@
             this.comboBox1.Size = new System.Drawing.Size(66, 20);
             this.comboBox1.TabIndex = 25;
             this.comboBox1.SelectionChangeCommitted += new System.EventHandler(this.comboBox1_SelectionChangeCommitted);
-            this.comboBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.comboBox1_MouseDown);
+            this.comboBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.comboBox1_MouseUp);
             // 
             // radioButton3
             // 
@@ -336,9 +336,9 @@
             this.label6.Location = new System.Drawing.Point(161, 0);
             this.label6.Margin = new System.Windows.Forms.Padding(0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(65, 30);
+            this.label6.Size = new System.Drawing.Size(64, 30);
             this.label6.TabIndex = 5;
-            this.label6.Text = "v0.944";
+            this.label6.Text = "v0.947";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label6.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label6_MouseDown);
             // 

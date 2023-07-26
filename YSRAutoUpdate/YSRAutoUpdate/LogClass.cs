@@ -99,7 +99,7 @@ namespace YSR
                     }
                 }
             }
-            catch (Exception e)
+            catch
             {
 
             }

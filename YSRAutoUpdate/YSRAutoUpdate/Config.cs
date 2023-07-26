@@ -145,12 +145,14 @@ namespace YSR
             GetPrivateProfileString("TETBL", "MIN", "5306", Buf, 1024, sINIPath);
             //sTETBLMIN = Buf.ToString();
             //MessageBox.Show(sTETBLMIN);
-            Main.main.comboBox1.SelectedItem = sTETBLMIN = Buf.ToString();
+            sTETBLMIN = Buf.ToString();
+            //Main.main.comboBox1.SelectedItem = sTETBLMIN = Buf.ToString();
 
             GetPrivateProfileString("TETBL", "MAX", "5389", Buf, 1024, sINIPath);
             //sTETBLMAX = Buf.ToString();
             //MessageBox.Show(sTETBLMAX);
-            Main.main.comboBox2.SelectedItem = sTETBLMAX = Buf.ToString();
+            sTETBLMAX = Buf.ToString();
+            //Main.main.comboBox2.SelectedItem = sTETBLMAX = Buf.ToString();
 
             ///<summary>
             /// TETBL2
