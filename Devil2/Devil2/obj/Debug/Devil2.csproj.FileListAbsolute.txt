@@ -77,9 +77,7 @@ C:\Users\소유자\Documents\C#\20220729\Devil2\Devil2\bin\Debug\OpenCvSharp.Use
 C:\Users\소유자\Documents\C#\20220729\Devil2\Devil2\bin\Debug\OpenCvSharp.UserInterface.xml
 C:\Users\소유자\Documents\C#\20220729\Devil2\Devil2\obj\Debug\Devil2.csproj.AssemblyReference.cache
 C:\Users\소유자\Documents\C#\20220729\Devil2\Devil2\obj\Debug\Devil2.csproj.SuggestedBindingRedirects.cache
-C:\Users\소유자\Documents\C#\20220729\Devil2\Devil2\obj\Debug\Devil2.Form1.resources
 C:\Users\소유자\Documents\C#\20220729\Devil2\Devil2\obj\Debug\Devil2.Properties.Resources.resources
-C:\Users\소유자\Documents\C#\20220729\Devil2\Devil2\obj\Debug\Devil2.subform.SetForm.resources
 C:\Users\소유자\Documents\C#\20220729\Devil2\Devil2\obj\Debug\Devil2.ucPanel.ucPanel1.resources
 C:\Users\소유자\Documents\C#\20220729\Devil2\Devil2\obj\Debug\Devil2.ucPanel.ucPanel2.resources
 C:\Users\소유자\Documents\C#\20220729\Devil2\Devil2\obj\Debug\Devil2.csproj.GenerateResource.cache
@@ -87,3 +85,5 @@ C:\Users\소유자\Documents\C#\20220729\Devil2\Devil2\obj\Debug\Devil2.csproj.C
 C:\Users\소유자\Documents\C#\20220729\Devil2\Devil2\obj\Debug\Devil2.csproj.CopyComplete
 C:\Users\소유자\Documents\C#\20220729\Devil2\Devil2\obj\Debug\Devil2.exe
 C:\Users\소유자\Documents\C#\20220729\Devil2\Devil2\obj\Debug\Devil2.pdb
+C:\Users\소유자\Documents\C#\20220729\Devil2\Devil2\obj\Debug\Devil2.Main.resources
+C:\Users\소유자\Documents\C#\20220729\Devil2\Devil2\obj\Debug\Devil2.SetForm.resources
