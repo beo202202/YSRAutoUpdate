@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.lboxLog = new System.Windows.Forms.ListBox();
-            this.lblPanel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lboxLog
@@ -38,37 +37,24 @@
             this.lboxLog.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
             this.lboxLog.FormattingEnabled = true;
             this.lboxLog.ItemHeight = 12;
-            this.lboxLog.Location = new System.Drawing.Point(5, 26);
+            this.lboxLog.Location = new System.Drawing.Point(0, 0);
             this.lboxLog.Name = "lboxLog";
             this.lboxLog.Size = new System.Drawing.Size(462, 376);
             this.lboxLog.TabIndex = 17;
-            // 
-            // lblPanel
-            // 
-            this.lblPanel.AutoSize = true;
-            this.lblPanel.Location = new System.Drawing.Point(3, 11);
-            this.lblPanel.Name = "lblPanel";
-            this.lblPanel.Size = new System.Drawing.Size(31, 12);
-            this.lblPanel.TabIndex = 16;
-            this.lblPanel.Text = "(0,0)";
-            this.lblPanel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ucPanel1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.lboxLog);
-            this.Controls.Add(this.lblPanel);
             this.Name = "ucPanel1";
             this.Size = new System.Drawing.Size(720, 644);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         public System.Windows.Forms.ListBox lboxLog;
-        private System.Windows.Forms.Label lblPanel;
     }
 }

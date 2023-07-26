@@ -149,7 +149,7 @@ namespace Devil2
                     SendMessage(hwnd_child, WM_LBUTTONDOWN, 1, lparam);
 
                     SendMessage(hwnd_child, WM_LBUTTONUP, 0, lparam);
-                    Delay(100);
+                    //Delay(100);
 
                     //textBox1.AppendText("클릭" + "X= " + x + "  Y = " + y + "\r\n");
 
@@ -611,6 +611,7 @@ namespace Devil2
                     }
                     // pictureBox1 이미지를 표시해줍니다.
                     pictureBox1.Image = bmp;
+                    Log(enLogLevel.Info, $"캡처되었습니다.");
                 }
                 catch
                 {
@@ -625,7 +626,6 @@ namespace Devil2
                 //textBox1.AppendText("앱플레이어 못 찾았어요.\r\n");
                 Log(enLogLevel.Info, $"앱플레이어를 못 찾았습니다.");
             }
-            Log(enLogLevel.Info, $"캡처되었습니다.");
         }
 
         //ucpanel2 불러오기
