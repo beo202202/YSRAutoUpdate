@@ -1037,6 +1037,23 @@ namespace YSR
 
         #endregion Button Click
 
+        private void button2_MouseMove(object sender, MouseEventArgs e)
+        {
+            button2.BackColor = Color.Black;
+        }
+        private void button2_MouseLeave(object sender, EventArgs e)
+        {
+            button2.BackColor = Color.FromArgb(64, 64, 64);
+        }
+        private void button1_MouseMove(object sender, MouseEventArgs e)
+        {
+            button1.BackColor = Color.Red;
+        }
+        private void button1_MouseLeave(object sender, EventArgs e)
+        {
+            button1.BackColor = Color.FromArgb(64, 64, 64);
+        }
+
         public
         int indexNumber;
 
@@ -1095,6 +1112,8 @@ namespace YSR
                 SetWindowPos(this.Handle, HWND_NOTOPMOST, 0, 0, 0, 0, WINDOW_FLAGS);
             }
         }
+
+        
 
         public void 자동모드진행중()
         {

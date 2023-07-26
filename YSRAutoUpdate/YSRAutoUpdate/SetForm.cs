@@ -1,8 +1,11 @@
-﻿using Microsoft.WindowsAPICodePack.Dialogs;
+﻿using Microsoft.VisualStudio.Utilities;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Net;
 using System.Windows.Forms;
+using static System.Net.WebRequestMethods;
 
 namespace YSR
 {
@@ -129,12 +132,14 @@ namespace YSR
 
         }
 
+        #region CommonOpenFileDialog
         public string ChangeFolderPath()
         {
             string FilePath = "";
             CommonOpenFileDialog dialog = new CommonOpenFileDialog();
             {
-                dialog.IsFolderPicker = true;
+                dialog.IsFolderPicker = true; // true : 폴더 선택 / false : 파일 선택
+                dialog.Title = "의사랑 업데이트 폴더 선택";
 
                 if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
                 {
@@ -144,8 +149,29 @@ namespace YSR
             return FilePath;
         }
 
+        public string ChangeFilePath()
+        {
+            string FilePath = "";
+            CommonOpenFileDialog dialog = new CommonOpenFileDialog();
+            {
+                dialog.IsFolderPicker = false; // true : 폴더 선택 / false : 파일 선택
+                dialog.Title = "병의원 파일 선택";
+                dialog.Filters.Add(new CommonFileDialogFilter("링크 파일 (*.lnk)", "*.lnk"));
+                dialog.DefaultExtension = ".lnk";
+                
+                
+                dialog.EnsureFileExists = false;
 
+                //dialog.DefaultExt = ".lnk;
 
+                if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+                {
+                    FilePath = dialog.FileName;
+                }
+            }
+            return FilePath;
+        }
+        #endregion CommonOpenFileDialog
 
         private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -172,11 +198,18 @@ namespace YSR
 
         private void textBox4_MouseClick(object sender, MouseEventArgs e)
         {
-            var ofd = new OpenFileDialog();
+            textBox4.Text = ChangeFilePath();
+            //ofd.DefaultExt = ".lnk";
+            //ofd.Filter = "링크 파일 (*.lnk)|*.lnk";
+            //ofd.DereferenceLinks = false;
+            //if (ofd.ShowDialog() == DialogResult.OK)
+            //{
+            //    FileInfo fileInfo = new FileInfo(ofd.FileName);
 
-            if (ofd.ShowDialog() == DialogResult.OK)
-                textBox4.Text = ofd.FileName;
-            
+            //    fileName = fileInfo.Name;
+
+            //    textBox4.Text = ofd.SafeFileName;
+            //}
         }
 
 

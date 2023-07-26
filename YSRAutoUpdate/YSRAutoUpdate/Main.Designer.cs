@@ -500,7 +500,7 @@
             // 
             // tableLayoutPanel2
             // 
-            this.tableLayoutPanel2.BackColor = System.Drawing.Color.DarkGray;
+            this.tableLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.tableLayoutPanel2.ColumnCount = 7;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 131F));
@@ -516,6 +516,7 @@
             this.tableLayoutPanel2.Controls.Add(this.checkBox1, 4, 0);
             this.tableLayoutPanel2.Controls.Add(this.pictureBox1, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.button2, 5, 0);
+            this.tableLayoutPanel2.ForeColor = System.Drawing.SystemColors.Window;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -541,10 +542,10 @@
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.Color.DarkGray;
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button1.Font = new System.Drawing.Font("Tmon몬소리 Black", 15F, System.Drawing.FontStyle.Bold);
-            this.button1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.button1.ForeColor = System.Drawing.SystemColors.Window;
             this.button1.Location = new System.Drawing.Point(406, 0);
             this.button1.Margin = new System.Windows.Forms.Padding(0);
             this.button1.Name = "button1";
@@ -553,6 +554,8 @@
             this.button1.Text = "X";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.MouseLeave += new System.EventHandler(this.button1_MouseLeave);
+            this.button1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.button1_MouseMove);
             // 
             // label5
             // 
@@ -615,10 +618,10 @@
             // 
             // button2
             // 
-            this.button2.BackColor = System.Drawing.Color.DarkGray;
+            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button2.Font = new System.Drawing.Font("Tmon몬소리 Black", 15F, System.Drawing.FontStyle.Bold);
-            this.button2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.button2.ForeColor = System.Drawing.SystemColors.Window;
             this.button2.Location = new System.Drawing.Point(377, 0);
             this.button2.Margin = new System.Windows.Forms.Padding(0);
             this.button2.Name = "button2";
@@ -628,6 +631,8 @@
             this.button2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button2.MouseLeave += new System.EventHandler(this.button2_MouseLeave);
+            this.button2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.button2_MouseMove);
             // 
             // Main
             // 

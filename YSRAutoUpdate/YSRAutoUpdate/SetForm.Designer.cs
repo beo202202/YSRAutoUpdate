@@ -37,6 +37,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkBox10 = new System.Windows.Forms.CheckBox();
             this.checkBox9 = new System.Windows.Forms.CheckBox();
             this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.checkBox7 = new System.Windows.Forms.CheckBox();
@@ -58,7 +59,6 @@
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.checkBox10 = new System.Windows.Forms.CheckBox();
             this.button2 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -75,7 +75,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(233, 395);
+            this.button1.Location = new System.Drawing.Point(149, 474);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 2;
@@ -93,7 +93,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(182, 118);
+            this.groupBox1.Size = new System.Drawing.Size(212, 118);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "TETBL 설정";
@@ -168,10 +168,19 @@
             this.groupBox2.Controls.Add(this.textBox4);
             this.groupBox2.Location = new System.Drawing.Point(12, 136);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(182, 332);
+            this.groupBox2.Size = new System.Drawing.Size(215, 332);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "병의원 설정";
+            // 
+            // checkBox10
+            // 
+            this.checkBox10.AutoSize = true;
+            this.checkBox10.Location = new System.Drawing.Point(45, 294);
+            this.checkBox10.Name = "checkBox10";
+            this.checkBox10.Size = new System.Drawing.Size(15, 14);
+            this.checkBox10.TabIndex = 3;
+            this.checkBox10.UseVisualStyleBackColor = true;
             // 
             // checkBox9
             // 
@@ -336,27 +345,19 @@
             // 
             // openFileDialog1
             // 
+            this.openFileDialog1.AddExtension = false;
             this.openFileDialog1.DereferenceLinks = false;
             this.openFileDialog1.FileName = "openFileDialog1";
-            this.openFileDialog1.Filter = "모든 파일 (*.*)|*.*";
+            this.openFileDialog1.Filter = "Text documents (.txt)|*.txt";
             this.openFileDialog1.Title = "병의원 파일 선택";
-            // 
-            // checkBox10
-            // 
-            this.checkBox10.AutoSize = true;
-            this.checkBox10.Location = new System.Drawing.Point(45, 294);
-            this.checkBox10.Name = "checkBox10";
-            this.checkBox10.Size = new System.Drawing.Size(15, 14);
-            this.checkBox10.TabIndex = 3;
-            this.checkBox10.UseVisualStyleBackColor = true;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(233, 430);
+            this.button2.Location = new System.Drawing.Point(57, 474);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 5;
-            this.button2.Text = "button2";
+            this.button2.Text = "실행";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -364,7 +365,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(329, 484);
+            this.ClientSize = new System.Drawing.Size(245, 513);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);

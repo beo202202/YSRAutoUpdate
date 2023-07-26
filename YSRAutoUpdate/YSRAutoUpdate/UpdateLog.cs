@@ -54,10 +54,16 @@
 // 19 label과 tableLayoutTable 마우스 다운 시 창(handle) move 적용.
 // 20 화면 최상위 해제 기능, 최상위 이미지, taskbar 표시, 최소화, 아이콘 추가, 최상위 설정 저장, 버젼번호 추가, 로그 저장, 폼 실행 후부터 함수 실행.
 // 21 셋폼을 만드는 중...
+// 22 버튼을 마우스 가져가거나 벗어나면 배경색 변경
 */
 
-
+//Commonopenfiledialog 이용중.... 사용 설명서가 없나
+// x 표시 가까이 대면 빨갛게, -는 회색
 // 파일경로를 가져왔지만 lnk파일은 타겟 주소만 가져온다....
+// lnk파일 주소만 가져오는 것 성공! 
+// 학장자명을 제거 해 줄 수 없나?
+// 칸을 두 개 만들어서 주소는 숨길까?
+
 // 파일, 주소 = NuGet에서 WindowsAPICodePack-Core 1.2, WindowsAPICodePack-Core-Shell 1.2 설치
 
 // 텍스트박스 숫자만 입력가능하게 하였다. keypress+imemode(disable)
