@@ -43,9 +43,15 @@
 /*
 // 09-01 labelProgressBar1, 2 추가, DB 미연결 시 오류 추가, YSR2000 - SQL Anywhere 네트워크 서버, WATCOM SQL NT234c 비활성 DB 네트워크 추가, 자동모드 종료 추가
 // 09-05 여러가지 추가하였으나 추후 자세히 기재, 콤보값 변경 시 자동 변경 기능... 미구현
+// 09-06 이미지 오류, 파일 다시 추가로 해결, comboBox1.SelectedIndex = 0 으로 초기화 구현
+
 */
 
+// 09-06 메시지2 계산이 좀 걸리는 듯 함. 확인 해서 다시 바꿀지 결정해야할 듯.
+// 테스트1 메시지에서 테스트2 메시지로 왜 못 넘어가는가! 오른쪽이 더 작게 만들면 왜 안되는가! Index로 바꿔야하나
 
+
+// 서울안과, 보리수의원 등 DB 실행 기능 어떠한가
 // 설정창 투입, 저장, opacity 투명도 설정기능도 넣기 현재창 상대창
 // 업데이트 내역도 저장(성공내역)
 // Label 최대치도 수치 변경이 가능한가
@@ -104,60 +110,73 @@ namespace YSR
 
         private void comboBox1_SelectedIndexChanged(object sender, System.EventArgs e)
         {
-            int j=0;
-            j = Convert.ToInt32(comboBox1.SelectedItem);
+            MessageBox.Show(comboBox1.SelectedIndex.ToString());
+            
             //MessageBox.Show(j.ToString());
             //MessageBox.Show(Convert.ToInt32(comboBox1.SelectedItem).ToString());
-            comboBox1.Items.Clear();
-            for (int i = 5306; i <= Convert.ToInt32(comboBox2.SelectedItem); i++)
-            {
-                comboBox1.Items.Add(i);
-            }
-            comboBox1.Text = j.ToString();
-            MessageBox.Show(j.ToString());
-            MessageBox.Show(comboBox1.Text);
-            if (Convert.ToInt32(comboBox1.SelectedItem) > 0 && Convert.ToInt32(comboBox2.SelectedItem) > 0) // 값이 0이하면 캔슬하기
-            {     
-                int labelMAX2;
-                labelMAX2 = Convert.ToInt32(comboBox2.SelectedItem) - Convert.ToInt32(comboBox1.SelectedItem) + 1;
-                labelMAX = labelMAX2;
-                Config.SavaIniFile();
-                labelProgressBar1.Maximum = labelMAX;                
-            }
             //comboBox1.Items.Clear();
             //for (int i = 5306; i <= Convert.ToInt32(comboBox2.SelectedItem); i++)
             //{
             //    comboBox1.Items.Add(i);
-            //}           
-        }
-
-        int index1;
-        private void comboBox2_SelectedIndexChanged(object sender, System.EventArgs e)
-        {
+            //}
+            //comboBox1.Text = j.ToString();
+            //MessageBox.Show(j.ToString());
             //MessageBox.Show(comboBox1.Text);
-            if (index1 > 0)
+            if (Convert.ToInt32(comboBox1.SelectedItem) > 0 && Convert.ToInt32(comboBox2.SelectedItem) > 0) // 값이 0이하면 캔슬하기
             {
-                MessageBox.Show(comboBox1.Text);
-                int labelMAX2;
-                labelMAX2 = Convert.ToInt32(comboBox2.SelectedItem) - Convert.ToInt32(comboBox1.SelectedItem) + 1;
-                if (Convert.ToInt32(comboBox1.SelectedItem) > 0 && Convert.ToInt32(comboBox2.SelectedItem) > 0) // 값이 0이하면 캔슬하기
+                // 콤보1이 콤보2보다 크다면
+                if (Convert.ToInt32(comboBox1.SelectedItem) > Convert.ToInt32(comboBox2.SelectedItem))
                 {
-                    labelMAX = labelMAX2;
+                    MessageBox.Show("최소값이 최대값보다 큽니다.");
+                    //초기화하고 다시 정렬
+                    comboBox1.Items.Clear();
+                    for (int i = 5306; i <= Convert.ToInt32(comboBox2.SelectedItem); i++)
+                    {
+                        comboBox1.Items.Add(i);
+                    }                    
+                    Delay(1000);
+                    // 콤보1 초기값 설정
+                    comboBox1.SelectedIndex = 0;
+                }
+                else
+                {
+                    int labelMAX = Convert.ToInt32(comboBox2.SelectedItem) - Convert.ToInt32(comboBox1.SelectedItem) + 1;
                     Config.SavaIniFile();
                     labelProgressBar1.Maximum = labelMAX;
+                }
+            }        
+        }
 
-                    int j;
-                    j = Convert.ToInt32(comboBox1.SelectedItem);
-
-                    //comboBox1.Items.Clear();
-                    //for (int i = 5306; i <= Convert.ToInt32(comboBox2.SelectedItem); i++)
-                    //{
-                    //    comboBox1.Items.Add(i);
-                    //}
-                    //comboBox1.SelectedItem = j;
-                }                
+        private void comboBox2_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            //MessageBox.Show(comboBox2.SelectedIndex.ToString());
+            MessageBox.Show("테스트1");
+            MessageBox.Show(Convert.ToInt32(comboBox1.SelectedItem).ToString());
+            MessageBox.Show(Convert.ToInt32(comboBox2.SelectedItem).ToString());
+            if (Convert.ToInt32(comboBox1.SelectedItem) > 0 && Convert.ToInt32(comboBox2.SelectedItem) > 0) // 값이 0이하면 캔슬하기
+            {
+                MessageBox.Show("테스트2");
+                // 콤보1이 콤보2보다 크다면
+                if (Convert.ToInt32(comboBox1.SelectedItem) > Convert.ToInt32(comboBox2.SelectedItem))
+                {
+                    MessageBox.Show("최소값이 최대값보다 큽니다.");
+                    //초기화하고 다시 정렬
+                    comboBox1.Items.Clear();
+                    for (int i = 5306; i <= Convert.ToInt32(comboBox2.SelectedItem); i++)
+                    {
+                        comboBox1.Items.Add(i);
+                    }
+                    Delay(1000);
+                    // 콤보1 초기값 설정
+                    comboBox1.SelectedIndex = 0;
+                }
+                else
+                {
+                    int labelMAX = Convert.ToInt32(comboBox2.SelectedItem) - Convert.ToInt32(comboBox1.SelectedItem) + 1;
+                    Config.SavaIniFile();
+                    labelProgressBar1.Maximum = labelMAX;
+                }
             }
-            index1++;
         }
 
         private void Form_Load(object sender, EventArgs e)
@@ -171,7 +190,10 @@ namespace YSR
             {
                 comboBox1.Items.Add(i);
             }
-            comboBox1.Text = j.ToString();
+
+
+            //comboBox1.SelectedIndex = 0;
+            //comboBox1.Text = j.ToString();
             SetWindowPos(this.Handle, HWND_TOPMOST, 0, 0, 0, 0, WINDOW_FLAGS2);
 
             // 이벤트 핸들러 연결
@@ -216,7 +238,14 @@ namespace YSR
             {
                 progressBar.Invoke(new MethodInvoker(delegate ()
                 {
-                    progressBar.Value = value;
+                    try
+                    {
+                        progressBar.Value = value;
+                    }
+                    catch
+                    {
+                        MessageBox.Show("오류");
+                    }
                 }));
             }
             else
@@ -261,14 +290,12 @@ namespace YSR
                 bitMapList.Add(bp2);
                 bitMapList.Add(bp3);
                 bitMapList.Add(bp4);
+
+                l.Log(lboxLog, "이미지 불러오기 완료");
             }
             catch
             {
-                l.Log(lboxLog, "이미지 불러오기 오류");
-            }
-            finally
-            {
-                l.Log(lboxLog, "이미지 불러오기 완료");
+                l.Log(lboxLog, "이미지 파일이 없습니다.");
             }
         }
 
