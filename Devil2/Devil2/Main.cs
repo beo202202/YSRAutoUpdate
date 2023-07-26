@@ -3,8 +3,12 @@
 
 //2022-08-18 로그가 실행이 드디어 됨. 그러나 너무 길어진 거 같음. 그럴바에 메인에 로그 넣는게 낫지 않나
 
+// 2022-08-19 비활성 마우스 입력이 안되는 것 같다.
 //텍스트만 썼는데도 불구하고 메모리가 조금씩 올라간다 해결 방법은?
 
+
+//의사랑 창을 찾는데 상대 포인트위치가 안됨 ㅠ.ㅠ
+// 전체함수에 추가하기 l = null;                                                               // 3. 리소스 반환
 //로그도 있는지 없는지 확인하면서 계속 저장해야함. (파일명: yyyy-mm-dd)
 //저장 버튼 누르면 저장하기 >> 이후 값이 바뀔 때마다 저장하기 or 닫기 할 때마다 저장하기
 // 설정 창이 닫히면 메인 폼 위로 오게 하기?
@@ -27,6 +31,7 @@ using System.Runtime.InteropServices;
 using OpenCvSharp;
 using System.IO;
 using OpenCvSharp.Detail;
+using Devil2;
 
 namespace Devil2
 {
@@ -47,9 +52,10 @@ namespace Devil2
             //panel1.Controls.Add(ucPan1);
 
             string LogInfo = "시작되었습니다.";
-            lboxLog.Items.Insert(0, LogInfo);
-            l.Log(enLogLevel.Info, $"테스트" );
+            //lboxLog.Items.Insert(0, LogInfo);
+            l.Log(lboxLog, LogInfo);
             LogInfo = ".";
+            l = null;
         }
 
         #region del Event
@@ -65,13 +71,11 @@ namespace Devil2
         }
         #endregion
 
-
-        //테스트 비트맵 선언
-        Bitmap btMain;
+        
 
         public Main()
         {
-            
+
 
             InitializeComponent();
 
@@ -79,7 +83,7 @@ namespace Devil2
             //textBox1.SelectionStart = textBox1.Text.Length;
             //textBox1.ScrollToCaret();
 
-            
+
             이미지받아오기();
 
             //abc_Img[1] = new Bitmap(@"img\마을_영웅.PNG"); //이름을 모험 관련으로 바꾸기 @@@@@@@@@@@@@@@@@@@          
@@ -88,9 +92,13 @@ namespace Devil2
 
         private void 이미지받아오기()
         {
-            //bitMapList.Add(bp0);
-            //bitMapList.Add(bp1);
-            //bitMapList.Add(bp2);
+            Bitmap bp0 = new Bitmap(@"img\의사랑 업데이트\예(Y)_질문1.PNG", true);
+            Bitmap bp1 = new Bitmap(@"img\의사랑 업데이트\확인(Q)_정보.PNG", true);
+            Bitmap bp2 = new Bitmap(@"img\LDPlayer\LD 스토어.PNG", true);
+
+            bitMapList.Add(bp0);
+            bitMapList.Add(bp1);
+            bitMapList.Add(bp2);
             //bitMapList.Add(bp3);
             //bitMapList.Add(bp4);
             //bitMapList.Add(bp5);
@@ -98,11 +106,69 @@ namespace Devil2
             ////bitMapList.Add(bp7);
             //bitMapList.Add(bp8);
 
-            //pictureBox1.Image = bitMapList[0];
+            //pictureBox2.Image = bitMapList[0];
             //pictureBox2.Image = bitMapList[1];
             //pictureBox2.Image = bitMapList[2];
 
             //pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
+        }
+
+        public void 의사랑업데이트()
+        {
+            int i;
+            string b;
+            LogClass l = new LogClass();
+
+            의사랑질문();
+            b = "질문 찾기";            
+            i = searchIMGClick2(0, b);
+            if (i == 1)
+            {
+                l.Log(lboxLog, $"예(Y)");
+            }
+            Delay(2000);
+
+
+            의사랑정보();
+            b = "정보 찾기";
+            i = searchIMGClick2(1, b);
+            if (i == 1)
+            {
+                l.Log(lboxLog, $"확인(Q)");
+            }
+            //Delay(500);
+
+            l.Log(lboxLog, $"끝");
+        }
+
+        //x,y 값을 전달해주면 왼쪽클릭이벤트를 발생합니다.
+        public void InClick(int x, int y)
+        {
+            LogClass l = new LogClass();
+
+            //클릭이벤트를 발생시킬 플레이어를 찾습니다.
+            IntPtr findwindow = FindWindow(null, AppPlayerName);
+            if (findwindow != IntPtr.Zero)
+            {
+                //textBox1.AppendText("클릭 x= " + x + "y= " + y + "\r\n");
+                l.Log(lboxLog, "클릭 x= " + x + "y= " + y);
+                SetCursorPos(x, y);
+
+                Delay(100);
+                mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+                Delay(100);
+                mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+                Delay(50);
+
+                //플레이어를 찾았을 경우 클릭이벤트를 발생시킬 핸들을 가져옵니다.
+                //IntPtr hwnd_child = FindWindowEx(findwindow, IntPtr.Zero, "RenderWindow", "TheRender");
+                //IntPtr lparam = new IntPtr(x | (y << 16));
+
+                //플레이어 핸들에 클릭 이벤트를 전달합니다.
+                //SendMessage(hwnd_child, WM_LBUTTONDOWN, 1, lparam);
+                //SendMessage(hwnd_child, WM_LBUTTONUP, 0, lparam);
+            }
+            l = null;
         }
 
         //앱플레이어 선언
@@ -129,6 +195,18 @@ namespace Devil2
         [DllImport("user32.dll")]
         public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
         private const int SW_SHOWNORMAL = 1;
+
+        [DllImport("user32")]
+        public static extern Int32 SetCursorPos(Int32 x, Int32 y);
+
+        [DllImport("user32.dll")]
+        static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint dwData, int dwExtraInfo);
+
+        private const uint MOUSEEVENTF_LEFTDOWN = 0x0002;      // The left button is down.
+        private const uint MOUSEEVENTF_LEFTUP = 0x0004;        // The left button is up.
+
+        private const uint MOUSEEVENTF_RIGHTDOWN = 0x0008;      // The left button is down.
+        private const uint MOUSEEVENTF_RIGHTUP = 0x0010;        // The left button is up.
 
         [DllImport("User32.Dll", EntryPoint = "PostMessageA")]
         public static extern bool PostMessage(IntPtr hWnd, uint msg, int wParam, IntPtr lParam);
@@ -171,6 +249,7 @@ namespace Devil2
 
             //클릭이벤트를 발생시킬 플레이어를 찾습니다.
             IntPtr findwindow = FindWindow(null, AppPlayerName);
+            l.Log(lboxLog, AppPlayerName + "!!!!!!!!!!!!!!!!!!!!");
             if (findwindow != IntPtr.Zero)
             {
                 if (AppPlayerName == "LDPlayer")
@@ -184,14 +263,13 @@ namespace Devil2
 
                     //플레이어 핸들에 클릭 이벤트를 전달합니다.
                     SendMessage(hwnd_child, WM_LBUTTONDOWN, 1, lparam);
-
                     SendMessage(hwnd_child, WM_LBUTTONUP, 0, lparam);
                     //Delay(100);
 
                     //textBox1.AppendText("클릭" + "X= " + x + "  Y = " + y + "\r\n");
 
                 }
-                else if (AppPlayerName == "BlueStacks")
+                else if (AppPlayerName == "BlueStacks") //블루스택1인가 3인가
                 {
                     //플레이어를 찾았을 경우 클릭이벤트를 발생시킬 핸들을 가져옵니다.
                     //IntPtr hwnd_child = FindWindowEx(findwindow, IntPtr.Zero, "Qt5QWindowIcon", "ScreenBoardClassWindow");
@@ -204,6 +282,48 @@ namespace Devil2
                     //플레이어 핸들에 클릭 이벤트를 전달합니다.
                     SendMessage(hwnd_child, WM_LBUTTONDOWN, 1, lparam);
                     SendMessage(hwnd_child, WM_LBUTTONUP, 0, lparam);
+
+                    //textBox1.AppendText("클릭" + "X= " + x + "  Y = " + y + "\r\n");
+                }
+                else if (AppPlayerName == "질문")
+                {
+                    //플레이어를 찾았을 경우 클릭이벤트를 발생시킬 핸들을 가져옵니다.
+                    //IntPtr hwnd_child = FindWindowEx(findwindow, IntPtr.Zero, "Qt5QWindowIcon", "ScreenBoardClassWindow");
+                    IntPtr hwnd_child = FindWindowEx(findwindow, IntPtr.Zero, "TButton", "예(&Y)");
+
+                    //x = x - 7;
+                    //y = y - 46; //BlueStacks은 상단바의 길이를 빼줘야 한다.
+                    IntPtr lparam = new IntPtr(x | (y << 16));
+
+                    l.Log(lboxLog, "입력이 되나.");
+
+                    //플레이어 핸들에 클릭 이벤트를 전달합니다.
+                    SendMessage(findwindow, WM_LBUTTONDOWN, 1, lparam);
+                    SendMessage(findwindow, WM_LBUTTONUP, 0, lparam);
+
+                    //SendMessage(hwnd_child, WM_LBUTTONDOWN, 1, lparam);
+                    //SendMessage(hwnd_child, WM_LBUTTONUP, 0, lparam);
+
+                    //textBox1.AppendText("클릭" + "X= " + x + "  Y = " + y + "\r\n");
+                }
+                else if (AppPlayerName == "정보")
+                {
+                    //플레이어를 찾았을 경우 클릭이벤트를 발생시킬 핸들을 가져옵니다.
+                    //IntPtr hwnd_child = FindWindowEx(findwindow, IntPtr.Zero, "Qt5QWindowIcon", "ScreenBoardClassWindow");
+                    IntPtr hwnd_child = FindWindowEx(findwindow, IntPtr.Zero, "TButton", "확인(&O)");
+
+                    //x = x - 7;
+                    //y = y - 46; //BlueStacks은 상단바의 길이를 빼줘야 한다.
+                    IntPtr lparam = new IntPtr(x | (y << 16));
+
+                    l.Log(lboxLog, "입력이 되나.");
+
+                    //플레이어 핸들에 클릭 이벤트를 전달합니다.
+                    SendMessage(findwindow, WM_LBUTTONDOWN, 1, lparam);
+                    SendMessage(findwindow, WM_LBUTTONUP, 0, lparam);
+
+                    //SendMessage(hwnd_child, WM_LBUTTONDOWN, 1, lparam);
+                    //SendMessage(hwnd_child, WM_LBUTTONUP, 0, lparam);
 
                     //textBox1.AppendText("클릭" + "X= " + x + "  Y = " + y + "\r\n");
                 }
@@ -222,6 +342,8 @@ namespace Devil2
                 //    SendMessage(hwnd_child, WM_LBUTTONUP, 0, lparam);
                 //}
             }
+
+            l = null;
         }
 
         //서치이미지에 특정 좌표 사이만 찾는 기능을 넣기
@@ -307,7 +429,6 @@ namespace Devil2
                             {
                                 offsetY = 32;
                                 //maxloc.Y = maxloc.Y - offsetY; //녹스 플레이어는 상단바의 길이를 빼줘야 한다.
-                                IntPtr lparam = new IntPtr(maxloc.X | (maxloc.Y << 16));
                             }
                             else if (AppPlayerName == "BlueStacks")
                             {
@@ -315,26 +436,21 @@ namespace Devil2
                                 offsetY = 46;
                                 //maxloc.X = maxloc.X - offsetX;
                                 //maxloc.Y = maxloc.Y - offsetY; //BlueStacks은 상단바의 길이를 빼줘야 한다.
-                                IntPtr lparam = new IntPtr(maxloc.X | (maxloc.Y << 16));
                             }
+
+                            IntPtr lparam = new IntPtr(maxloc.X | (maxloc.Y << 16));
+
                             int click_x = maxloc.X + bitMapList[a].Width / 2 - offsetX;
                             int click_y = maxloc.Y + bitMapList[a].Height / 2 - offsetY;
 
                             //마우스클릭(click_x, click_y);
-                            //textBox1.Text += "클릭" + "X= " + click_x + "  Y = " + click_y + "\r\n";
-
                             //textBox1.AppendText("C" + "[ " + maxval + "%]" + b + "\r\n");
-                            l.Log(enLogLevel.Info, $"C" + "[ " + maxval + "%]" + b);
-                            //textBox1.AppendText(b + "\r\n");
+                            l.Log(lboxLog, $"C" + "[ " + maxval + "%]" + b);
                             i = 1;
                         }
                         else
                         {
-                            //textBox1.AppendText("F " + "[ " + maxval + "%]" + b + "\r\n");
-                            l.Log(enLogLevel.Info, $"F " + "[ " + maxval + "%]" + b);
-                            //textBox1.AppendText("이미지 찾지 못함2" + "\r\n");
-                            //textBox1.Text += "이미지 찾지 못함2" + "\r\n";
-                            //Delay(500);
+                            l.Log(lboxLog, $"F " + "[ " + maxval + "%]" + b);
                         }
                     }
                 }
@@ -343,7 +459,7 @@ namespace Devil2
                 {
                     //플레이어를 못찾을경우
                     //textBox1.AppendText("앱플레이어 못 찾았어요" + a + "." + "\r\n");
-                    l.Log(enLogLevel.Info, $"앱플레이어 못 찾았어요" + a + ".");
+                    l.Log(lboxLog, $"앱플레이어 못 찾았어요" + a + ".");
                     i = 0;
                 }
                 return i;
@@ -351,7 +467,7 @@ namespace Devil2
             catch
             {
                 //textBox1.AppendText("찾기오류\\searchIMG.\r\n");
-                l.Log(enLogLevel.Info, $"찾기오류\\searchIMG.");
+                l.Log(lboxLog, $"찾기오류\\searchIMG");
             }
             return i;
             //finally { }
@@ -466,14 +582,14 @@ namespace Devil2
                             //textBox1.Text += "클릭" + "X= " + click_x + "  Y = " + click_y + "\r\n";
 
                             //textBox1.AppendText("C" + "[ " + maxval + "%]" + b + "\r\n");
-                            l.Log(enLogLevel.Info, $"C" + "[ " + maxval + "%]" + b);
+                            l.Log(lboxLog, $"C" + "[ " + maxval + "%]" + b);
                             //textBox1.AppendText(b + "\r\n");
                             i = 1;
                         }
                         else
                         {
                             //textBox1.AppendText("F " + "[ " + maxval + "%]" + b + "\r\n");
-                            l.Log(enLogLevel.Info, $"F " + "[ " + maxval + "%]" + b);
+                            l.Log(lboxLog, $"F " + "[ " + maxval + "%]" + b);
                             //textBox1.AppendText("이미지 찾지 못함2" + "\r\n");
                             //textBox1.Text += "이미지 찾지 못함2" + "\r\n";
                             //Delay(500);
@@ -484,7 +600,7 @@ namespace Devil2
                 {
                     //플레이어를 못찾을경우
                     //textBox1.AppendText("앱플레이어 못 찾았어요" + a + "." + "\r\n");
-                    l.Log(enLogLevel.Info, $"앱플레이어 못 찾았어요" + a + ".");
+                    l.Log(lboxLog, $"앱플레이어 못 찾았어요" + a + ".");
                 }
             }
             catch
@@ -493,6 +609,185 @@ namespace Devil2
             }
             //finally { }
             return i;
+        }
+
+        //searchIMGClick에 스크린 이미지와 찾을 이미지 번호를 넣어줍니다.
+        public int searchIMGClick2(int a, String b)
+        {
+            //로그 클래스 개체 선언
+            LogClass l = new LogClass();
+
+            int i = 0;
+            try
+            {
+                IntPtr findwindow = FindWindow(null, AppPlayerName);
+                if (AppPlayerName != "" && findwindow != IntPtr.Zero)
+                {
+                    //플레이어를 찾았을 경우
+                    l.Log(lboxLog, $"윈도우 찾았어요.");
+
+                    //찾은 플레이어를 바탕으로 Graphics 정보를 가져옵니다.
+                    Graphics Graphicsdata = Graphics.FromHwnd(findwindow);
+
+                    //찾은 플레이어 창 크기 및 위치를 가져옵니다. 
+                    Rectangle rect = Rectangle.Round(Graphicsdata.VisibleClipBounds);
+
+                    //플레이어 창 크기 만큼의 비트맵을 선언해줍니다.
+                    rect.Width += 6;
+                    rect.Height += 26;
+                    Bitmap bmp = new Bitmap(rect.Width, rect.Height);
+
+                    l.Log(lboxLog, $"rect.Width = " + rect.Width + ", rect.Height = " + rect.Height);
+
+                    int nFlags = 0; //초기화
+
+                    OperatingSystem os = Environment.OSVersion; //시스템 os
+                    Version v = os.Version; //os 몇 인지
+                    if (v.Major == 10) //os는 10이다
+                    {
+                        nFlags = 0x2;
+                    }
+                    else //os 10 미만이다
+                    {
+                        nFlags = 0x0;
+                    }
+
+                    //비트맵을 바탕으로 그래픽스 함수로 선언해줍니다.
+                    using (Graphics g = Graphics.FromImage(bmp))
+                    {
+                        //찾은 플레이어의 크기만큼 화면을 캡쳐합니다.
+                        IntPtr hdc = g.GetHdc();
+                        PrintWindow(findwindow, hdc, nFlags);
+                        g.ReleaseHdc(hdc);
+                    }
+
+                    // pictureBox1 이미지를 표시해줍니다.
+                    if (pictureBox1.Image != null)
+                    {
+                        pictureBox1.Image.Dispose();
+                    }
+                    pictureBox1.Image = bmp;
+
+                    //pictureBox2 이미지를 표시해줍니다.
+                    if (pictureBox2.Image != null)
+                    {
+                        pictureBox2.Image.Dispose();
+                    }
+                    pictureBox3.Image = bitMapList[a];
+
+                    //스크린 이미지 선언
+                    using (Mat ScreenMat = OpenCvSharp.Extensions.BitmapConverter.ToMat(bmp))
+                    //찾을 이미지 선언
+                    using (Mat FindMat = OpenCvSharp.Extensions.BitmapConverter.ToMat(bitMapList[a]))
+                    //스크린 이미지에서 FindMat 이미지를 찾아라
+                    using (Mat res = ScreenMat.MatchTemplate(FindMat, TemplateMatchModes.CCoeffNormed))
+                    {
+                        //찾은 이미지의 유사도를 담을 더블형 최대 최소 값을 선언합니다.
+                        double minval, maxval = 0;
+                        //찾은 이미지의 위치를 담을 포인트형을 선업합니다.
+                        OpenCvSharp.Point minloc, maxloc;
+                        //찾은 이미지의 유사도 및 위치 값을 받습니다. 
+                        Cv2.MinMaxLoc(res, out minval, out maxval, out minloc, out maxloc);
+                        //textBox1.Text += "찾은 이미지의 유사도 : " + maxval + "\r\n";
+
+                        maxval = Math.Truncate(maxval * 100) / 100;
+                        Math.Truncate(maxval);
+                        maxval *= 100;
+
+
+                        //이미지를 찾았을 경우 클릭이벤트를 발생!!
+                        if (maxval >= 80)
+                        {
+                            int offsetX = 0;
+                            int offsetY = 0;
+                            if (AppPlayerName == "질문")
+                            {
+                                l.Log(lboxLog, $"질문창");
+                                //offsetX = 7;
+                                //offsetY = 20;
+                                //maxloc.Y = maxloc.Y - offsetY; //녹스 플레이어는 상단바의 길이를 빼줘야 한다.
+                                IntPtr lparam = new IntPtr(maxloc.X | (maxloc.Y << 16));
+                            }
+                            else if (AppPlayerName == "BlueStacks")
+                            {
+                                //offsetX = 7;
+                                offsetY = 46;
+                                //maxloc.X = maxloc.X - offsetX;
+                                //maxloc.Y = maxloc.Y - offsetY; //BlueStacks은 상단바의 길이를 빼줘야 한다.
+                                IntPtr lparam = new IntPtr(maxloc.X | (maxloc.Y << 16));
+                            }
+                            int click_x = maxloc.X + bitMapList[a].Width / 2 - offsetX;
+                            int click_y = maxloc.Y + bitMapList[a].Height / 2 - offsetY;
+
+                            l.Log(lboxLog, $"click_x = " + click_x + ", click_y = " + click_y);
+
+                            마우스클릭(click_x, click_y);
+
+                            //InClick(click_x, click_y);
+                            SetCursorPos(click_x, click_y);
+
+                            l.Log(lboxLog, $"C" + "[ " + maxval + "%]" + b);
+                            i = 1;
+                        }
+                        else
+                        {
+                            l.Log(lboxLog, $"F " + "[ " + maxval + "%]" + b);
+                        }
+                    }
+                }
+                else
+                {
+                    //플레이어를 못찾을경우
+                    //textBox1.AppendText("앱플레이어 못 찾았어요" + a + "." + "\r\n");
+                    l.Log(lboxLog, $"앱플레이어 못 찾았어요" + a + ".");
+                }
+            }
+            catch
+            {
+                //textBox1.AppendText("이미지 찾지 못함 or 오류2" + "\r\n");
+            }
+            //finally { }
+            return i;
+        }
+
+
+        private void 전체화면스크린샷()
+        {
+            // 비트맵 선언
+            Bitmap btMain;
+
+            //로그 클래스 개체 선언
+            LogClass l = new LogClass();
+
+            //Button btn = sender as Button;
+
+            //l.Log(lboxLog, $"{btn.Text} 버튼 Click");
+
+            btMain = new Bitmap(Screen.PrimaryScreen.Bounds.Width,
+                                Screen.PrimaryScreen.Bounds.Height);
+            l.Log(lboxLog, "Width = " + Screen.PrimaryScreen.Bounds.Width + ", Height = " + Screen.PrimaryScreen.Bounds.Height);
+            //Width = 1920, Height = 1080
+
+            using (Graphics g = Graphics.FromImage(btMain))
+            {
+                g.CopyFromScreen(Screen.PrimaryScreen.Bounds.X,
+                                        Screen.PrimaryScreen.Bounds.Y,
+                                        0, 0,
+                                        btMain.Size,
+                                        CopyPixelOperation.SourceCopy);
+                l.Log(lboxLog, "X = " + Screen.PrimaryScreen.Bounds.X + ", Y = " + Screen.PrimaryScreen.Bounds.Y); //X = 0, Y = 0
+                l.Log(lboxLog, "btMain.Size = " + btMain.Size); //{Width=1920, Height=1080}
+                l.Log(lboxLog, "CopyPixelOperation.SourceCopy = " + CopyPixelOperation.SourceCopy);
+                //CopyPixelOperation.SourceCopy = SourceCopy
+
+                //Picture Box Display
+                if (pictureBox1.Image != null)
+                {
+                    pictureBox1.Image.Dispose();
+                    pictureBox1.Image = null;
+                }
+                pictureBox1.Image = btMain;
+            }
         }
 
         #region Button Click
@@ -504,12 +799,14 @@ namespace Devil2
 
             Button btn = sender as Button;
 
-            l.Log(enLogLevel.Info, $"{btn.Text} 버튼 Click");
+            l.Log(lboxLog, $"{btn.Text} 버튼 Click");
 
             LDPlayer핸들();
+
+            l = null;                                                               // 3. 리소스 반환
         }
 
-        
+
 
 
         //텍스트 박스,리스트(로그)박스,이미지 지우기
@@ -518,7 +815,7 @@ namespace Devil2
             // 1. 로그 클래스 개체 선언
             LogClass l = new LogClass();
 
-            Button btn = sender as Button;            
+            Button btn = sender as Button;
 
             //textBox1.Text = "";
             lboxLog.Items.Clear();
@@ -534,7 +831,9 @@ namespace Devil2
             lboxLog.Items.Insert(0, l.Log($"{btn.Text} 버튼 Click"));
 
             //l.SetText2(lboxLog, $"{btn.Text} 버튼 Click");      // 2. 메소드 호출 .Text가 아님.
-            //l = null;                                                               // 3. 리소스 반환
+
+
+            l = null;                                                               // 3. 리소스 반환
 
         }
 
@@ -546,37 +845,26 @@ namespace Devil2
             LogClass l = new LogClass();
 
             Button btn = sender as Button;
+            int i;
+            string b;
 
-            l.Log(enLogLevel.Info, $"{btn.Text} 버튼 Click");
+            l.Log(lboxLog, $"{btn.Text} 버튼 Click");
+
+            b = "이미지찾기";
+            i = searchIMGClick(2, b);
+            if (i == 1)
+            {
+                l.Log(lboxLog, $"LD 스토어");
+            }
+            Delay(500);
+
+            l = null;
         }
 
         //스크린샷
         private void button5_Click(object sender, EventArgs e)
         {
-            //로그 클래스 개체 선언
-            LogClass l = new LogClass();
-
-            Button btn = sender as Button;
-
-            l.Log(enLogLevel.Info, $"{btn.Text} 버튼 Click");
-
-            btMain = new Bitmap(Screen.PrimaryScreen.Bounds.Width,
-                                Screen.PrimaryScreen.Bounds.Height);
-            using (Graphics g = Graphics.FromImage(btMain))
-            {
-                g.CopyFromScreen(Screen.PrimaryScreen.Bounds.X,
-                                        Screen.PrimaryScreen.Bounds.Y,
-                                        0, 0,
-                                        btMain.Size,
-                                        CopyPixelOperation.SourceCopy);
-                //Picture Box Display
-                if (pictureBox1.Image != null)
-                {
-                    pictureBox1.Image.Dispose();
-                    pictureBox1.Image = null;
-                }
-                pictureBox1.Image = btMain;
-            }
+            전체화면스크린샷();
         }
 
         //버튼6 클릭
@@ -587,14 +875,14 @@ namespace Devil2
 
             Button btn = sender as Button;
 
-            l.Log(enLogLevel.Info, $"{btn.Text} 버튼 Click");
+            l.Log(lboxLog, $"{btn.Text} 버튼 Click");
 
             IntPtr findwindow = FindWindow(null, AppPlayerName);
             if (AppPlayerName != "" && findwindow != IntPtr.Zero)
             {
                 //플레이어를 찾았을 경우
                 //textBox1.AppendText("앱플레이어 찾았습니다.\r\n");
-                //l.Log(enLogLevel.Info, $"앱플레이어를 찾았습니다.");
+                //l.Log(lboxLog, $"앱플레이어를 찾았습니다.");
                 try
                 {
                     //찾은 플레이어를 바탕으로 Graphics 정보를 가져옵니다.
@@ -606,19 +894,19 @@ namespace Devil2
                     //l.Log(enLogLevel.Info, $"rect: " + rect);
 
                     //LDPlayer 캡쳐오류
-                    if(AppPlayerName == "LDPlayer" && rect.Width != 1002 && rect.Height != 575)
+                    if (AppPlayerName == "LDPlayer" && rect.Width != 1002 && rect.Height != 575)
                     {
-                        l.Log(enLogLevel.Info, $"LDPlayer_캡쳐 오류_크기 오류");
-                        l.Log(enLogLevel.Info, $"LDPlayer_반복될 경우_크기 조절 바람");
+                        l.Log(lboxLog, $"LDPlayer_캡쳐 오류_크기 오류");
+                        l.Log(lboxLog, $"LDPlayer_반복될 경우_크기 조절 바람");
                     }
 
                     //BlueStacks 5 캡쳐오류
                     if (AppPlayerName == "BlueStacks App Player" && rect.Width == 0)
                     {
-                        l.Log(enLogLevel.Info, $"캡처 오류 원인_최소화");
+                        l.Log(lboxLog, $"캡처 오류 원인_최소화");
 
                         ShowWindow(findwindow, SW_SHOWNORMAL);
-                        l.Log(enLogLevel.Info, $"캡처 오류 원인_최소화_노멀조치");
+                        l.Log(lboxLog, $"캡처 오류 원인_최소화_노멀조치");
 
                         //찾은 플레이어를 바탕으로 Graphics 정보를 가져옵니다.
                         Graphicsdata = Graphics.FromHwnd(findwindow);
@@ -660,20 +948,20 @@ namespace Devil2
                     }
                     // pictureBox1 이미지를 표시해줍니다.
                     pictureBox1.Image = bmp;
-                    l.Log(enLogLevel.Info, $"캡처되었습니다.");
+                    l.Log(lboxLog, $"캡처되었습니다.");
                 }
                 catch
                 {
                     //폼 다시 노말로(최소화취소)
                     //this.WindowState = FormWindowState.Normal;
-                    l.Log(enLogLevel.Info, $"앱플레이어 찾음_캡쳐 오류");
+                    l.Log(lboxLog, $"앱플레이어 찾음_캡쳐 오류");
                 }
             }
             else
             {
                 //플레이어를 못찾을경우
                 //textBox1.AppendText("앱플레이어 못 찾았어요.\r\n");
-                l.Log(enLogLevel.Info, $"앱플레이어를 못 찾았습니다.");
+                l.Log(lboxLog, $"앱플레이어를 못 찾았습니다.");
             }
         }
 
@@ -685,7 +973,7 @@ namespace Devil2
 
             Button btn = sender as Button;
 
-            l.Log(enLogLevel.Info, $"{btn.Text} 버튼 Click");
+            l.Log(lboxLog, $"{btn.Text} 버튼 Click");
 
             //panel1.Controls.Clear();
             //panel1.Controls.Add(ucPan2);
@@ -712,46 +1000,79 @@ namespace Devil2
 
         }
 
-        private void btnSet2_Click(object sender, EventArgs e)
+        // LD 테스트
+        private void button8_Click(object sender, EventArgs e)
         {
-            // 로그 클래스 개체 선언
-            // 1. 인스턴스 생성
+            LDPlayer핸들();
+            
+        }
+
+        // 의사랑 테스트
+        private void button9_Click(object sender, EventArgs e)
+        {
+            //로그 클래스 개체 선언
             LogClass l = new LogClass();
 
             Button btn = sender as Button;
+            l.Log(lboxLog, $"{btn.Text} 버튼 Click");
 
-            //MessageBox.Show(enLogLevel.Info.ToString()) ;
-
-            //eLogSender("닫기 버튼", enLogLevel.Info, "Button Click");
-
-            //l.Log(enLogLevel.Info, $"{btn.Text} 버튼 Click");
-
-            //Application.Exit();
-
-            // 전후 비교를 위해 내용을 비웁니다.
-            //textBox1.Text = "";
-            //lboxLog.Items.Clear();
-
-            // MyClass 인스턴스를 만들고, 메소드에 처리를 요청합니다. 
-            //LogClass l = new LogClass();                          // 1. 인스턴스 생성
-            //logclass.SetText(textBox1, $"{btn.Text} 버튼 Click");      // 2. 메소드 호출 .Text가 아님
-            //logclass = null;                                                               // 3. 리소스 반환
-
-            l.SetText2(lboxLog, $"{btn.Text} 버튼 Click");      // 2. 메소드 호출 .Text가 아님
-            l = null;                                                               // 3. 리소스 반환
-
-            // 메시지가 찍혔는지 확인해 봅니다.
-            //MessageBox.Show(lboxLog.ToString());
-
-            //panel1.Controls.Clear();
-            //panel1.Controls.Add(ucPan1);
-            //panel1.Controls.Remove(ucPan2);
+            의사랑업데이트();
         }
+
         #endregion Button Click
 
 
 
         #region handle
+        public void 의사랑질문()
+        {
+            //로그 클래스 개체 선언
+            LogClass l = new LogClass();
+
+            //앱플레이어: 의사랑_질문
+            AppPlayerName = "질문";
+            IntPtr hd1 = FindWindow("TMessageForm", "질문");
+            IntPtr hd2 = FindWindowEx(hd1, IntPtr.Zero, "TButton", "예(&Y)");
+
+            //IntPtr hd3 = FindWindowEx(hd2, IntPtr.Zero, "subWin", "sub");
+
+            if (hd1 != IntPtr.Zero)
+            {
+                //textBox1.AppendText("부모:    " + hd1.ToString() + "\r\n자식1:  " + hd2.ToString() + "\r\n자식2:  " + hd3.ToString() + "\r\n");
+                l.Log(lboxLog, $"부모:    " + hd1.ToString() + "\r\n자식1:  " + hd2.ToString()); // + "\r\n자식2:  " + hd3.ToString());
+            }
+            else
+            {
+                //못 찾은 경우
+                l.Log(lboxLog, $"질문 창을 못 찼았어요.");
+            }
+        }
+
+        public void 의사랑정보()
+        {
+            //로그 클래스 개체 선언
+            LogClass l = new LogClass();
+
+            //앱플레이어: 의사랑_정보
+            AppPlayerName = "정보";
+            IntPtr hd1 = FindWindow("TMessageForm", "정보");
+            IntPtr hd2 = FindWindowEx(hd1, IntPtr.Zero, "TButton", "확인(&O)");
+
+            //IntPtr hd3 = FindWindowEx(hd2, IntPtr.Zero, "subWin", "sub");
+
+            if (hd1 != IntPtr.Zero)
+            {
+                //textBox1.AppendText("부모:    " + hd1.ToString() + "\r\n자식1:  " + hd2.ToString() + "\r\n자식2:  " + hd3.ToString() + "\r\n");
+                l.Log(lboxLog, $"부모:    " + hd1.ToString() + "\r\n자식1:  " + hd2.ToString()); // + "\r\n자식2:  " + hd3.ToString());
+            }
+            else
+            {
+                //못 찾은 경우
+                l.Log(lboxLog, $"정보 창을 못 찼았어요.");
+            }
+        }
+
+
         //블루스택 핸들 설정
         private void button2_Click(object sender, EventArgs e)
         {
@@ -760,7 +1081,7 @@ namespace Devil2
 
             Button btn = sender as Button;
 
-            l.Log(enLogLevel.Info, $"{btn.Text} 버튼 Click");
+            l.Log(lboxLog, $"{btn.Text} 버튼 Click");
             //앱플레이어 이름
             //AppPlayerName = "BlueStacks";     //블루스택3
             AppPlayerName = "BlueStacks App Player";        //블루스택5
@@ -788,13 +1109,13 @@ namespace Devil2
             if (hd1 != IntPtr.Zero)
             {
                 //textBox1.AppendText("부모:    " + hd1.ToString() + "\r\n자식1:  " + hd2.ToString() + "\r\n자식2:  " + hd3.ToString() + "\r\n");
-                l.Log(enLogLevel.Info, $"부모:    " + hd1.ToString() + "\r\n자식1:  " + hd2.ToString() + "\r\n자식2:  " + hd3.ToString());
+                l.Log(lboxLog, $"부모:    " + hd1.ToString() + "\r\n자식1:  " + hd2.ToString() + "\r\n자식2:  " + hd3.ToString());
             }
             else
             {
                 //못 찾은 경우
                 //textBox1.AppendText("블루스택창을 못 찼았어요.\r\n");
-                l.Log(enLogLevel.Info, $"블루스택창을 못 찼았어요.");
+                l.Log(lboxLog, $"블루스택창을 못 찼았어요.");
             }
         }
 
@@ -831,13 +1152,13 @@ namespace Devil2
             if (hd1 != IntPtr.Zero)
             {
                 //textBox1.AppendText("부모:    " + hd1.ToString() + "\r\n자식1:  " + hd2.ToString() + "\r\n자식2:  " + hd3.ToString() + "\r\n");
-                l.Log(enLogLevel.Info, $"부모:    " + hd1.ToString() + "\r\n자식1:  " + hd2.ToString() + "\r\n자식2:  " + hd3.ToString());
+                l.Log(lboxLog, $"부모:    " + hd1.ToString() + "\r\n자식1:  " + hd2.ToString() + "\r\n자식2:  " + hd3.ToString());
             }
             else
             {
                 //못 찾은 경우
                 //textBox1.AppendText("LDPlayer창을 못 찼았어요.\r\n");
-                l.Log(enLogLevel.Info, $"LDPlayer창을 못 찼았어요.");
+                l.Log(lboxLog, $"LDPlayer창을 못 찼았어요.");
             }
         }
         #endregion handle
@@ -933,7 +1254,7 @@ namespace Devil2
                         Math.Truncate(maxval);
                         maxval *= 100;
                         //textBox1.AppendText("F " + "[ " + maxval + "%]");
-                        l.Log(enLogLevel.Info, $"F " + "[ " + maxval + "%]");
+                        l.Log(lboxLog, $"F " + "[ " + maxval + "%]");
 
                         //이미지를 찾았을 경우 클릭이벤트를 발생!!
                         if (maxval >= 60)
@@ -959,14 +1280,14 @@ namespace Devil2
 
                             //마우스클릭(click_x, click_y);
                             //textBox1.AppendText("[위치" + "X= " + click_x + " Y = " + click_y + "]\r\n");
-                            l.Log(enLogLevel.Info, $"[위치" + "X= " + click_x + " Y = " + click_y);
+                            l.Log(lboxLog, $"[위치" + "X= " + click_x + " Y = " + click_y);
 
                             i = 1;
                         }
                         else
                         {
                             //textBox1.AppendText("이미지 찾지 못함1" + "\r\n");
-                            l.Log(enLogLevel.Info, $"이미지 찾지 못함1");
+                            l.Log(lboxLog, $"이미지 찾지 못함1");
 
                             i = 0;
                         }
@@ -976,14 +1297,14 @@ namespace Devil2
                 catch
                 {
                     //textBox1.AppendText("찾기오류\\searchIMGAdv.\r\n");
-                    l.Log(enLogLevel.Info, $"찾기오류\\searchIMGAdv.");
+                    l.Log(lboxLog, $"찾기오류\\searchIMGAdv.");
                 }
             }
             else
             {
                 //플레이어를 못찾을경우
                 //textBox1.AppendText("앱플레이어 못 찾았어요.\r\n");
-                l.Log(enLogLevel.Info, $"앱플레이어 못 찾았어요.");
+                l.Log(lboxLog, $"앱플레이어 못 찾았어요.");
                 i = 0;
             }
 
@@ -1014,5 +1335,6 @@ namespace Devil2
         {
 
         }
+
     }
 }

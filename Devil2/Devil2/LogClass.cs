@@ -15,7 +15,15 @@ namespace Devil2
         // panel 선언
         ucPanel.ucPanel1 ucPan1 = new ucPanel.ucPanel1();
         ucPanel.ucPanel2 ucPan2 = new ucPanel.ucPanel2();
-        
+
+        //ucPan1.eLogSender += ucPan1_eLogSender;
+
+        // 필드
+        //private DateTime dTime; // = DateTime.Now;        
+        private enLogLevel eLevel;
+        private string LogDesc;
+        private string LogInfo;
+
         // 메서드를 하나 만들어 기능을 제공합니다.
         public void SetText(object box, string message)
         {
@@ -31,7 +39,7 @@ namespace Devil2
         }
 
         // 메서드를 하나 만들어 기능을 제공합니다.
-        public void SetText2(object box, string message)
+        public void Log(object box, string message)
         {
 
             // 전달된 매개 변수를 TextBox로 형변환 합니다.
@@ -54,13 +62,7 @@ namespace Devil2
             //MessageBox.Show(box.ToString());
         }
 
-        //ucPan1.eLogSender += ucPan1_eLogSender;
-
-        // 필드
-        //private DateTime dTime; // = DateTime.Now;        
-        private enLogLevel eLevel;
-        private string LogDesc;
-        private string LogInfo;
+        
 
         /*
         // 프로퍼티
