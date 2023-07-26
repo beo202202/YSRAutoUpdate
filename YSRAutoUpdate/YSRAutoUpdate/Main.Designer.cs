@@ -43,6 +43,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.labelProgressBar2 = new YSRAutoUpdate.LabelProgressBar();
+            this.labelProgressBar1 = new YSRAutoUpdate.LabelProgressBar();
             this.button9 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.lboxLog = new System.Windows.Forms.ListBox();
@@ -54,8 +56,6 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button2 = new System.Windows.Forms.Button();
-            this.labelProgressBar2 = new YSRAutoUpdate.LabelProgressBar();
-            this.labelProgressBar1 = new YSRAutoUpdate.LabelProgressBar();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -142,6 +142,7 @@
             // comboBox4
             // 
             this.comboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox4.Enabled = false;
             this.comboBox4.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.comboBox4.FormattingEnabled = true;
             this.comboBox4.Items.AddRange(new object[] {
@@ -156,16 +157,9 @@
             // comboBox3
             // 
             this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox3.Enabled = false;
             this.comboBox3.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Items.AddRange(new object[] {
-            "서울안과",
-            "보리수의원2014",
-            "중앙진단방사선과",
-            "이상용내과",
-            "다나의원",
-            "손정형외과",
-            "인성의원"});
             this.comboBox3.Location = new System.Drawing.Point(299, 46);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(121, 20);
@@ -175,6 +169,7 @@
             // comboBox2
             // 
             this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox2.Enabled = false;
             this.comboBox2.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.comboBox2.FormattingEnabled = true;
             this.comboBox2.Location = new System.Drawing.Point(354, 20);
@@ -182,11 +177,12 @@
             this.comboBox2.Size = new System.Drawing.Size(66, 20);
             this.comboBox2.TabIndex = 26;
             this.comboBox2.SelectionChangeCommitted += new System.EventHandler(this.comboBox2_SelectionChangeCommitted);
-            this.comboBox2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.comboBox2_MouseDown);
+            this.comboBox2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.comboBox2_MouseMove);
             // 
             // comboBox1
             // 
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.Enabled = false;
             this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(262, 20);
@@ -194,7 +190,7 @@
             this.comboBox1.Size = new System.Drawing.Size(66, 20);
             this.comboBox1.TabIndex = 25;
             this.comboBox1.SelectionChangeCommitted += new System.EventHandler(this.comboBox1_SelectionChangeCommitted);
-            this.comboBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.comboBox1_MouseUp);
+            this.comboBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.comboBox1_MouseMove);
             // 
             // radioButton3
             // 
@@ -253,6 +249,36 @@
             this.radioButton1.TabStop = true;
             this.radioButton1.Text = "자동 업데이트";
             this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // labelProgressBar2
+            // 
+            this.labelProgressBar2.CustomText = "";
+            this.labelProgressBar2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelProgressBar2.Location = new System.Drawing.Point(0, 413);
+            this.labelProgressBar2.Margin = new System.Windows.Forms.Padding(0);
+            this.labelProgressBar2.Name = "labelProgressBar2";
+            this.labelProgressBar2.ProgressColor = System.Drawing.Color.LightGreen;
+            this.labelProgressBar2.Size = new System.Drawing.Size(435, 15);
+            this.labelProgressBar2.TabIndex = 25;
+            this.labelProgressBar2.TextColor = System.Drawing.Color.Black;
+            this.labelProgressBar2.TextFont = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold);
+            this.labelProgressBar2.VisualMode = YSRAutoUpdate.ProgressBarDisplayMode.CurrProgress;
+            // 
+            // labelProgressBar1
+            // 
+            this.labelProgressBar1.CustomText = "";
+            this.labelProgressBar1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelProgressBar1.Location = new System.Drawing.Point(0, 398);
+            this.labelProgressBar1.Margin = new System.Windows.Forms.Padding(0);
+            this.labelProgressBar1.MarqueeAnimationSpeed = 1000;
+            this.labelProgressBar1.Maximum = 84;
+            this.labelProgressBar1.Name = "labelProgressBar1";
+            this.labelProgressBar1.ProgressColor = System.Drawing.Color.LightGreen;
+            this.labelProgressBar1.Size = new System.Drawing.Size(435, 15);
+            this.labelProgressBar1.TabIndex = 24;
+            this.labelProgressBar1.TextColor = System.Drawing.Color.Black;
+            this.labelProgressBar1.TextFont = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold);
+            this.labelProgressBar1.VisualMode = YSRAutoUpdate.ProgressBarDisplayMode.CurrProgress;
             // 
             // button9
             // 
@@ -338,7 +364,7 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(64, 30);
             this.label6.TabIndex = 5;
-            this.label6.Text = "v0.947";
+            this.label6.Text = "v0.948";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label6.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label6_MouseDown);
             // 
@@ -435,36 +461,6 @@
             this.button2.Click += new System.EventHandler(this.button2_Click);
             this.button2.MouseLeave += new System.EventHandler(this.button2_MouseLeave);
             this.button2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.button2_MouseMove);
-            // 
-            // labelProgressBar2
-            // 
-            this.labelProgressBar2.CustomText = "";
-            this.labelProgressBar2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelProgressBar2.Location = new System.Drawing.Point(0, 413);
-            this.labelProgressBar2.Margin = new System.Windows.Forms.Padding(0);
-            this.labelProgressBar2.Name = "labelProgressBar2";
-            this.labelProgressBar2.ProgressColor = System.Drawing.Color.LightGreen;
-            this.labelProgressBar2.Size = new System.Drawing.Size(435, 15);
-            this.labelProgressBar2.TabIndex = 25;
-            this.labelProgressBar2.TextColor = System.Drawing.Color.Black;
-            this.labelProgressBar2.TextFont = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold);
-            this.labelProgressBar2.VisualMode = YSRAutoUpdate.ProgressBarDisplayMode.CurrProgress;
-            // 
-            // labelProgressBar1
-            // 
-            this.labelProgressBar1.CustomText = "";
-            this.labelProgressBar1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelProgressBar1.Location = new System.Drawing.Point(0, 398);
-            this.labelProgressBar1.Margin = new System.Windows.Forms.Padding(0);
-            this.labelProgressBar1.MarqueeAnimationSpeed = 1000;
-            this.labelProgressBar1.Maximum = 84;
-            this.labelProgressBar1.Name = "labelProgressBar1";
-            this.labelProgressBar1.ProgressColor = System.Drawing.Color.LightGreen;
-            this.labelProgressBar1.Size = new System.Drawing.Size(435, 15);
-            this.labelProgressBar1.TabIndex = 24;
-            this.labelProgressBar1.TextColor = System.Drawing.Color.Black;
-            this.labelProgressBar1.TextFont = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold);
-            this.labelProgressBar1.VisualMode = YSRAutoUpdate.ProgressBarDisplayMode.CurrProgress;
             // 
             // Main
             // 

@@ -34,18 +34,25 @@ namespace YSR
             LogClass l = new LogClass();
 
             l.Log(lboxLog, "프로그램을 시작합니다.");
-            Delay(500);
+            //Delay(500);
             l.Log(lboxLog, "시작");
-            Delay(100);
+            //Delay(100);
             l.Log(lboxLog, "시작");
-            Delay(100);
+            //Delay(100);
 
             이미지받아오기();
 
             l.Log(lboxLog, "환경설정을 불러 오는 중...");
+            환경설정2();
             Config.LoadIniFile();
             환경설정();
             l.Log(lboxLog, "환경설정을 불러 왔습니다.");
+            
+
+            comboBox1.Enabled = true;
+            comboBox2.Enabled = true;
+            comboBox3.Enabled = true;
+            comboBox4.Enabled = true;
 
             l.Log(lboxLog, "준비완료");
 
@@ -57,15 +64,15 @@ namespace YSR
             //로그 클래스 개체 선언
             LogClass l = new LogClass();
 
-            (string sTETBLMIN, string sTETBLMAX, 
+            (string sTETBLMIN, string sTETBLMAX,
                 string sTETBLPATH, string sTETBLSMIN, string sTETBLSMAX,
-            string sCHECK1, string sCHECK2, string sCHECK3, string sCHECK4, string sCHECK5, 
+            string sCHECK1, string sCHECK2, string sCHECK3, string sCHECK4, string sCHECK5,
             string sCHECK6, string sCHECK7, string sCHECK8, string sCHECK9, string sCHECK10,
             string sNAME1, string sNAME2, string sNAME3, string sNAME4, string sNAME5,
             string sNAME6, string sNAME7, string sNAME8, string sNAME9, string sNAME10,
             string sCLINIC1PATH, string sCLINIC2PATH, string sCLINIC3PATH, string sCLINIC4PATH, string sCLINIC5PATH,
             string sCLINIC6PATH, string sCLINIC7PATH, string sCLINIC8PATH, string sCLINIC9PATH, string sCLINIC10PATH)
-            = Config.LoadIniFile0();                   
+            = Config.LoadIniFile0();
 
             //+(오류) 현재값이 없는 초기값이라면? 콤보1,콤보2가 0이다....
             // 콤보1 값이 0 
@@ -79,10 +86,10 @@ namespace YSR
             //MessageBox.Show("COM_MAX = " + COM_MAX);
 
             //+(오류) sTETBLSMIN 설정값이 지금 설정보다 높을 경우 값을 초기화 해야한다.
-            
+
             //MessageBox.Show(sTETBLMAX);
             comboBox1.Items.Clear();
-            if(COM_MIN == 0 || COM_MAX == 0 || COM_MIN < Convert.ToInt32(sTETBLSMIN)
+            if (COM_MIN == 0 || COM_MAX == 0 || COM_MIN < Convert.ToInt32(sTETBLSMIN)
                 || Convert.ToInt32(sTETBLSMAX) < COM_MAX || COM_MAX < COM_MIN)
             {
                 if (COM_MIN == 0)
@@ -106,19 +113,19 @@ namespace YSR
                     l.Log(lboxLog, "초기화(사유: 최소 현재값이 최소 설정값보다 작습니다.)");
                 }
                 for (int i = Convert.ToInt32(sTETBLSMIN); i <= Convert.ToInt32(sTETBLSMAX); i++)
-                {                    
+                {
                     comboBox1.Items.Add(i);
                 }
                 comboBox1.SelectedIndex = 0; // 초기화
                 l.Log(lboxLog, "최소 TETBL" + comboBox1.SelectedItem + "로 초기화되었습니다.");
-                COM_MIN = Convert.ToInt32(comboBox1.SelectedItem);                
+                COM_MIN = Convert.ToInt32(comboBox1.SelectedItem);
                 Config.SavaIniFile();
             }
             else // 값이 이상이 없다면
             {
                 for (int i = Convert.ToInt32(sTETBLSMIN); i <= COM_MAX; i++)
                 {
-                    comboBox1.Items.Add(i);                    
+                    comboBox1.Items.Add(i);
                 }
                 comboBox1.SelectedItem = COM_MIN;
             }
@@ -164,6 +171,71 @@ namespace YSR
             //MessageBox.Show("labelMAX = " + labelMAX);
             labelProgressBar1.Maximum = labelMAX;
 
+            l = null;
+        }
+
+        private void 환경설정2()
+        {
+            LogClass l = new LogClass();
+
+            (string sTETBLMIN, string sTETBLMAX,
+                string sTETBLPATH, string sTETBLSMIN, string sTETBLSMAX,
+            string sCHECK1, string sCHECK2, string sCHECK3, string sCHECK4, string sCHECK5,
+            string sCHECK6, string sCHECK7, string sCHECK8, string sCHECK9, string sCHECK10,
+            string sNAME1, string sNAME2, string sNAME3, string sNAME4, string sNAME5,
+            string sNAME6, string sNAME7, string sNAME8, string sNAME9, string sNAME10,
+            string sCLINIC1PATH, string sCLINIC2PATH, string sCLINIC3PATH, string sCLINIC4PATH, string sCLINIC5PATH,
+            string sCLINIC6PATH, string sCLINIC7PATH, string sCLINIC8PATH, string sCLINIC9PATH, string sCLINIC10PATH)
+            = Config.LoadIniFile0();
+
+            // 설정값이 바뀌면 인덱스값이 바뀐다.... 생각해야한다.
+
+            
+            comboBox3.Items.Clear();
+            //comboBox3.Items.Add("아무것도 없습니다.");
+            if (sCHECK1 == "True")
+            {
+                comboBox3.Items.Add(sNAME1);
+            }
+            if (sCHECK2 == "True")
+            {
+                comboBox3.Items.Add(sNAME2);
+            }
+            if (sCHECK3 == "True")
+            {
+                comboBox3.Items.Add(sNAME3);
+            }
+            if (sCHECK4 == "True")
+            {
+                comboBox3.Items.Add(sNAME4);
+            }
+            if (sCHECK5 == "True")
+            {
+                comboBox3.Items.Add(sNAME5);
+            }
+            if (sCHECK6 == "True")
+            {
+                comboBox3.Items.Add(sNAME6);
+            }
+            if (sCHECK7 == "True")
+            {
+                comboBox3.Items.Add(sNAME7);
+            }
+            if (sCHECK8 == "True")
+            {
+                comboBox3.Items.Add(sNAME8);
+            }
+            if (sCHECK9 == "True")
+            {
+                comboBox3.Items.Add(sNAME9);
+            }
+            if (sCHECK10 == "True")
+            {
+                comboBox3.Items.Add(sNAME10);
+            }
+            
+
+            //comboBox3.SelectedIndex = 0;
             l = null;            
         }
 
@@ -196,11 +268,6 @@ namespace YSR
             환경설정();
 
             l = null;
-        }
-
-        private void comboBox2_MouseDown(object sender, MouseEventArgs e)
-        {
-            환경설정();
         }
 
         private void comboBox3_SelectionChangeCommitted(object sender, EventArgs e) // 값을 사용자가 선택할 경우에
@@ -903,10 +970,19 @@ namespace YSR
         private void button3_Click(object sender, EventArgs e)
         {
             // 설정 창 올리기
-            SetForm frm = new SetForm();
-            
-            frm.StartPosition = FormStartPosition.CenterScreen;
-            frm.ShowDialog();
+            //SetForm frm = new SetForm();
+
+            //frm.StartPosition = FormStartPosition.CenterScreen;
+            //frm.ShowDialog();
+
+            using (SetForm frm = new SetForm())
+            {
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+                    // update datagrid
+                    //...
+                }
+            }
         }
 
         // 의사랑 자동 업데이트
@@ -1046,7 +1122,12 @@ namespace YSR
             }
         }
 
-        private void comboBox1_MouseUp(object sender, MouseEventArgs e)
+        private void comboBox1_MouseMove(object sender, MouseEventArgs e)
+        {
+            환경설정();
+        }
+
+        private void comboBox2_MouseMove(object sender, MouseEventArgs e)
         {
             환경설정();
         }
