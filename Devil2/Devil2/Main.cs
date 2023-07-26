@@ -8,7 +8,14 @@
 // 2022-08-22 키보드 입력 대신 SendMessage 버튼 클릭으로 대체
 // 2022-08-24 32비트로 이미지 교체 완료, 이미지 비교 시 32비트로 비교를 해야하는데 24비트는 안된다. 캡처 도구 로만 캡처하자(알캡처, 포토샵 안됨 ㅠ.ㅠ)
 // 2022-08-24 24비트로 비교하려면 비트 변환을 해야한다.
-// 2022-08-24 AppPlayerName을 쓰는 지역변수가 있었기에 변경 해주니 전역변수로 공유 할 수 있었다.
+// 2022-08-24 AppPlayerName을 쓰는 지역변수가 있어서 공유를 할 수 없었다. 변경 해주니 전역변수로 공유 할 수 있었다.
+
+// 2022-08-25 while문 중 두 줄이상에서 값이 변했는데 안나오는 이유를 모르겠다. >> while문은 반복을 완료하고 값을 검사한다.
+// 2022-08-25 while문에서 SendMessage랑 잘 안맞는가 보다. 계속 멈추는 이유를 찾았다. PostMessage로 바꾸니 작동을 한다.
+// 2022-08-25 한꺼번에 업데이트가 안되어 하나씩 업데이트 하기로 하였다.
+
+// 2022-08-25 창 찾는중...3 에서 종료되어 넘어가지 않고 무한 루프를 한다.
+
 
 // NuGet 패키지 정리하여 용량을 줄이기 (필수는 제외, 예.OpenCV)
 //업데이트 정보창에서 자동 클릭 
@@ -31,6 +38,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics; // 외부 프로그램 실행
 using System.Drawing;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -220,7 +228,7 @@ namespace Devil2
         public static extern int SendMessage(IntPtr hWnd, uint msg, int wParam, IntPtr lParam);
         const int WM_LBUTTONDOWN = 0x0201; // 마우스 다운
         const int WM_LBUTTONUP = 0x0202; //마우스 업
-        const int BM_CLICK = 0x00F5; // 버튼 클릭
+        const int BM_CLICK = 0x00F5; // 버튼 클릭        
 
 
 
@@ -361,7 +369,7 @@ namespace Devil2
             //로그 클래스 개체 선언
             LogClass l = new LogClass();
 
-            l.Log(lboxLog, "AppPlayerName :" + AppPlayerName);
+            //l.Log(lboxLog, "AppPlayerName :" + AppPlayerName);
 
             int i = 0;
             try
@@ -438,6 +446,7 @@ namespace Devil2
                         else
                         {
                             l.Log(lboxLog, $"F " + "[ " + maxval + "%]" + b);
+                            i = 0;
                         }
                     }
                 }
@@ -447,7 +456,6 @@ namespace Devil2
                     //플레이어를 못찾을경우
                     l.Log(lboxLog, $"앱플레이어 못 찾았어요" + a + ".");
                     i = 0;
-                    return i;
                 }
             }
             catch (OpenCvSharp.OpenCVException)
@@ -1026,7 +1034,8 @@ namespace Devil2
 
             //MessageBox.Show(enLogLevel.Info.ToString());
 
-            lboxLog.Items.Insert(0, l.Log($"{btn.Text} 버튼 Click"));
+            //lboxLog.Items.Insert(0, l.Log($"{btn.Text} 버튼 Click"));
+            l.Log(lboxLog, $"{btn.Text} 버튼 Click");
 
             //l.SetText2(lboxLog, $"{btn.Text} 버튼 Click");      // 2. 메소드 호출 .Text가 아님.
 
@@ -1207,7 +1216,7 @@ namespace Devil2
 
             if (radioButton1.Checked)
             {
-                의사랑핸들("질문", 0);
+                의사랑핸들("질문", 1);
             }
             else if (radioButton2.Checked)
             {
@@ -1261,8 +1270,10 @@ namespace Devil2
         {
             //로그 클래스 개체 선언
             LogClass l = new LogClass();
-            int A = 5319, i;
-            String exe_name, b;
+            int A = 5319, i, j;
+            i = 0;
+            j = 0;
+            String exe_name; //b;
 
             Button btn = sender as Button;
             l.Log(lboxLog, $"{btn.Text} 버튼 Click");
@@ -1278,47 +1289,59 @@ namespace Devil2
                 Process.Start(exe_name);
                 l.Log(lboxLog, exe_name + $" 실행");
 
-                Delay(3000);
-
-                의사랑핸들("질문", 0);
-                b = "이미지찾기";
-                i = searchIMG(3, b);
-                if (i == 1)
+                // 의사랑핸들("TfmMain", "") [의사랑2012] 업데이트 창이 뜨거나 질문창이 뜨거나 정보창이 뜰때까지 while
+                i = 0;
+                while (i == 0)
                 {
-                    l.Log(lboxLog, $"찾음");
+                    l.Log(lboxLog, "창 찾는 중...1");
+                    i = 의사랑핸들(null, 0);
+                    //l.Log(lboxLog, "i = " + i);
+                    //Delay(100);
                 }
-                Delay(500);
 
+                i = 0;
+                while (i == 0)
+                {
+                    l.Log(lboxLog, "창 찾는 중...2");
+                    i = 의사랑핸들("질문", 0);
+                    //l.Log(lboxLog, "i = " + i);
+                    //Delay(100);
+                }
 
-                // 의사랑핸들(TfmMain, "") [의사랑2012] 업데이트 창이 뜨거나 질문창이 뜨거나 정보창이 뜰때까지 while
-
-                b = "테스트1";
-                의사랑핸들("질문", 0);
-                i = searchIMG(3, b); //다시 한 번 실행하시겠습니까? (질문창) 이미지 검색 여기서 문제인듯
-                if (i == 1)
+                j = searchIMG(3, "이미지찾기"); //다시 한 번 실행하시겠습니까? (질문창)                 // b를 지우고 핸들을 아예 넣어버릴까?
+                if (j == 1)
                 {
                     의사랑핸들("질문", 2); // "아니오" 버튼 클릭
+                    //l.Log(lboxLog, "2");
                 }
                 else
                 {
-                    의사랑핸들("정보", 1); // 정보창 '확인' 버튼 클릭
+                    //l.Log(lboxLog, "else1");
+                    //Delay(1000);
 
-                    의사랑핸들("업데이트 정보", 1); // 업데이트 정보 창에서 '전체실행' 버튼 클릭
-
+                    //의사랑핸들("업데이트 정보", 1);
+                    
                     // 4개 창 모두 없을 때 반복문 나온다.
+                    i = 0;
                     while ((FindWindow("TUpdateToolHistory", "업데이트 정보") != null)
                         || (FindWindow(null, "질문") != null)
                         || (FindWindow(null, "[안내] 아래 내용을 반드시 확인해 주시기 바랍니다.") != null)
                         || (FindWindow("TMessageForm", "정보") != null))
                     {
-                        의사랑핸들("질문", 1);
-                        의사랑핸들("[안내] 아래 내용을 반드시 확인해 주시기  바랍니다.", 1);
-                        의사랑핸들("정보", 1);
+                        l.Log(lboxLog, "창 찾는 중...3");
+                        i =+ 의사랑핸들("질문", 1);
+                        i =+ 의사랑핸들("[안내] 아래 내용을 반드시 확인해 주시기  바랍니다.", 1);
+                        i = +의사랑핸들("정보", 1);
                     }
                 }
-                A += 10;
+                l.Log(lboxLog, "pass");
+                A += 1;
             }
-
+            l.Log(lboxLog, "종료");
+            l.Log(lboxLog, "종료");
+            l.Log(lboxLog, "종료");
+            l.Log(lboxLog, "종료");
+            l.Log(lboxLog, "종료");
             //종료
 
             //핸들이 없으면 값이 null
@@ -1348,16 +1371,18 @@ namespace Devil2
 
                     if (hd != IntPtr.Zero)
                     {
-                        l.Log(lboxLog, $"부모:    " + hd.ToString());
+                        //l.Log(lboxLog, $"의사랑 2012 업데이트 창 찾음.");
+                        //l.Log(lboxLog, $"부모:    " + hd.ToString());
                         j = 1;
                     }
                     else
                     {
                         //못 찾은 경우
-                        l.Log(lboxLog, $"안내 창을 못 찼았어요.");
+                        //l.Log(lboxLog, $"의사랑 2012 업데이트 창을 못 찼았어요.");
                         j = 0;
                     }
                     break;
+
                 case "질문":
                     AppPlayerName = "질문";
                     hd = FindWindow(null, AppPlayerName); //"TMessageTagForm" or "TMessageForm"
@@ -1366,26 +1391,29 @@ namespace Devil2
 
                     if (hd != IntPtr.Zero)
                     {
+                        //l.Log(lboxLog, $"질문 창 찾음.");
                         int x = 0;
                         int y = 0;
 
-                        l.Log(lboxLog, $"부모:    " + hd.ToString());
-                        l.Log(lboxLog, $"자식1:    " + hd1.ToString());
-                        l.Log(lboxLog, $"자식2:    " + hd1.ToString());
+                        //l.Log(lboxLog, $"부모:    " + hd.ToString());
+                        //l.Log(lboxLog, $"자식1:    " + hd1.ToString());
+                        //l.Log(lboxLog, $"자식2:    " + hd1.ToString());
 
                         IntPtr lparam = new IntPtr(x | (y << 0));
                         switch (i)
                         {
                             case 0:
-                                l.Log(lboxLog, $"버튼 클릭 안함.");
+                                //l.Log(lboxLog, $"버튼 클릭 안함.");
                                 break;
                             case 1:
-                                SendMessage(hd1, BM_CLICK, 0, lparam); // 예
-                                Delay(1000);
+                                PostMessage(hd1, BM_CLICK, 0, lparam); // 예
+                                l.Log(lboxLog, $"(예) 버튼 클릭");
+                                //Delay(1000);
                                 break;
                             case 2:
-                                SendMessage(hd2, BM_CLICK, 0, lparam); // 아니오
-                                Delay(1000);
+                                PostMessage(hd2, BM_CLICK, 0, lparam); // 아니오
+                                l.Log(lboxLog, $"(아니오) 버튼 클릭");
+                                //Delay(1000);
                                 break;
                             default:
                                 l.Log(lboxLog, $"의사랑핸들\\질문\\오류\\클릭값");
@@ -1396,10 +1424,11 @@ namespace Devil2
                     else
                     {
                         //못 찾은 경우
-                        l.Log(lboxLog, $"질문창을 못 찼았어요.");
+                        //l.Log(lboxLog, $"질문 창을 못 찼았어요.");
                         j = 0;
                     }
                     break;
+
                 case "정보":
                     AppPlayerName = "정보";
                     hd = FindWindow("TMessageForm", AppPlayerName);
@@ -1407,29 +1436,33 @@ namespace Devil2
 
                     if (hd != IntPtr.Zero)
                     {
+                        //l.Log(lboxLog, $"정보 창 찾음.");
                         int x = 0;
                         int y = 0;
 
-                        l.Log(lboxLog, $"부모:    " + hd.ToString());
-                        l.Log(lboxLog, $"자식1:    " + hd1.ToString());
+                        //l.Log(lboxLog, $"부모:    " + hd.ToString());
+                        //l.Log(lboxLog, $"자식1:    " + hd1.ToString());
 
                         if (i == 1)
                         {
-                            IntPtr lparam = new IntPtr(x | (y << 0));
-                            SendMessage(hd1, BM_CLICK, 0, lparam);
-                            Delay(1000);
+                            //l.Log(lboxLog, $"(확인) 버튼 클릭1");
+                            IntPtr lparam = new IntPtr(x | (y << 16));
+                            PostMessage(hd1, BM_CLICK, 0, lparam);
+                            l.Log(lboxLog, $"(확인) 버튼 클릭");
+                            //Delay(1000);
                         }
                         j = 1;
                     }
                     else
                     {
                         //못 찾은 경우
-                        l.Log(lboxLog, $"정보 창을 못 찼았어요.");
+                        //l.Log(lboxLog, $"정보 창을 못 찼았어요.");
                         j = 0;
                     }
                     break;
-                case "[안내] 아래 내용을 반드시 확인해 주시기 바랍니다.":
-                    AppPlayerName = "[안내] 아래 내용을 반드시 확인해 주시기 바랍니다.";
+
+                case "[안내] 아래 내용을 반드시 확인해 주시기  바랍니다.":
+                    AppPlayerName = "[안내] 아래 내용을 반드시 확인해 주시기  바랍니다.";
                     hd = FindWindow(null, AppPlayerName); // TfmMainMsg
                     hd1 = FindWindowEx(hd, IntPtr.Zero, "TPanel", "PanClient");
                     hd2 = FindWindowEx(hd1, IntPtr.Zero, "TPanel", "");
@@ -1437,29 +1470,32 @@ namespace Devil2
 
                     if (hd != IntPtr.Zero)
                     {
+                        //l.Log(lboxLog, $"[안내] 창 찾음.");
                         int x = 0;
                         int y = 0;
 
-                        l.Log(lboxLog, $"부모:    " + hd.ToString());
-                        l.Log(lboxLog, $"자식1:    " + hd1.ToString());
-                        l.Log(lboxLog, $"자식2:    " + hd2.ToString());
-                        l.Log(lboxLog, $"자식3:    " + hd3.ToString());
+                        //l.Log(lboxLog, $"부모:    " + hd.ToString());
+                        //l.Log(lboxLog, $"자식1:    " + hd1.ToString());
+                        //l.Log(lboxLog, $"자식2:    " + hd2.ToString());
+                        //l.Log(lboxLog, $"자식3:    " + hd3.ToString());
 
                         if (i == 1)
                         {
                             IntPtr lparam = new IntPtr(x | (y << 0));
-                            SendMessage(hd3, BM_CLICK, 0, lparam);
-                            Delay(1000);
+                            PostMessage(hd3, BM_CLICK, 0, lparam);
+                            l.Log(lboxLog, $"(확인) 버튼 클릭.");
+                            //Delay(1000);
                         }
                         j = 1;
                     }
                     else
                     {
                         //못 찾은 경우
-                        l.Log(lboxLog, $"안내 창을 못 찼았어요.");
+                        //l.Log(lboxLog, $"[안내] 창을 못 찼았어요.");
                         j = 0;
                     }
                     break;
+
                 case "업데이트 정보":                    
                     AppPlayerName = "업데이트 정보"; //앱플레이어: 의사랑_업데이트 정보
                     hd = FindWindow("TUpdateToolHistory", AppPlayerName);
@@ -1469,29 +1505,32 @@ namespace Devil2
 
                     if (hd != IntPtr.Zero)
                     {
+                        //l.Log(lboxLog, $"업데이트 정보 창 찾음.");
                         int x = 0;
                         int y = 0;
 
-                        l.Log(lboxLog, $"부모:    " + hd.ToString());
-                        l.Log(lboxLog, $"자식1:    " + hd1.ToString());
-                        l.Log(lboxLog, $"자식2:    " + hd2.ToString());
-                        l.Log(lboxLog, $"자식3:    " + hd3.ToString());
+                        //l.Log(lboxLog, $"부모:    " + hd.ToString());
+                        //l.Log(lboxLog, $"자식1:    " + hd1.ToString());
+                        //l.Log(lboxLog, $"자식2:    " + hd2.ToString());
+                        //l.Log(lboxLog, $"자식3:    " + hd3.ToString());
 
                         if (i == 1)
                         {
                             IntPtr lparam = new IntPtr(x | (y << 0));
-                            SendMessage(hd3, BM_CLICK, 0, lparam);
-                            Delay(1000);
+                            PostMessage(hd3, BM_CLICK, 0, lparam);
+                            l.Log(lboxLog, $"(전체실행) 버튼 클릭.");
+                            //Delay(1000);
                         }
                         j = 1;
                     }
                     else
                     {
                         //못 찾은 경우
-                        l.Log(lboxLog, $"업데이트 정보창을 못 찼았어요.");
+                        //l.Log(lboxLog, $"업데이트 정보창을 못 찼았어요.");
                         j = 0;
                     }
                     break;
+
                 default:
                     l.Log(lboxLog, "의사랑핸들\\오류");
                     break;
