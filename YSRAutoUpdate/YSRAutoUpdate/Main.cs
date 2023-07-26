@@ -32,9 +32,12 @@
 // 2022-08-30 폼 띄우기 전에 while 문이 들어가버렸던 문제 해결
 // 2022-08-30 스레드로 나뉘었으나 Join.. 문제 생김 원인 불명
 
+// 2022-08-31 send로 바꿈
+// 핸들 항상 위로. 핸들 숨기기 등 넣음.
 
-// UI 개편, ㅇ 개편, 항상 핸들 위로, 다른 핸들 아래로 왜 자꾸 다른 거 위로 올라가나
+// 설정창 투입, 저장
 
+// 스레드 개편은 못함. 잘 안됨. 그냥 그대로.
 // 스레드로 바꾸면 while로 멈춤이 없으려나? 프로그램 활성화 비활성화 맨 뒤 맨 앞 문제인가?
 
 
@@ -44,8 +47,6 @@
 // NuGet 패키지 정리하여 용량을 줄이기 (필수는 제외, 예.OpenCV)
 //업데이트 정보창에서 자동 클릭 
 
-//의사랑 창을 찾는데 상대 포인트위치가 안됨 ㅠ.ㅠ 
-// ㄴ자식창 문제
 
 // 전체함수에 추가하기 l = null;                                                               // 3. 리소스 반환
 //로그도 있는지 없는지 확인하면서 계속 저장해야함. (파일명: yyyy-mm-dd)
@@ -82,8 +83,11 @@ namespace YSR
             //자동모드진행중();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void Form_Load(object sender, EventArgs e)
         {
+            SetWindowPos(this.Handle, HWND_TOPMOST, 0, 0, 0, 0, WINDOW_FLAGS2);
+            //this.TopMost = true;
+
             //로그 클래스 개체 선언
             LogClass l = new LogClass();
 
@@ -124,12 +128,13 @@ namespace YSR
         {
             //로그 클래스 개체 선언
             LogClass l = new LogClass();
-            int A = 5306, i, j;
+            int A = 5306; // 처음 시작 값
+            int i, j;
             i = 0;
             j = 0;
             String exe_name; //b;
 
-            while (A < 5390)
+            while (A < 5390) // 마지막 값 -1
             {
                 // 계속 실행
                 // 실행파일 경로와 이름
@@ -141,7 +146,7 @@ namespace YSR
                 l.Log(lboxLog, exe_name + $" 실행");
 
                 // 의사랑핸들("TfmMain", "") [의사랑2012] 업데이트 창이 뜨거나 질문창이 뜨거나 정보창이 뜰때까지 while
-                l.Log(lboxLog, "창 찾는 중...1");
+                //l.Log(lboxLog, "창 찾는 중...1");
                 i = 0;
                 while (i == 0)
                 {
@@ -151,12 +156,13 @@ namespace YSR
                 }
                 //lBoxLog.Items.Insert()
 
-                l.Log(lboxLog, "창 찾는 중...2");
+                //l.Log(lboxLog, "창 찾는 중...2");
                 i = 0;
                 while (i == 0)
                 {
                     //자동모드진행중();
                     i += 의사랑핸들("[안내] 아래 내용을 반드시 확인해 주시기  바랍니다.", 1);
+                    Delay(100);
                     i += 의사랑핸들("질문", 0);
                     if (i > 0)
                     {
@@ -169,13 +175,13 @@ namespace YSR
                 j = searchIMG(3, "이미지찾기"); //다시 한 번 실행하시겠습니까? (질문창)                 // b를 지우고 핸들을 아예 넣어버릴까?
                 if (j == 1)
                 {
-                    의사랑핸들("질문", 2); // "아니오" 버튼 클릭
-                    //l.Log(lboxLog, "2");
+                    l.Log(lboxLog, "이미 업데이트 되었음.");
+                    의사랑핸들("질문", 2); // "아니오" 버튼 클릭                    
                     Delay(100);
                 }
                 else
                 {
-                    l.Log(lboxLog, "창 찾는 중...3");
+                    l.Log(lboxLog, "업데이트 중...");
                     // 4개 창 모두 없을 때 반복문 나온다.
                     i = 0;
                     while (
@@ -190,12 +196,13 @@ namespace YSR
                         i += 의사랑핸들(null, 0);
                         if (i == 0)
                         {
+                            l.Log(lboxLog, "업데이트 완료");
                             break;
                         }
                         Delay(100);
                     }
                 }
-                l.Log(lboxLog, "pass");
+                //l.Log(lboxLog, "pass");
                 A += 1;
             }
             l.Log(lboxLog, "종료");
@@ -232,8 +239,8 @@ namespace YSR
                 //IntPtr lparam = new IntPtr(x | (y << 16));
 
                 //플레이어 핸들에 클릭 이벤트를 전달합니다.
-                //PostMessage(hwnd_child, WM_LBUTTONDOWN, 1, lparam);
-                //PostMessage(hwnd_child, WM_LBUTTONUP, 0, lparam);
+                //SendMessage(hwnd_child, WM_LBUTTONDOWN, 1, lparam);
+                //SendMessage(hwnd_child, WM_LBUTTONUP, 0, lparam);
             }
             l = null;
         }
@@ -242,6 +249,25 @@ namespace YSR
 
         //비트맵 배열 선언
         List<Bitmap> bitMapList = new List<Bitmap>();
+
+        private static readonly IntPtr HWND_TOPMOST = new IntPtr(-1);
+        private static readonly IntPtr HWND_BOTTOM = new IntPtr(1);
+        private const UInt32 SWP_NOSIZE = 0x0001;
+        private const UInt32 SWP_NOMOVE = 0x0002;        
+        private const UInt32 SWP_NOACTIVATE = 0x0010;
+        private const UInt32 HIDEWINDOW = 0x0080;
+        private const UInt32 SWP_NOOWNERZORDER = 0x0200; // Z 순서에서 소유자 창의 위치를 변경하지 않습니다.
+        private const UInt32 SWP_NOZORDER = 0x0004; // 현재 Z 순서를 유지합니다. ( hWndlnsertAfter 매개변수 무시)
+
+        private const UInt32 WINDOW_FLAGS = SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE | SWP_NOOWNERZORDER;
+        private const UInt32 WINDOW_FLAGS2 = SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER;
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
+
+        [DllImport("user32")]
+        public static extern int SetWindowPos(int hwnd, int hWndInsertAfter, int x, int y, int cx, int cy, int wFlags);
 
         [DllImport("user32.dll")]
         private static extern bool SetForegroundWindow(IntPtr handle); // 프로세스를 윈도우 최상위 화면으로 활성화?
@@ -284,8 +310,7 @@ namespace YSR
             WM_CHAR = 0x102     //char
         }
 
-        [DllImport("user32")]
-        public static extern int SetWindowPos(int hwnd, int hWndInsertAfter, int x, int y, int cx, int cy, int wFlags);
+        
 
         //internal 안에서만 됨.
         [System.Runtime.InteropServices.DllImport("user32.dll")]
@@ -328,8 +353,8 @@ namespace YSR
                     IntPtr lparam = new IntPtr(x | (y << 0));
 
                     //플레이어 핸들에 클릭 이벤트를 전달합니다.
-                    PostMessage(hwnd_child, WM_LBUTTONDOWN, 1, lparam);
-                    PostMessage(hwnd_child, WM_LBUTTONUP, 0, lparam);
+                    SendMessage(hwnd_child, WM_LBUTTONDOWN, 1, lparam);
+                    SendMessage(hwnd_child, WM_LBUTTONUP, 0, lparam);
                     //Delay(100);
 
                     //textBox1.AppendText("클릭" + "X= " + x + "  Y = " + y + "\r\n");
@@ -346,8 +371,8 @@ namespace YSR
                     IntPtr lparam = new IntPtr(x | (y << 0));
 
                     //플레이어 핸들에 클릭 이벤트를 전달합니다.
-                    PostMessage(hwnd_child, WM_LBUTTONDOWN, 1, lparam);
-                    PostMessage(hwnd_child, WM_LBUTTONUP, 0, lparam);
+                    SendMessage(hwnd_child, WM_LBUTTONDOWN, 1, lparam);
+                    SendMessage(hwnd_child, WM_LBUTTONUP, 0, lparam);
 
                     //textBox1.AppendText("클릭" + "X= " + x + "  Y = " + y + "\r\n");
                 }
@@ -365,8 +390,8 @@ namespace YSR
                     l.Log(lboxLog, "입력이 되나.");
 
                     //플레이어 핸들에 클릭 이벤트를 전달합니다.
-                    PostMessage(hwnd_child, WM_LBUTTONDOWN, 1, lparam);
-                    PostMessage(hwnd_child, WM_LBUTTONUP, 0, lparam);
+                    SendMessage(hwnd_child, WM_LBUTTONDOWN, 1, lparam);
+                    SendMessage(hwnd_child, WM_LBUTTONUP, 0, lparam);
 
                     //textBox1.AppendText("클릭" + "X= " + x + "  Y = " + y + "\r\n");
                 }
@@ -381,8 +406,8 @@ namespace YSR
                     l.Log(lboxLog, "입력이 되나.");
 
                     //플레이어 핸들에 클릭 이벤트를 전달합니다.
-                    PostMessage(hwnd_child, WM_LBUTTONDOWN, 1, lparam);
-                    PostMessage(hwnd_child, WM_LBUTTONUP, 0, lparam);
+                    SendMessage(hwnd_child, WM_LBUTTONDOWN, 1, lparam);
+                    SendMessage(hwnd_child, WM_LBUTTONUP, 0, lparam);
 
                     //textBox1.AppendText("클릭" + "X= " + x + "  Y = " + y + "\r\n");
                 }
@@ -407,7 +432,7 @@ namespace YSR
                 {
 
                     //앱플레이어를 찾았을 경우
-                    l.Log(lboxLog, "앱플레이어 찾았습니다.");
+                    //l.Log(lboxLog, "앱플레이어 찾았습니다.");
 
                     //찾은 플레이어를 바탕으로 Graphics 정보를 가져옵니다.
                     Graphics Graphicsdata = Graphics.FromHwnd(findwindow);
@@ -468,12 +493,12 @@ namespace YSR
                         //이미지를 찾았을 경우 표시만!!
                         if (maxval >= 80)
                         {
-                            l.Log(lboxLog, $"C" + "[ " + maxval + "%]" + b);
+                            //l.Log(lboxLog, $"C" + "[ " + maxval + "%]" + b);
                             i = 1;
                         }
                         else
                         {
-                            l.Log(lboxLog, $"F " + "[ " + maxval + "%]" + b);
+                            //l.Log(lboxLog, $"F " + "[ " + maxval + "%]" + b);
                             i = 0;
                         }
                     }
@@ -510,7 +535,7 @@ namespace YSR
         }
 
         string TState1;
-        string TState2;
+        //string TState2;
 
         #region Button Click
         // 의사랑 자동 업데이트
@@ -544,20 +569,20 @@ namespace YSR
                     }
                     catch
                     { }
-                    TState2 = "Stopped";
-                    l.Log(lboxLog, TState1);
-                    l.Log(lboxLog, TState2);
+                    //TState2 = "Stopped";
+                    //l.Log(lboxLog, TState1);
+                    //l.Log(lboxLog, TState2);
                 }
                 else
                 {
-                    l.Log(lboxLog, TState1);
-                    l.Log(lboxLog, TState2);
+                    //l.Log(lboxLog, TState1);
+                    //l.Log(lboxLog, TState2);
                     thread1.Start();
-                    TState1 = "Running";
+                    //TState1 = "Running";
                     thread2.Start();
-                    TState2 = "Running";
-                    l.Log(lboxLog, TState1);
-                    l.Log(lboxLog, TState2);
+                    //TState2 = "Running";
+                    //l.Log(lboxLog, TState1);
+                    //l.Log(lboxLog, TState2);
                     //l.Log(lboxLog, thread1.ThreadState.ToString());
                     //l.Log(lboxLog, thread2.ThreadState.ToString());
                 }
@@ -588,7 +613,7 @@ namespace YSR
         int indexNumber;
 
         //int 점점점갯수;
-        string 자동모드_점점점 = "ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ";
+        string 자동모드_점점점 = "ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ";
 
         public void 자동모드진행중()
         {
@@ -597,7 +622,7 @@ namespace YSR
             while (true)
             {
                 int 점점점갯수 = Math.Abs(자동모드_점점점.Length - (indexNumber % ((자동모드_점점점.Length) * 2)));
-                int 위치 = 18 + Math.Abs(자동모드_점점점.Length - (indexNumber % ((자동모드_점점점.Length) * 2)));
+                int 위치 = 20 + Math.Abs(자동모드_점점점.Length - (indexNumber % ((자동모드_점점점.Length) * 2)));
 
                 // Invoke를 통해 해당 Object에 대한 접근 권한을 얻기
                 // textBox1 객체에 접근하기 위해 Invoke 가 요구된다면
@@ -605,7 +630,7 @@ namespace YSR
                 {
                     this.textBox1.Invoke((MethodInvoker)delegate
                     {
-                        this.textBox1.Text = string.Format("자동모드 진행 중 [ {0,9} ] {1,20}",
+                        this.textBox1.Text = string.Format("자동모드 진행 중 [ {0,9} ] {1,21}",
                     indexNumber.ToString().PadLeft(9, '0'), 자동모드_점점점.Substring(점점점갯수).PadLeft(위치, ' '));
                     });
                 }
@@ -636,6 +661,7 @@ namespace YSR
                     // 의사랑 2012 업데이트 창이 있는가
                     AppPlayerName = null;
                     hd = FindWindow("TfmMain", AppPlayerName); //""보다 null로 해야 찾을 수 있다.
+                    SetWindowPos(hd, HWND_BOTTOM, 0, 0, 0, 0, WINDOW_FLAGS | HIDEWINDOW);
                     //IntPtr hd1 = FindWindowEx(hd, IntPtr.Zero, "TPanel", "PanClient");
                     //IntPtr hd2 = FindWindowEx(hd1, IntPtr.Zero, "TPanel", "");
                     //IntPtr hd3 = FindWindowEx(hd2, IntPtr.Zero, "TButton", "확인");
@@ -657,8 +683,11 @@ namespace YSR
                 case "질문":
                     AppPlayerName = "질문";
                     hd = FindWindow(null, AppPlayerName); //"TMessageTagForm" or "TMessageForm"
+                    SetWindowPos(hd, HWND_BOTTOM, 0, 0, 0, 0, WINDOW_FLAGS);
                     hd1 = FindWindowEx(hd, IntPtr.Zero, "TButton", "예(&Y)");
+                    SetWindowPos(hd1, HWND_BOTTOM, 0, 0, 0, 0, WINDOW_FLAGS);
                     hd2 = FindWindowEx(hd, IntPtr.Zero, "TButton", "아니오(&N)");
+                    SetWindowPos(hd2, HWND_BOTTOM, 0, 0, 0, 0, WINDOW_FLAGS);
 
                     if (hd != IntPtr.Zero)
                     {
@@ -677,13 +706,13 @@ namespace YSR
                                 //l.Log(lboxLog, $"버튼 클릭 안함.");
                                 break;
                             case 1:
-                                PostMessage(hd1, BM_CLICK, 0, lparam); // 예
-                                l.Log(lboxLog, $"(예) 버튼 클릭");
+                                SendMessage(hd1, BM_CLICK, 0, lparam); // 예
+                                //l.Log(lboxLog, $"(예) 버튼 클릭");
                                 //Delay(1000);
                                 break;
                             case 2:
-                                PostMessage(hd2, BM_CLICK, 0, lparam); // 아니오
-                                l.Log(lboxLog, $"(아니오) 버튼 클릭");
+                                SendMessage(hd2, BM_CLICK, 0, lparam); // 아니오
+                                //l.Log(lboxLog, $"(아니오) 버튼 클릭");
                                 //Delay(1000);
                                 break;
                             default:
@@ -703,7 +732,9 @@ namespace YSR
                 case "정보":
                     AppPlayerName = "정보";
                     hd = FindWindow("TMessageForm", AppPlayerName);
+                    SetWindowPos(hd, HWND_BOTTOM, 0, 0, 0, 0, WINDOW_FLAGS);
                     hd1 = FindWindowEx(hd, IntPtr.Zero, "TButton", "확인(&O)");
+                    SetWindowPos(hd1, HWND_BOTTOM, 0, 0, 0, 0, WINDOW_FLAGS);
 
                     if (hd != IntPtr.Zero)
                     {
@@ -718,8 +749,8 @@ namespace YSR
                         {
                             //l.Log(lboxLog, $"(확인) 버튼 클릭1");
                             IntPtr lparam = new IntPtr(x | (y << 16));
-                            PostMessage(hd1, BM_CLICK, 0, lparam);
-                            l.Log(lboxLog, $"(확인) 버튼 클릭");
+                            SendMessage(hd1, BM_CLICK, 0, lparam);
+                            //l.Log(lboxLog, $"(확인) 버튼 클릭");
                             //Delay(1000);
                         }
                         j = 1;
@@ -735,9 +766,13 @@ namespace YSR
                 case "[안내] 아래 내용을 반드시 확인해 주시기  바랍니다.":
                     AppPlayerName = "[안내] 아래 내용을 반드시 확인해 주시기  바랍니다.";
                     hd = FindWindow(null, AppPlayerName); // TfmMainMsg
+                    SetWindowPos(hd, HWND_BOTTOM, 0, 0, 0, 0, WINDOW_FLAGS);
                     hd1 = FindWindowEx(hd, IntPtr.Zero, "TPanel", "PanClient");
+                    SetWindowPos(hd1, HWND_BOTTOM, 0, 0, 0, 0, WINDOW_FLAGS);
                     hd2 = FindWindowEx(hd1, IntPtr.Zero, "TPanel", "");
+                    SetWindowPos(hd2, HWND_BOTTOM, 0, 0, 0, 0, WINDOW_FLAGS);
                     hd3 = FindWindowEx(hd2, IntPtr.Zero, "TButton", "확인");
+                    SetWindowPos(hd3, HWND_BOTTOM, 0, 0, 0, 0, WINDOW_FLAGS);
 
                     if (hd != IntPtr.Zero)
                     {
@@ -753,8 +788,8 @@ namespace YSR
                         if (i == 1)
                         {
                             IntPtr lparam = new IntPtr(x | (y << 0));
-                            PostMessage(hd3, BM_CLICK, 0, lparam);
-                            l.Log(lboxLog, $"(확인) 버튼 클릭.");
+                            SendMessage(hd3, BM_CLICK, 0, lparam);
+                            //l.Log(lboxLog, $"(확인) 버튼 클릭.");
                             //Delay(1000);
                         }
                         j = 1;
@@ -770,9 +805,13 @@ namespace YSR
                 case "업데이트 정보":
                     AppPlayerName = "업데이트 정보"; //앱플레이어: 의사랑_업데이트 정보
                     hd = FindWindow("TUpdateToolHistory", AppPlayerName);
+                    SetWindowPos(hd, HWND_BOTTOM, 0, 0, 0, 0, WINDOW_FLAGS);
                     hd1 = FindWindowEx(hd, IntPtr.Zero, "TPanel", "");
+                    SetWindowPos(hd1, HWND_BOTTOM, 0, 0, 0, 0, WINDOW_FLAGS);
                     hd2 = FindWindowEx(hd1, IntPtr.Zero, "TPanel", "");
+                    SetWindowPos(hd2, HWND_BOTTOM, 0, 0, 0, 0, WINDOW_FLAGS);
                     hd3 = FindWindowEx(hd2, IntPtr.Zero, "TButton", "전체실행");
+                    SetWindowPos(hd3, HWND_BOTTOM, 0, 0, 0, 0, WINDOW_FLAGS);
 
                     if (hd != IntPtr.Zero)
                     {
@@ -788,8 +827,8 @@ namespace YSR
                         if (i == 1)
                         {
                             IntPtr lparam = new IntPtr(x | (y << 0));
-                            PostMessage(hd3, BM_CLICK, 0, lparam);
-                            l.Log(lboxLog, $"(전체실행) 버튼 클릭.");
+                            SendMessage(hd3, BM_CLICK, 0, lparam);
+                            //l.Log(lboxLog, $"(전체실행) 버튼 클릭.");
                             //Delay(1000);
                         }
                         j = 1;
@@ -811,9 +850,6 @@ namespace YSR
         #endregion handle
 
 
-        private void tableLayoutPanel3_Paint(object sender, PaintEventArgs e)
-        {
 
-        }
     }
 }
