@@ -1,85 +1,4 @@
-﻿// 2022-01-16 포스트 캡쳐 기능
-
-
-// 2022년 8월
-/*
-    // 2022-08-16 환경설정 xml 일부 저장기능
-
-    // 2022-08-18 로그가 실행이 드디어 됨. 그러나 너무 길어진 거 같음. 그럴바에 메인에 로그 넣는게 낫지 않나
-
-    // 2022-08-19 비활성 마우스 입력이 안되는 것 같다.
-    // 2022-08-19 텍스트만 썼는데도 불구하고 메모리가 조금씩 올라간다 해결 방법은?
-
-    // 2022-08-22 질문창 Y가 클릭이 안되어서 SIK (키보드 입력으로 대체) PostMessage 로 해도 되는 것인가?
-    // 2022-08-22 키보드 입력 대신 SendMessage 버튼 클릭으로 대체
-
-    // 2022-08-24 32비트로 이미지 교체 완료, 이미지 비교 시 32비트로 비교를 해야하는데 24비트는 안된다. 캡처 도구 로만 캡처하자(알캡처, 포토샵 안됨 ㅠ.ㅠ)
-    // 2022-08-24 24비트로 비교하려면 비트 변환을 해야한다.
-    // 2022-08-24 AppPlayerName을 쓰는 지역변수가 있어서 공유를 할 수 없었다. 변경 해주니 전역변수로 공유 할 수 있었다.
-
-    // 2022-08-25 while문 중 두 줄이상에서 값이 변했는데 안나오는 이유를 모르겠다. >> while문은 반복을 완료하고 값을 검사한다.
-    // 2022-08-25 while문에서 SendMessage랑 잘 안맞는가 보다. 계속 멈추는 이유를 찾았다. PostMessage로 바꾸니 작동을 한다.
-    // 2022-08-25 한꺼번에 업데이트가 안되어 하나씩 업데이트 하기로 하였다.
-    // 2022-08-25 창 찾는중...3 에서 종료되어 넘어가지 않고 무한 루프를 한다.
-
-    // 2022-08-26 while은 빨리 돌기 때문에 Delay를 걸어놔야한다.
-    // 2022-08-26 send로 다시 바꾸었다.
-    // 2022-08-26 'YSRAutoUpdate' 로 바꾸었다.
-    // 2022-08-26 로그 출력 문자들을 정리해보려 했으나 완성 못시켰다.
-
-    // 2022-08-29 로그 폰트 문제였다.
-    // 2022-08-29 post로 다시 바꾸었다. post= 쪽지만 보내기, send 바로 답장 받기
-    // 2022-08-29 자동모드 진행 중 추가
-    // 2022-08-29 자동모드를 스레드로 바꿈
-    // 2022-08-29 while문을 넣으면 폼이 안보임
-
-    // 2022-08-30 폼 띄우기 전에 while 문이 들어가버렸던 문제 해결
-    // 2022-08-30 스레드로 나뉘었으나 Join.. 문제 생김 원인 불명
-
-    // 2022-08-31 send로 바꿈, 핸들 항상 위로. 핸들 숨기기 등 넣음.
-*/
-
-// 2022년 9월
-/*
-// 01 labelProgressBar1, 2 추가, DB 미연결 시 오류 추가, YSR2000 - SQL Anywhere 네트워크 서버, WATCOM SQL NT234c 비활성 DB 네트워크 추가, 자동모드 종료 추가
-// 05 labelProgressBar 최대값 자동 변경 기능 구현, 여러가지 추가하였으나 추후 자세히 기재, 콤보값 변경 시 자동 변경 기능... 미구현,
-// 06 이미지 오류, 파일 다시 추가로 해결, comboBox1.SelectedIndex = 0 으로 초기화 구현
-// 07 메시지2 계산이 좀 걸리는 듯 함. 확인 해서 다시 바꿀지 결정해야할 듯. >> 단순 디버그 오류 인 듯,
-// 07 TETBL 자동 업데이트에 설정값을 넣기, 자동 업데이트 중에는 TETBL 설정 막기
-// 07 자동모드중_스레드 오류 수정
-// 07 SelectedIndexChanged 에서 SelectionChangeCommitted 로 변경. 이 후 자동 업데이트에 기존 네트워크가 있으면 종료 시키고 다시 네트워크 연결하기
-*/
-
-// 외부 프로그램 종료가 왜 안될까
-
-
-// 서울안과, 보리수의원 등 DB 실행 기능 어떠한가
-// 설정창 투입, 저장, opacity 투명도 설정기능도 넣기 현재창 상대창
-// 업데이트 내역도 저장(성공내역)
-
-// 아이콘 이미지 변경, 
-// 스레드 개편은 못함. 잘 안됨. 그냥 그대로.
-// 스레드로 바꾸면 while로 멈춤이 없으려나? 프로그램 활성화 비활성화 맨 뒤 맨 앞 문제인가?
-
-
-// 설정창을 투입할까? ㅇ~ㅇ 까지 같은거
-// 로그 저장?, 자동모드 진행 중을 할까?
-
-// NuGet 패키지 정리하여 용량을 줄이기 (필수는 제외, 예.OpenCV)
-//업데이트 정보창에서 자동 클릭 
-
-
-// 전체함수에 추가하기 l = null;                                                               // 3. 리소스 반환
-//로그도 있는지 없는지 확인하면서 계속 저장해야함. (파일명: yyyy-mm-dd)
-//저장 버튼 누르면 저장하기 >> 이후 값이 바뀔 때마다 저장하기 or 닫기 할 때마다 저장하기
-// 설정 창이 닫히면 메인 폼 위로 오게 하기?
-//로그 클래스를 파셜로 나눠서 메인에서 실행 가능하게
-//그 후 셋폼에서도 가능하게
-//세팅폼을 실행 할 때 값을 불러오기
-//시작버튼을 눌렀을 때 저장된 값을 불러와 변수에 저장하기
-//SetForm에서 로그 쓰는 방법 public 써야하나? 클래스 따로 만들어서 해야하나?
-
-using MessagePack.Formatters;
+﻿using MessagePack.Formatters;
 using OpenCvSharp;
 using System;
 using System.Collections.Generic;
@@ -158,7 +77,7 @@ namespace YSR
                 // 콤보1이 콤보2보다 크다면
                 if (Convert.ToInt32(comboBox1.SelectedItem) > Convert.ToInt32(comboBox2.SelectedItem))
                 {
-                    MessageBox.Show("최소값이 최대값보다 큽니다.");
+                    MessageBox.Show("최솟값이 최댓값보다 큽니다.");
                     //초기화하고 다시 정렬
                     comboBox1.Items.Clear();
                     for (int i = 5306; i <= Convert.ToInt32(comboBox2.SelectedItem); i++)
@@ -168,6 +87,12 @@ namespace YSR
                     Delay(1000);
                     // 콤보1 초기값 설정
                     comboBox1.SelectedIndex = 0;
+
+                    COM_MIN = Convert.ToInt32(comboBox1.SelectedItem);
+                    COM_MAX = Convert.ToInt32(comboBox2.SelectedItem);
+                    labelMAX = COM_MAX - COM_MIN + 1;
+                    Config.SavaIniFile();
+                    labelProgressBar1.Maximum = labelMAX;
                 }
                 else
                 {
@@ -195,7 +120,7 @@ namespace YSR
                 // 콤보1이 콤보2보다 크다면
                 if (Convert.ToInt32(comboBox1.SelectedItem) > Convert.ToInt32(comboBox2.SelectedItem))
                 {
-                    MessageBox.Show("최소값이 최대값보다 큽니다.");
+                    MessageBox.Show("최솟값이 최댓값보다 큽니다.");
                     //초기화하고 다시 정렬
                     comboBox1.Items.Clear();
                     for (int i = 5306; i <= Convert.ToInt32(comboBox2.SelectedItem); i++)
@@ -205,6 +130,12 @@ namespace YSR
                     //Delay(1000);
                     // 콤보1 초기값 설정
                     comboBox1.SelectedIndex = 0;
+
+                    COM_MIN = Convert.ToInt32(comboBox1.SelectedItem);
+                    COM_MAX = Convert.ToInt32(comboBox2.SelectedItem);
+                    labelMAX = COM_MAX - COM_MIN + 1;
+                    Config.SavaIniFile();
+                    labelProgressBar1.Maximum = labelMAX;
                 }
                 else
                 {
@@ -230,6 +161,7 @@ namespace YSR
             Config.SavaIniFile();
         }
 
+        //안쓰는 함수
         private void comboBox1_SelectedIndexChanged(object sender, System.EventArgs e)
         {
             //MessageBox.Show(comboBox1.SelectedIndex.ToString());
@@ -406,27 +338,28 @@ namespace YSR
             int j = 0;
             int k = 0;
             int m = 0;
-            String exe_name; //b;
+            string clinic, address, exe_name, exe_name2; //b;
+            clinic = "";
+            exe_name = "";
+            exe_name2 = "";
 
-            Thread thread2 = new Thread(() => 자동모드진행중());            
+            Thread thread2 = new Thread(() => 자동모드진행중());
 
-            i = 의사랑핸들("YSR2000 - SQL Anywhere 네트워크 서버", 0);
-            if (i == 1)
+            의사랑핸들("YSR2000 - SQL Anywhere 네트워크 서버", 1); // DB 종료
+            l.Log(lboxLog, "DB 확인 중");
+            Delay(500);
+
+            if (this.comboBox3.InvokeRequired == true)
             {
-                if (this.textBox1.InvokeRequired == true)
+                this.textBox1.Invoke((MethodInvoker)delegate
                 {
-                    this.textBox1.Invoke((MethodInvoker)delegate
-                    {                        
-                        this.textBox1.BackColor = Color.Yellow;
-                        this.textBox1.ForeColor = Color.Black;
-                        this.textBox1.Text = "데이터베이스와 연결이 되었습니다.".PadLeft(57);
-                        //thread2.Suspend();
-                        Delay(500);
-                    });
-                }
+                    clinic = comboBox3.SelectedItem.ToString();
+                });
             }
-            else
+
+            if (clinic == "") 
             {
+                // 빈값 = 오류;
                 if (thread2.ThreadState.ToString() != "Unstarted")
                 {
                     thread2.Abort();
@@ -436,37 +369,83 @@ namespace YSR
                         {
                             this.textBox1.BackColor = Color.Yellow;
                             this.textBox1.ForeColor = Color.Black;
-                            this.textBox1.Text = "데이터베이스와 연결이 되어 있지 않습니다".PadLeft(57);
+                            this.textBox1.Text = "DB와 연결이 되어 있지 않습니다".PadLeft(57);
                         });
                     }
                 }
                 InitProgressBar(labelProgressBar1, labelMAX);
                 InitProgressBar(labelProgressBar2, 100);
                 A = 99999999; // While 값에 안들어가게 하기
-            }
+            } 
+            else 
+            {
+                address = "C:\\Users\\소유자\\Desktop\\";
+                //exe_name = "서울안과";
+                exe_name2 = ".lnk";
 
-            //l.Log(lboxLog, thread2.ThreadState.ToString());
+                // 실행파일 실행
+                Process.Start(address + clinic + exe_name2);
+                l.Log(lboxLog, clinic + "DB 실행");
+
+                if (this.textBox1.InvokeRequired == true)
+                {
+                    this.textBox1.Invoke((MethodInvoker)delegate
+                    {
+                        this.textBox1.BackColor = Color.Yellow;
+                        this.textBox1.ForeColor = Color.Black;
+                        while (j == 0)
+                        {
+                            this.textBox1.Text = clinic.PadLeft(56) + "DB 실행 중.";
+                            Delay(200);
+                            this.textBox1.Text = clinic.PadLeft(56) + "DB 실행 중..";
+                            Delay(200);
+                            this.textBox1.Text = clinic.PadLeft(56) + "DB 실행 중...";
+                            Delay(200);
+                            j = IsWindowEnabled(FindWindow(null, "YSR2000 - SQL Anywhere 네트워크 서버"));
+                        }
+                        this.textBox1.Text = clinic.PadLeft(45) + "DB와 연결이 되었습니다.";
+                        l.Log(lboxLog, clinic + "DB와 연결이 되었습니다.");
+                        Delay(500);
+                    });
+                }
+                Delay(1000);
+
+                // DB 비활성화 및 최소화 할 때까지 기다리기
+            }
             thread2.Start();
 
             while (A < B+1)
             {
                 //if (thread2.ThreadState.ToString() == "Suspended")
-                if (i == 1)
-                {
-                    this.textBox1.BackColor = Color.FromArgb(192, 0, 0);
-                    this.textBox1.ForeColor = Color.White;
-                    //thread2.Resume();
-                } 
+
+                this.textBox1.BackColor = Color.FromArgb(192, 0, 0);
+                this.textBox1.ForeColor = Color.White;
+                //thread2.Resume();
+
                 //l.Log(lboxLog, thread2.ThreadState.ToString());
 
                 // 계속 실행
                 // 실행파일 경로와 이름
                 //exe_name = Application.StartupPath + "\\process.exe";
-                exe_name = "D:\\의사랑 업데이트\\TETBL" + A;
+                exe_name = "D:\\의사랑 업데이트\\";
+                exe_name2 = "TETBL";
 
                 // 실행파일 실행
-                Process.Start(exe_name);
-                l.Log(lboxLog, exe_name + $" 실행");
+                //Process.Start(exe_name);
+                l.Log(lboxLog, exe_name2 + A + $" 실행");
+
+
+
+                //프로세스 생성
+                Process p = new Process();
+
+                p.StartInfo.FileName = exe_name+exe_name2+A+".exe";
+
+                p.StartInfo.WindowStyle = ProcessWindowStyle.Minimized; // 최소화로 실행
+                                                                        
+                p.Start();
+
+
 
                 // 의사랑핸들("TfmMain", "") [의사랑2012] 업데이트 창이 뜨거나 질문창이 뜨거나 정보창이 뜰때까지 while
                 //l.Log(lboxLog, "창 찾는 중...1");
@@ -678,6 +657,12 @@ namespace YSR
         const int WM_LBUTTONUP = 0x0202; //마우스 업
         const int BM_CLICK = 0x00F5; // 버튼 클릭        
 
+        [DllImport("user32")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool IsIconic(IntPtr windowHandle);
+
+        [DllImport("user32.dll")]
+        private static extern int IsWindowEnabled(IntPtr hwnd);
 
 
         public enum WMessages : int
@@ -932,41 +917,47 @@ namespace YSR
             }
             else if (radioButton2.Checked)
             {
-                의사랑핸들("YSR2000 - SQL Anywhere 네트워크 서버", 1);
-                //// 프로세스 프로그램 이름으로 찾아서 프로그램 종료
-                //Process[] p = Process.GetProcessesByName("SQL Anywhere Network Server");
-                //if (p.GetLength(0) > 0)
-                //    p[0].Kill();
 
-                //Process[] processList = Process.GetProcessesByName("SQL Anywhere Network Server");
-
-                //Process[] processList = Process.GetProcessesByName("notepad");
-                //for (int i = processList.Length - 1; i >= 0; i--)
-                //{
-                //    // processList[i].CloseMainWindow();
-                //    processList[i].Kill();
-                //    processList[i].Close();
-                //}
-
-                //foreach (Process process in Process.GetProcesses()) // 프로세스 목록들 모두에 대해
-                //{
-                //    if (process.ProcessName.StartsWith("SQL Anywhere Network Server"))  // notepad라는 이름이 발견되면
-                //    {
-                //        process.Kill();    // 그 프로세스를 강제 종료
-                //    }
-                //}
             }
             else if (radioButton3.Checked)
-            {                
-                int x = 0;
-                int y = 0;
-                // 타이틀 바의 이름으로 찾아서 프로그램 종료
-                //활성화 시키고 종료시켜야하나?
-                IntPtr hwd = FindWindow(null, "YSR2000 - SQL Anywhere 네트워크 서버");
-                IntPtr lparam = new IntPtr(x | (y << 0));
-                if (hwd.ToString() != "0")
-                    SendMessage(hwd, 0x0010, 0, lparam);
-                PostMessage(hwd, 0x0010, 0, lparam);
+            {
+                의사랑핸들("YSR2000 - SQL Anywhere 네트워크 서버", 1); // DB 종료
+                //Delay(500);
+                // 체크박스 값을 확인하는 법
+                String exe_name = "C:\\Users\\소유자\\Desktop\\서울안과.lnk";
+
+                //프로세스 생성
+                Process p = new Process();
+
+                p.StartInfo.FileName = exe_name;
+                // p.WaitForExit(); // 외부 프로세스 실행하면 C# 일시중지
+
+                //p.StartInfo.UseShellExecute = false;
+
+                //// 데이터 넣기
+                //p.StartInfo.RedirectStandardInput = true;
+                //// 데이터 받기
+                //p.StartInfo.RedirectStandardOutput = false;
+                ////p.Arguments =;
+                //p.StartInfo.RedirectStandardError = true;
+
+                //p.StartInfo.CreateNoWindow = true; // < 윈도우 생성 안하기
+
+               // MessageBox.Show(p.StartInfo.WindowStyle.ToString());
+
+                p.StartInfo.WindowStyle = ProcessWindowStyle.Minimized; //실행 됨.
+               // MessageBox.Show(p.StartInfo.WindowStyle.ToString());
+                p.Start();
+                //
+
+
+
+
+
+                // 실행파일 실행
+                //Process.Start(startInfo);
+                //Process.Start(exe_name);
+                l.Log(lboxLog, exe_name + $" 실행");
             }
         }
         #endregion Button Click
@@ -1005,8 +996,6 @@ namespace YSR
                 //Delay(100);
                 Thread.Sleep(100);
             }
-
-
         }
 
         #region handle
@@ -1034,9 +1023,9 @@ namespace YSR
                         int x = 0;
                         int y = 0;
 
-                        l.Log(lboxLog, $"부모:    " + hd.ToString());
-                        l.Log(lboxLog, $"자식1:    " + hd1.ToString());
-                        l.Log(lboxLog, $"자식2:    " + hd2.ToString());
+                        //l.Log(lboxLog, $"부모:    " + hd.ToString());
+                        //l.Log(lboxLog, $"자식1:    " + hd1.ToString());
+                        //l.Log(lboxLog, $"자식2:    " + hd2.ToString());
 
                         IntPtr lparam = new IntPtr(x | (y << 0));
                         switch (i)

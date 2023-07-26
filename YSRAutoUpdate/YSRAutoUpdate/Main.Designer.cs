@@ -33,17 +33,16 @@
             this.button9 = new System.Windows.Forms.Button();
             this.lboxLog = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.labelProgressBar1 = new YSRAutoUpdate.LabelProgressBar();
             this.labelProgressBar2 = new YSRAutoUpdate.LabelProgressBar();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -122,7 +121,6 @@
             this.groupBox1.Controls.Add(this.comboBox2);
             this.groupBox1.Controls.Add(this.comboBox1);
             this.groupBox1.Controls.Add(this.radioButton3);
-            this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.radioButton2);
@@ -134,6 +132,25 @@
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
+            // 
+            // comboBox3
+            // 
+            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox3.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Items.AddRange(new object[] {
+            "서울안과",
+            "보리수의원2014",
+            "중앙진단방사선과",
+            "이상용내과",
+            "다나의원",
+            "손정형외과",
+            "인성의원"});
+            this.comboBox3.Location = new System.Drawing.Point(299, 58);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(121, 20);
+            this.comboBox3.TabIndex = 27;
+            this.comboBox3.SelectionChangeCommitted += new System.EventHandler(this.comboBox3_SelectionChangeCommitted);
             // 
             // comboBox2
             // 
@@ -319,7 +336,7 @@
             "5387",
             "5388",
             "5389"});
-            this.comboBox1.Location = new System.Drawing.Point(212, 19);
+            this.comboBox1.Location = new System.Drawing.Point(262, 20);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(66, 20);
             this.comboBox1.TabIndex = 25;
@@ -337,21 +354,11 @@
             this.radioButton3.Text = "테스트2";
             this.radioButton3.UseVisualStyleBackColor = true;
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(304, 23);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(44, 12);
-            this.label3.TabIndex = 21;
-            this.label3.Text = "TETBL";
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(284, 22);
+            this.label2.Location = new System.Drawing.Point(334, 22);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(14, 12);
             this.label2.TabIndex = 20;
@@ -361,7 +368,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(162, 23);
+            this.label1.Location = new System.Drawing.Point(212, 23);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(44, 12);
             this.label1.TabIndex = 19;
@@ -423,26 +430,6 @@
             this.labelProgressBar2.TextFont = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold);
             this.labelProgressBar2.VisualMode = YSRAutoUpdate.ProgressBarDisplayMode.CurrProgress;
             // 
-            // comboBox3
-            // 
-            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox3.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Items.AddRange(new object[] {
-            "의사랑공DB",
-            "서울안과",
-            "보리수의원",
-            "중앙진단방사선과",
-            "이상용내과",
-            "다나의원",
-            "손정형외과",
-            "인성의원"});
-            this.comboBox3.Location = new System.Drawing.Point(212, 62);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(121, 20);
-            this.comboBox3.TabIndex = 27;
-            this.comboBox3.SelectionChangeCommitted += new System.EventHandler(this.comboBox3_SelectionChangeCommitted);
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -481,7 +468,6 @@
         private System.Windows.Forms.ListBox lboxLog;
         private YSRAutoUpdate.LabelProgressBar labelProgressBar1;
         private YSRAutoUpdate.LabelProgressBar labelProgressBar2;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.RadioButton radioButton3;
