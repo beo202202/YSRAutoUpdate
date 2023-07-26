@@ -19,8 +19,13 @@ namespace YSR
         public static extern int WritePrivateProfileString(string sAppName, string sKeyName, string sValue, string sFileName);
 
         public static string sINIPath = Environment.CurrentDirectory + "\\Config.ini";
-        //@"C:\범범조조
+        //@"C:\테스트
         //\Config.ini"; // Environment.CurrentDirectory + "\\Config.ini";
+
+        /// <summary>
+        /// LAYOUT TOP
+        /// </summary>
+        public static string sTOP = String.Empty;
 
         /// <summary>
         /// LAYOUT OPASITY
@@ -79,10 +84,13 @@ namespace YSR
             ///<summary>
             /// LAYOUT
             ///</summary>
+            GetPrivateProfileString("LAYOUT", "TOP", "false", Buf, 1024, sINIPath);
+            //sTETBLMIN = Buf.ToString();            
+            sTOP = Buf.ToString();
+            Main.main.checkBox1.Checked = Convert.ToBoolean(sTOP);
 
             GetPrivateProfileString("LAYOUT", "OPASITY", "100", Buf, 1024, sINIPath);
-            //sTETBLMIN = Buf.ToString();
-            //MessageBox.Show(sTETBLMIN);
+            //sTETBLMIN = Buf.ToString();            
             sOPASITY = Buf.ToString();
             Main.main.trackBar1.Value = Convert.ToInt32(sOPASITY);
             
@@ -130,8 +138,9 @@ namespace YSR
         public static void SavaIniFile()
         {
             ///<summary>
-            /// OPASTY_VALUE
+            /// LAYOUT
             ///</summary>
+            WritePrivateProfileString("LAYOUT", "TOP", Main.main.checkBox1.Checked.ToString(), sINIPath);
             WritePrivateProfileString("LAYOUT", "OPASITY", Main.main.trackBar1.Value.ToString(), sINIPath);
 
             ///<summary>

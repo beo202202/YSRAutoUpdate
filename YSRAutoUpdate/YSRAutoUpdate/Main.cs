@@ -21,14 +21,33 @@ namespace YSR
         
         public Main()
         {
-            main = this;
-            InitializeComponent(); //이게 있어야하나?
             
+            
+
+            InitializeComponent(); // 이것 없이는 안되나봐?            
+
+                     
+        }
+
+
+        private void Main_Shown(object sender, EventArgs e)
+        {
+            main = this;
+
+            LogClass l = new LogClass();
+
+            l.Log(lboxLog, "프로그램을 시작합니다.");
+            Delay(500);
+            l.Log(lboxLog, "시작");
+            Delay(100);
+            l.Log(lboxLog, "시작");
+            Delay(100);
+
             이미지받아오기();
 
             환경설정();
 
-            this.Load += Form_Load;
+            l = null;
         }
 
         private void 환경설정()
@@ -54,7 +73,9 @@ namespace YSR
 
             //comboBox1.SelectedIndex = 0;
             //comboBox1.Text = j.ToString();
-            SetWindowPos(this.Handle, HWND_TOPMOST, 0, 0, 0, 0, WINDOW_FLAGS2);
+
+            // 최상위로 설정
+            //SetWindowPos(this.Handle, HWND_TOPMOST, 0, 0, 0, 0, WINDOW_FLAGS2);
 
             // 이벤트 핸들러 연결
             //Config.ItemStr += new StrAddHandler(this.strADD);
@@ -73,20 +94,18 @@ namespace YSR
             l = null;
         }
 
-        private void Form_Load(object sender, EventArgs e)
-        {
-           
-        }
-
         int labelMAX, COM_MIN, COM_MAX;
-        private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
+        private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e) // 값을 사용자가 선택할 경우에
         {
+            LogClass l = new LogClass();
+
             //MessageBox.Show(comboBox1.SelectedIndex.ToString());
             if ((Convert.ToInt32(comboBox1.SelectedItem) > 0) && (Convert.ToInt32(comboBox2.SelectedItem) > 0)) // 값이 0이하면 캔슬하기
             {
                 // 콤보1이 콤보2보다 크다면
                 if (Convert.ToInt32(comboBox1.SelectedItem) > Convert.ToInt32(comboBox2.SelectedItem))
                 {
+                    l.Log(lboxLog, "최솟값이 최댓값보다 큽니다.");
                     MessageBox.Show("최솟값이 최댓값보다 큽니다.");
                     //초기화하고 다시 정렬
                     comboBox1.Items.Clear();
@@ -97,6 +116,7 @@ namespace YSR
                     Delay(1000);
                     // 콤보1 초기값 설정
                     comboBox1.SelectedIndex = 0;
+                    l.Log(lboxLog, "최소 TETBL" + comboBox1.SelectedItem + "로 초기화되었습니다.");
 
                     COM_MIN = Convert.ToInt32(comboBox1.SelectedItem);
                     COM_MAX = Convert.ToInt32(comboBox2.SelectedItem);
@@ -106,6 +126,7 @@ namespace YSR
                 }
                 else
                 {
+                    l.Log(lboxLog, "최소 TETBL" + comboBox1.SelectedItem + "를 선택하셨습니다.");
                     COM_MIN = Convert.ToInt32(comboBox1.SelectedItem);
                     COM_MAX = Convert.ToInt32(comboBox2.SelectedItem);
                     labelMAX = COM_MAX - COM_MIN + 1;
@@ -117,19 +138,23 @@ namespace YSR
                     {
                         comboBox1.Items.Add(i);
                     }
-                    comboBox1.SelectedItem = COM_MIN;
+                    comboBox1.SelectedItem = COM_MIN;                    
                 }
             }
+            l = null;
         }
 
-        private void comboBox2_SelectionChangeCommitted(object sender, EventArgs e)
+        private void comboBox2_SelectionChangeCommitted(object sender, EventArgs e) // 값을 사용자가 선택할 경우에
         {
+            LogClass l = new LogClass();
+
             //MessageBox.Show(comboBox1.SelectedIndex.ToString());
             if ((Convert.ToInt32(comboBox1.SelectedItem) > 0) && (Convert.ToInt32(comboBox2.SelectedItem) > 0)) // 값이 0이하면 캔슬하기
             {
                 // 콤보1이 콤보2보다 크다면
                 if (Convert.ToInt32(comboBox1.SelectedItem) > Convert.ToInt32(comboBox2.SelectedItem))
                 {
+                    l.Log(lboxLog, "최솟값이 최댓값보다 큽니다.");
                     MessageBox.Show("최솟값이 최댓값보다 큽니다.");
                     //초기화하고 다시 정렬
                     comboBox1.Items.Clear();
@@ -140,6 +165,7 @@ namespace YSR
                     //Delay(1000);
                     // 콤보1 초기값 설정
                     comboBox1.SelectedIndex = 0;
+                    l.Log(lboxLog, "최소 TETBL" + comboBox1.SelectedItem + "로 초기화되었습니다.");
 
                     COM_MIN = Convert.ToInt32(comboBox1.SelectedItem);
                     COM_MAX = Convert.ToInt32(comboBox2.SelectedItem);
@@ -149,6 +175,7 @@ namespace YSR
                 }
                 else
                 {
+                    l.Log(lboxLog, "최대 TETBL" + comboBox2.SelectedItem + "를 선택하셨습니다.");
                     COM_MIN = Convert.ToInt32(comboBox1.SelectedItem);
                     COM_MAX = Convert.ToInt32(comboBox2.SelectedItem);
                     labelMAX = COM_MAX - COM_MIN + 1;
@@ -165,13 +192,13 @@ namespace YSR
             }
         }
 
-        private void comboBox3_SelectionChangeCommitted(object sender, EventArgs e)
+        private void comboBox3_SelectionChangeCommitted(object sender, EventArgs e) // 값을 사용자가 선택할 경우에
         {
             //MessageBox.Show("뭐가 문제냐2");
             Config.SavaIniFile();
         }
 
-        private void comboBox4_SelectionChangeCommitted(object sender, EventArgs e)
+        private void comboBox4_SelectionChangeCommitted(object sender, EventArgs e) // 값을 사용자가 선택할 경우에
         {
             Config.SavaIniFile();
         }
@@ -255,8 +282,6 @@ namespace YSR
             //MessageBox.Show("뭐가 문제냐");
             //Config.SavaIniFile();
         }
-
-        
 
         //private void strADD(string str)
         //{
@@ -620,17 +645,17 @@ namespace YSR
             l = null;
         }
 
-
-
         //비트맵 배열 선언
         List<Bitmap> bitMapList = new List<Bitmap>();
 
+        private static readonly IntPtr HWND_NOTOPMOST = new IntPtr(-2);
         private static readonly IntPtr HWND_TOPMOST = new IntPtr(-1);
         private static readonly IntPtr HWND_BOTTOM = new IntPtr(1);
         private const UInt32 SWP_NOSIZE = 0x0001;
         private const UInt32 SWP_NOMOVE = 0x0002;        
         private const UInt32 SWP_NOACTIVATE = 0x0010;
         private const UInt32 HIDEWINDOW = 0x0080;
+        private const UInt32 SHOWWINDOW = 0x0040;
         private const UInt32 SWP_NOOWNERZORDER = 0x0200; // Z 순서에서 소유자 창의 위치를 변경하지 않습니다.
         private const UInt32 SWP_NOZORDER = 0x0004; // 현재 Z 순서를 유지합니다. ( hWndlnsertAfter 매개변수 무시)
 
@@ -922,6 +947,28 @@ namespace YSR
         //string TState2;
 
         #region Button Click
+        private void button1_Click(object sender, EventArgs e)
+        {
+            LogClass l = new LogClass();
+
+            l.Log(lboxLog, $"저장");
+            Config.SavaIniFile();
+            
+            l.Log(lboxLog, $"종료");
+            l = null;
+            Application.Exit();            
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            LogClass l = new LogClass();
+
+            l.Log(lboxLog, $"최소화");
+            this.WindowState = FormWindowState.Minimized;
+
+            l = null;
+        }
+
         // 의사랑 자동 업데이트
         public void button9_Click(object sender, EventArgs e)
         {
@@ -935,59 +982,55 @@ namespace YSR
             //Config.LoadIniFile(); // 해당 경로에 INI 파일 생성
             //Config.SavaIniFile(); //Config.ini 파일 경로에 저장
 
-            if (radioButton1.Checked)
+            if (radioButton1.Checked) // 자동 업데이트
             {
                 thread1.Start();
             }
-            else if (radioButton2.Checked)
+            else if (radioButton2.Checked) //테스트
             {
 
             }
-            else if (radioButton3.Checked)
+            else if (radioButton3.Checked) //테스트2
             {
-                의사랑핸들("YSR2000 - SQL Anywhere 네트워크 서버", 1); // DB 종료
-                //Delay(500);
-                // 체크박스 값을 확인하는 법
-                String exe_name = "C:\\Users\\소유자\\Desktop\\서울안과.lnk";
+               // 의사랑핸들("YSR2000 - SQL Anywhere 네트워크 서버", 1); // DB 종료
+               // //Delay(500);
+               // // 체크박스 값을 확인하는 법
+               // String exe_name = "C:\\Users\\소유자\\Desktop\\서울안과.lnk";
 
-                //프로세스 생성
-                Process p = new Process();
+               // //프로세스 생성
+               // Process p = new Process();
 
-                p.StartInfo.FileName = exe_name;
-                // p.WaitForExit(); // 외부 프로세스 실행하면 C# 일시중지
+               // p.StartInfo.FileName = exe_name;
+               // // p.WaitForExit(); // 외부 프로세스 실행하면 C# 일시중지
 
-                //p.StartInfo.UseShellExecute = false;
+               // //p.StartInfo.UseShellExecute = false;
 
-                //// 데이터 넣기
-                //p.StartInfo.RedirectStandardInput = true;
-                //// 데이터 받기
-                //p.StartInfo.RedirectStandardOutput = false;
-                ////p.Arguments =;
-                //p.StartInfo.RedirectStandardError = true;
+               // //// 데이터 넣기
+               // //p.StartInfo.RedirectStandardInput = true;
+               // //// 데이터 받기
+               // //p.StartInfo.RedirectStandardOutput = false;
+               // ////p.Arguments =;
+               // //p.StartInfo.RedirectStandardError = true;
 
-                //p.StartInfo.CreateNoWindow = true; // < 윈도우 생성 안하기
+               // //p.StartInfo.CreateNoWindow = true; // < 윈도우 생성 안하기
 
-               // MessageBox.Show(p.StartInfo.WindowStyle.ToString());
+               //// MessageBox.Show(p.StartInfo.WindowStyle.ToString());
 
-                p.StartInfo.WindowStyle = ProcessWindowStyle.Minimized; //실행 됨.
-               // MessageBox.Show(p.StartInfo.WindowStyle.ToString());
-                p.Start();
+               // //p.StartInfo.WindowStyle = ProcessWindowStyle.Minimized; //실행 됨.
 
-                // 실행파일 실행
-                //Process.Start(startInfo);
-                //Process.Start(exe_name);
-                l.Log(lboxLog, exe_name + $" 실행");
+               //// MessageBox.Show(p.StartInfo.WindowStyle.ToString());
+               // p.Start();
+
+               // // 실행파일 실행
+               // //Process.Start(startInfo);
+               // //Process.Start(exe_name);
+               // l.Log(lboxLog, exe_name + $" 실행");
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Config.SavaIniFile();
-            Application.Exit();
-        }
         #endregion Button Click
 
-        public 
+        public
         int indexNumber;
 
         //int 점점점갯수;
@@ -995,8 +1038,12 @@ namespace YSR
 
         private void trackBar1_ValueChanged(object sender, EventArgs e)
         {
+            LogClass l = new LogClass();
             //Config.SavaIniFile();
-            this.Opacity = trackBar1.Value * 0.01;            
+            this.Opacity = trackBar1.Value * 0.01;
+            l.Log(lboxLog, "투명도 : " + trackBar1.Value + "%");
+
+            l = null;
         }
 
         private void tableLayoutPanel2_MouseDown(object sender, MouseEventArgs e)
@@ -1013,10 +1060,38 @@ namespace YSR
             SendMessage(Handle, 0x112, 0xf012, IntPtr.Zero);
         }
 
+        private void label6_MouseDown(object sender, MouseEventArgs e)
+        {
+            // 마우스 다운 시 창을 움직이게
+            ReleaseCapture();
+            SendMessage(Handle, 0x112, 0xf012, IntPtr.Zero);
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                LogClass l = new LogClass();
+
+                l.Log(lboxLog, $"윈도우 최상위로");
+                checkBox1.BackgroundImage = YSRAutoUpdate.Properties.Resources.pin2;
+                // 최상위로 설정
+                SetWindowPos(this.Handle, HWND_TOPMOST, 0, 0, 0, 0, WINDOW_FLAGS);
+            }
+            else
+            {
+                LogClass l = new LogClass();
+
+                l.Log(lboxLog, $"윈도우 최상위 취소");
+                checkBox1.BackgroundImage = YSRAutoUpdate.Properties.Resources.pin;
+                // 두번째 상위로 설정
+                SetWindowPos(this.Handle, HWND_NOTOPMOST, 0, 0, 0, 0, WINDOW_FLAGS);
+            }
+        }
+
         public void 자동모드진행중()
         {
-            // 위의 변수를 모두 전역변수로 설정하고 아래 문자열을 timer에 넣어서 indexNumber++ 돌리면 위의 움짤처럼 동작하게됩니다.
-
+            // 위의 변수를 모두 전역변수로 설정하고 아래 문자열을 timer에 넣어서 indexNumber++
             while (true)
             {
                 int 점점점갯수 = Math.Abs(자동모드_점점점.Length - (indexNumber % ((자동모드_점점점.Length) * 2)));
