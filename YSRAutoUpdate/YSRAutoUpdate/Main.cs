@@ -72,6 +72,7 @@
 //시작버튼을 눌렀을 때 저장된 값을 불러와 변수에 저장하기
 //SetForm에서 로그 쓰는 방법 public 써야하나? 클래스 따로 만들어서 해야하나?
 
+using MessagePack.Formatters;
 using OpenCvSharp;
 using System;
 using System.Collections.Generic;
@@ -83,6 +84,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 using YSRAutoUpdate;
+//using SetForm;
 
 namespace YSR
 {
@@ -393,7 +395,7 @@ namespace YSR
                     {
                         this.textBox1.BackColor = Color.Yellow;
                         this.textBox1.ForeColor = Color.Black;
-                        this.textBox1.Text = "자동모드 종료".PadLeft(67);
+                        this.textBox1.Text = "자동모드 종료".PadLeft(66);
                     });
                 }
             }
@@ -733,8 +735,11 @@ namespace YSR
             l.Log(lboxLog, $"{btn.Text} 버튼 Click");
 
             Thread thread1 = new Thread(() => 의사랑자동업데이트());
-            
+
             //thread2.IsBackground = true;
+            Config.LoadIniFile(); // 해당 경로에 INI 파일 생성
+
+            Config.SavaIniFile(); //Config.ini 파일 경로에 저장
 
             if (radioButton1.Checked)
             {
@@ -742,9 +747,16 @@ namespace YSR
             }
             else if (radioButton2.Checked)
             {
-                
-                //progressBar1.Value = 100;
+                //ini 생성 테스트
+                Config.LoadIniFile(); // 불러오기 아님? 해당 경로에 INI 파일 생성
+                Config.SavaIniFile(); //Config.ini 파일 경로에 저장
 
+                //progressBar1.Value = 100;
+            }
+            else if (radioButton3.Checked)
+            {
+                Config.LoadIniFile(); // 해당 경로에 INI 파일 생성
+                Config.SavaIniFile(); //Config.ini 파일 경로에 저장
             }
         }
         #endregion Button Click
