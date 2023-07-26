@@ -5,7 +5,7 @@ using System.Windows.Forms;
 namespace YSR
 {
     // 델리게이트 선언
-    public delegate void StrAddHandler(String str);
+    //public delegate void StrAddHandler(String str);
 
     partial class LogClass
     {

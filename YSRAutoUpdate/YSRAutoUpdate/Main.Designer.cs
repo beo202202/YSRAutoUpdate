@@ -33,6 +33,8 @@
             this.button9 = new System.Windows.Forms.Button();
             this.lboxLog = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.radioButton3 = new System.Windows.Forms.RadioButton();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -117,6 +119,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.comboBox2);
+            this.groupBox1.Controls.Add(this.comboBox1);
             this.groupBox1.Controls.Add(this.radioButton3);
             this.groupBox1.Controls.Add(this.textBox3);
             this.groupBox1.Controls.Add(this.textBox2);
@@ -132,6 +136,196 @@
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "5306",
+            "5307",
+            "5308",
+            "5309",
+            "5310",
+            "5311",
+            "5312",
+            "5313",
+            "5314",
+            "5315",
+            "5316",
+            "5317",
+            "5318",
+            "5319",
+            "5320",
+            "5321",
+            "5322",
+            "5323",
+            "5324",
+            "5325",
+            "5326",
+            "5327",
+            "5328",
+            "5329",
+            "5330",
+            "5331",
+            "5332",
+            "5333",
+            "5334",
+            "5335",
+            "5336",
+            "5337",
+            "5338",
+            "5339",
+            "5340",
+            "5341",
+            "5342",
+            "5343",
+            "5344",
+            "5345",
+            "5346",
+            "5347",
+            "5348",
+            "5349",
+            "5350",
+            "5351",
+            "5352",
+            "5353",
+            "5354",
+            "5355",
+            "5356",
+            "5357",
+            "5358",
+            "5359",
+            "5360",
+            "5361",
+            "5362",
+            "5363",
+            "5364",
+            "5365",
+            "5366",
+            "5367",
+            "5368",
+            "5369",
+            "5370",
+            "5371",
+            "5372",
+            "5373",
+            "5374",
+            "5375",
+            "5376",
+            "5377",
+            "5378",
+            "5379",
+            "5380",
+            "5381",
+            "5382",
+            "5383",
+            "5384",
+            "5385",
+            "5386",
+            "5387",
+            "5388",
+            "5389"});
+            this.comboBox2.Location = new System.Drawing.Point(304, 58);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(66, 20);
+            this.comboBox2.TabIndex = 26;
+            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "5306",
+            "5307",
+            "5308",
+            "5309",
+            "5310",
+            "5311",
+            "5312",
+            "5313",
+            "5314",
+            "5315",
+            "5316",
+            "5317",
+            "5318",
+            "5319",
+            "5320",
+            "5321",
+            "5322",
+            "5323",
+            "5324",
+            "5325",
+            "5326",
+            "5327",
+            "5328",
+            "5329",
+            "5330",
+            "5331",
+            "5332",
+            "5333",
+            "5334",
+            "5335",
+            "5336",
+            "5337",
+            "5338",
+            "5339",
+            "5340",
+            "5341",
+            "5342",
+            "5343",
+            "5344",
+            "5345",
+            "5346",
+            "5347",
+            "5348",
+            "5349",
+            "5350",
+            "5351",
+            "5352",
+            "5353",
+            "5354",
+            "5355",
+            "5356",
+            "5357",
+            "5358",
+            "5359",
+            "5360",
+            "5361",
+            "5362",
+            "5363",
+            "5364",
+            "5365",
+            "5366",
+            "5367",
+            "5368",
+            "5369",
+            "5370",
+            "5371",
+            "5372",
+            "5373",
+            "5374",
+            "5375",
+            "5376",
+            "5377",
+            "5378",
+            "5379",
+            "5380",
+            "5381",
+            "5382",
+            "5383",
+            "5384",
+            "5385",
+            "5386",
+            "5387",
+            "5388",
+            "5389"});
+            this.comboBox1.Location = new System.Drawing.Point(202, 58);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(66, 20);
+            this.comboBox1.TabIndex = 25;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // radioButton3
             // 
@@ -151,7 +345,6 @@
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(32, 21);
             this.textBox3.TabIndex = 23;
-            this.textBox3.Text = "5389";
             this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox2
@@ -160,7 +353,6 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(32, 21);
             this.textBox2.TabIndex = 22;
-            this.textBox2.Text = "5306";
             this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label3
@@ -287,12 +479,14 @@
         private System.Windows.Forms.ListBox lboxLog;
         private YSRAutoUpdate.LabelProgressBar labelProgressBar1;
         private YSRAutoUpdate.LabelProgressBar labelProgressBar2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
+        public System.Windows.Forms.TextBox textBox2;
+        public System.Windows.Forms.TextBox textBox3;        
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.RadioButton radioButton3;
+        public System.Windows.Forms.ComboBox comboBox2;
+        public System.Windows.Forms.ComboBox comboBox1;
     }
 }
 

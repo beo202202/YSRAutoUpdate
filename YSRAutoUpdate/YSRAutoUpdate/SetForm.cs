@@ -13,7 +13,7 @@ namespace YSR
 
         public SetForm()
         {
-            //InitializeComponent();
+            InitializeComponent();
         }
 
         private void SetForm_Load(object sender, EventArgs e)

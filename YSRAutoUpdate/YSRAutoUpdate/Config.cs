@@ -3,11 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace YSR
 {
+    // 델리게이트 선언
+    public delegate void StrAddHandler(String str);
     public static class Config
     {
+        static public void IDInsert()
+        {
+            Main.main.textBox2.Text = "test";
+        }
+
+        // 이벤트 선언
+        public static event StrAddHandler ItemStr;
+
+        // 폼에서 이곳을 불러내면 이곳에서 폼의 해당 컨트롤에 글자를 추가하거나 표시한다.
+        public static void STR()
+        {
+            ItemStr("abce");
+        }
+
         // ini 파일을 불러올 때 사용되는 함수
         [System.Runtime.InteropServices.DllImport("kernel32")]
         public static extern int GetPrivateProfileString(string sAppName, string sKeyName, string sDefault, StringBuilder sReturnedString, int nSize,
@@ -24,22 +41,14 @@ namespace YSR
         /// <summary>
         /// Database IP
         /// </summary>
-        public static string sDBIP = String.Empty;
+        public static string sTETBLMIN = String.Empty;
 
         /// <summary>
         /// Databbase User
         /// </summary>
-        public static string sDBUser = String.Empty;
+        public static string sTETBLMAX = String.Empty;
 
-        /// <summary>
-        /// Database Password
-        /// </summary>
-        public static string sDBPw = String.Empty;
-
-        /// <summary>
-        /// Database Name
-        /// </summary>
-        public static string sDBName = String.Empty;
+        
 
         /// <summary>
         /// FTP IP
@@ -67,21 +76,15 @@ namespace YSR
         public static void LoadIniFile()
         {
             StringBuilder Buf = new StringBuilder(1024);
+            //Main m = new Main();
 
             ///<summary>
             /// Database
             ///</summary>
-            GetPrivateProfileString("SERVER", "IP", "127.0.0.1", Buf, 1024, sINIPath);
-            sDBIP = Buf.ToString();
-
-            GetPrivateProfileString("SERVER", "USER", "범범조조", Buf, 1024, sINIPath);
-            sDBUser = Buf.ToString();
-
-            GetPrivateProfileString("SERVER", "PW", "12345", Buf, 1024, sINIPath);
-            sDBPw = Buf.ToString();
-
-            GetPrivateProfileString("SERVER", "DATABASE", "범범", Buf, 1024, sINIPath);
-            sDBName = Buf.ToString();
+            GetPrivateProfileString("TETBL", "MIN", "5306", Buf, 1024, sINIPath);
+            Main.main.comboBox1.SelectedItem = sTETBLMIN = Buf.ToString();
+            GetPrivateProfileString("TETBL", "MAX", "5389", Buf, 1024, sINIPath);
+            Main.main.comboBox2.SelectedItem = sTETBLMAX = Buf.ToString();
 
             ///<summary>
             /// FTP
@@ -102,15 +105,15 @@ namespace YSR
         public static void SavaIniFile()
         {
             ///<summary>
-            /// Database
+            /// TETBLNumber
             ///</summary>
-            WritePrivateProfileString("SERVER", "IP", sDBIP, sINIPath);
+            WritePrivateProfileString("TETBL", "MIN", Main.main.comboBox1.SelectedItem.ToString(), sINIPath);
+            WritePrivateProfileString("TETBL", "MAX", Main.main.comboBox2.SelectedItem.ToString(), sINIPath);
 
-            WritePrivateProfileString("SERVER", "USER", sDBUser, sINIPath);
-
-            WritePrivateProfileString("SERVER", "PW", sDBPw, sINIPath);
-
-            WritePrivateProfileString("SERVER", "DATABASE", sDBName, sINIPath);
+            ///<summary>
+            /// UpdateResume
+            ///</summary>
+            // 업데이트 이력을 하려 했으나 각각의 데이터베이스 정보를 알 수 없었다...
 
             ///<summary>
             /// FTP

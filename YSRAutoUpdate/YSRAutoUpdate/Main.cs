@@ -42,15 +42,15 @@
 // 2022년 9월
 /*
 // 09-01 labelProgressBar1, 2 추가, DB 미연결 시 오류 추가, YSR2000 - SQL Anywhere 네트워크 서버, WATCOM SQL NT234c 비활성 DB 네트워크 추가, 자동모드 종료 추가
-
+// 09-05 여러가지 추가하였으나 추후 자세히 기재, 콤보값 변경 시 자동 변경 기능... 미구현
 */
 
 
-// 아이콘 이미지 변경, 
-// 설정창을 
-
 // 설정창 투입, 저장, opacity 투명도 설정기능도 넣기 현재창 상대창
+// 업데이트 내역도 저장(성공내역)
+// Label 최대치도 수치 변경이 가능한가
 
+// 아이콘 이미지 변경, 
 // 스레드 개편은 못함. 잘 안됨. 그냥 그대로.
 // 스레드로 바꾸면 while로 멈춤이 없으려나? 프로그램 활성화 비활성화 맨 뒤 맨 앞 문제인가?
 
@@ -91,25 +91,93 @@ namespace YSR
     public partial class Main : Form
     {
         String AppPlayerName = ""; //저장된 값 불러올까?
-        
+        int labelMAX;
+        public static Main main;
         public Main()
         {
             InitializeComponent(); //이게 있어야하나?
-
+            
             이미지받아오기();
-            //자동모드진행중();
 
             this.Load += Form_Load;
         }
 
-        /// <summary>
-        /// 폼 로드 이벤트 핸들러
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        private void comboBox1_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            int j=0;
+            j = Convert.ToInt32(comboBox1.SelectedItem);
+            //MessageBox.Show(j.ToString());
+            //MessageBox.Show(Convert.ToInt32(comboBox1.SelectedItem).ToString());
+            comboBox1.Items.Clear();
+            for (int i = 5306; i <= Convert.ToInt32(comboBox2.SelectedItem); i++)
+            {
+                comboBox1.Items.Add(i);
+            }
+            comboBox1.Text = j.ToString();
+            MessageBox.Show(j.ToString());
+            MessageBox.Show(comboBox1.Text);
+            if (Convert.ToInt32(comboBox1.SelectedItem) > 0 && Convert.ToInt32(comboBox2.SelectedItem) > 0) // 값이 0이하면 캔슬하기
+            {     
+                int labelMAX2;
+                labelMAX2 = Convert.ToInt32(comboBox2.SelectedItem) - Convert.ToInt32(comboBox1.SelectedItem) + 1;
+                labelMAX = labelMAX2;
+                Config.SavaIniFile();
+                labelProgressBar1.Maximum = labelMAX;                
+            }
+            //comboBox1.Items.Clear();
+            //for (int i = 5306; i <= Convert.ToInt32(comboBox2.SelectedItem); i++)
+            //{
+            //    comboBox1.Items.Add(i);
+            //}           
+        }
+
+        int index1;
+        private void comboBox2_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            //MessageBox.Show(comboBox1.Text);
+            if (index1 > 0)
+            {
+                MessageBox.Show(comboBox1.Text);
+                int labelMAX2;
+                labelMAX2 = Convert.ToInt32(comboBox2.SelectedItem) - Convert.ToInt32(comboBox1.SelectedItem) + 1;
+                if (Convert.ToInt32(comboBox1.SelectedItem) > 0 && Convert.ToInt32(comboBox2.SelectedItem) > 0) // 값이 0이하면 캔슬하기
+                {
+                    labelMAX = labelMAX2;
+                    Config.SavaIniFile();
+                    labelProgressBar1.Maximum = labelMAX;
+
+                    int j;
+                    j = Convert.ToInt32(comboBox1.SelectedItem);
+
+                    //comboBox1.Items.Clear();
+                    //for (int i = 5306; i <= Convert.ToInt32(comboBox2.SelectedItem); i++)
+                    //{
+                    //    comboBox1.Items.Add(i);
+                    //}
+                    //comboBox1.SelectedItem = j;
+                }                
+            }
+            index1++;
+        }
+
         private void Form_Load(object sender, EventArgs e)
         {
+            main = this;
+            Config.LoadIniFile();
+            int j = 0;
+            j = Convert.ToInt32(comboBox1.SelectedItem);
+            comboBox1.Items.Clear();
+            for (int i = 5306; i <= Convert.ToInt32(comboBox2.SelectedItem); i++)
+            {
+                comboBox1.Items.Add(i);
+            }
+            comboBox1.Text = j.ToString();
             SetWindowPos(this.Handle, HWND_TOPMOST, 0, 0, 0, 0, WINDOW_FLAGS2);
+
+            // 이벤트 핸들러 연결
+            //Config.ItemStr += new StrAddHandler(this.strADD);
+
+            //strADD("abcd");
             //this.TopMost = true;
             //progressBar1.Step = 20;
 
@@ -122,11 +190,15 @@ namespace YSR
             //InitProgressBar(uiLpb_3, 66);
             //InitProgressBar(uiLpb_4, 98);
 
-
-
             l.Log(lboxLog, "준비완료");
             l = null;
         }
+
+        //private void strADD(string str)
+        //{
+        //    MessageBox.Show(str);
+        //    this.Text = str;
+        //}
 
         private void InitProgressBar(LabelProgressBar progressBar, int value)
         {
@@ -737,30 +809,33 @@ namespace YSR
             Thread thread1 = new Thread(() => 의사랑자동업데이트());
 
             //thread2.IsBackground = true;
-            Config.LoadIniFile(); // 해당 경로에 INI 파일 생성
-
-            Config.SavaIniFile(); //Config.ini 파일 경로에 저장
+            //Config.LoadIniFile(); // 해당 경로에 INI 파일 생성
+            //Config.SavaIniFile(); //Config.ini 파일 경로에 저장
 
             if (radioButton1.Checked)
             {
                 thread1.Start();
             }
             else if (radioButton2.Checked)
-            {
+            {                
+                labelMAX = Convert.ToInt32(comboBox2.SelectedItem) - Convert.ToInt32(comboBox1.SelectedItem) + 1;
+                MessageBox.Show(comboBox2.SelectedItem.ToString());
+                labelProgressBar1.Maximum = labelMAX;
+                //Config.IDInsert();
                 //ini 생성 테스트
                 Config.LoadIniFile(); // 불러오기 아님? 해당 경로에 INI 파일 생성
-                Config.SavaIniFile(); //Config.ini 파일 경로에 저장
 
                 //progressBar1.Value = 100;
             }
             else if (radioButton3.Checked)
             {
-                Config.LoadIniFile(); // 해당 경로에 INI 파일 생성
+                //Config.LoadIniFile(); // 해당 경로에 INI 파일 생성
                 Config.SavaIniFile(); //Config.ini 파일 경로에 저장
             }
         }
         #endregion Button Click
 
+        public 
         int indexNumber;
 
         //int 점점점갯수;
