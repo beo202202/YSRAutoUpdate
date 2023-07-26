@@ -479,48 +479,7 @@ namespace Devil2
             LDPlayer핸들();
         }
 
-        //블루스택 핸들 설정
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Button btn = sender as Button;
-
-            Log(enLogLevel.Info, $"{btn.Text} 버튼 Click");
-            //앱플레이어 이름
-            //AppPlayerName = "BlueStacks";     //블루스택3
-            AppPlayerName = "BlueStacks App Player";        //블루스택5
-
-            //부모창 핸들
-            //IntPtr hd1 = FindWindow("HwndWrapper[Bluestacks.exe;;8464f083-5e86-437e-8eb2-6e4fd4b5b58e]", "BlueStacks");
-            //블루스택3
-            //IntPtr hd1 = FindWindow(null, "BlueStacks");
-            //블루스택5
-            IntPtr hd1 = FindWindow("Qt5154QWindowOwnDCIcon", "BlueStacks App Player");
-
-            //자식 창1  
-            //블루스택3
-            //IntPtr hd2 = FindWindowEx(hd1, IntPtr.Zero, null, "BlueStacks Android PluginAndroid");
-            //블루스택5
-            IntPtr hd2 = FindWindowEx(hd1, IntPtr.Zero, "Qt5154QwindowIcon", "HD-Player");
-
-            //자식 창2 
-            //블루스택3
-            //IntPtr hd3 = FindWindowEx(hd2, IntPtr.Zero, null, "_ctl.Window");
-            //블루스택5
-            IntPtr hd3 = FindWindowEx(hd2, IntPtr.Zero, "BlueStacksApp", "_ctl.Wind");
-
-
-            if (hd1 != IntPtr.Zero)
-            {                
-                //textBox1.AppendText("부모:    " + hd1.ToString() + "\r\n자식1:  " + hd2.ToString() + "\r\n자식2:  " + hd3.ToString() + "\r\n");
-                Log(enLogLevel.Info, $"부모:    " + hd1.ToString() + "\r\n자식1:  " + hd2.ToString() + "\r\n자식2:  " + hd3.ToString());
-            }
-            else
-            {
-                //못 찾은 경우
-                //textBox1.AppendText("블루스택창을 못 찼았어요.\r\n");
-                Log(enLogLevel.Info, $"블루스택창을 못 찼았어요.");
-            }
-        }
+        
 
 
         //텍스트 박스,리스트(로그)박스,이미지 지우기
@@ -597,8 +556,15 @@ namespace Devil2
                     Rectangle rect = Rectangle.Round(Graphicsdata.VisibleClipBounds);
                     //Log(enLogLevel.Info, $"rect: " + rect);
 
-                    //플레이어 창 크기 만큼의 비트맵을 선언해줍니다.
-                    if(rect.Width == 0)
+                    //LDPlayer 캡쳐오류
+                    if(AppPlayerName == "LDPlayer" && rect.Width != 1002 && rect.Height != 575)
+                    {
+                        Log(enLogLevel.Info, $"LDPlayer_캡쳐 오류_크기 오류");
+                        Log(enLogLevel.Info, $"LDPlayer_반복될 경우_크기 조절 바람");
+                    }
+
+                    //BlueStacks 5 캡쳐오류
+                    if (AppPlayerName == "BlueStacks App Player" && rect.Width == 0)
                     {
                         Log(enLogLevel.Info, $"캡처 오류 원인_최소화");
 
@@ -608,9 +574,11 @@ namespace Devil2
                         //찾은 플레이어를 바탕으로 Graphics 정보를 가져옵니다.
                         Graphicsdata = Graphics.FromHwnd(findwindow);
 
-                        //찾은 플레이어 창 크기 및 위치를 가져옵니다. 
+                        //찾은 플레이어 창 크기 및 위치를 가져옵니다.
                         rect = Rectangle.Round(Graphicsdata.VisibleClipBounds);
                     }
+
+                    //플레이어 창 크기 만큼의 비트맵을 선언해줍니다.
                     //Log(enLogLevel.Info, $"rect.Width: " + rect.Width + "rect.Height: " + rect.Height);
                     Bitmap bmp = new Bitmap(rect.Width, rect.Height);
 
@@ -702,26 +670,78 @@ namespace Devil2
             //panel1.Controls.Add(ucPan1);
             //panel1.Controls.Remove(ucPan2);
         }
-
         #endregion Button Click
 
+        #region handle
+        //블루스택 핸들 설정
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+
+            Log(enLogLevel.Info, $"{btn.Text} 버튼 Click");
+            //앱플레이어 이름
+            //AppPlayerName = "BlueStacks";     //블루스택3
+            AppPlayerName = "BlueStacks App Player";        //블루스택5
+
+            //부모창 핸들
+            //IntPtr hd1 = FindWindow("HwndWrapper[Bluestacks.exe;;8464f083-5e86-437e-8eb2-6e4fd4b5b58e]", "BlueStacks");
+            //블루스택3
+            //IntPtr hd1 = FindWindow(null, "BlueStacks");
+            //블루스택5
+            IntPtr hd1 = FindWindow("Qt5154QWindowOwnDCIcon", "BlueStacks App Player");
+
+            //자식 창1  
+            //블루스택3
+            //IntPtr hd2 = FindWindowEx(hd1, IntPtr.Zero, null, "BlueStacks Android PluginAndroid");
+            //블루스택5
+            IntPtr hd2 = FindWindowEx(hd1, IntPtr.Zero, "Qt5154QwindowIcon", "HD-Player");
+
+            //자식 창2 
+            //블루스택3
+            //IntPtr hd3 = FindWindowEx(hd2, IntPtr.Zero, null, "_ctl.Window");
+            //블루스택5
+            IntPtr hd3 = FindWindowEx(hd2, IntPtr.Zero, "BlueStacksApp", "_ctl.Wind");
+
+
+            if (hd1 != IntPtr.Zero)
+            {
+                //textBox1.AppendText("부모:    " + hd1.ToString() + "\r\n자식1:  " + hd2.ToString() + "\r\n자식2:  " + hd3.ToString() + "\r\n");
+                Log(enLogLevel.Info, $"부모:    " + hd1.ToString() + "\r\n자식1:  " + hd2.ToString() + "\r\n자식2:  " + hd3.ToString());
+            }
+            else
+            {
+                //못 찾은 경우
+                //textBox1.AppendText("블루스택창을 못 찼았어요.\r\n");
+                Log(enLogLevel.Info, $"블루스택창을 못 찼았어요.");
+            }
+        }
 
         public void LDPlayer핸들()
         {
-            //앱플레이어 이름
+            //앱플레이어: LDPlayer
             AppPlayerName = "LDPlayer";
             //녹스
             //부모창 핸들
             //IntPtr hd1 = FindWindow("Qt5QWindowIcon", "녹스 플레이어");
-            IntPtr hd1 = FindWindow(null, "LDPlayer");
+            //LDPlayer4
+            //IntPtr hd1 = FindWindow(null, "LDPlayer");
+            //LDPlayer9
+            IntPtr hd1 = FindWindow("LDPlayerMainFrame", "LDPlayer");
 
             //자식 창1  
-            IntPtr hd2 = FindWindowEx(hd1, IntPtr.Zero, null, "TheRender");
+            //LDPlayer4
+            //IntPtr hd2 = FindWindowEx(hd1, IntPtr.Zero, null, "TheRender");
+            //LDPlayer9
+            IntPtr hd2 = FindWindowEx(hd1, IntPtr.Zero, "RenderWindow", "TheRender");
+
 
             //자식 창2       
             //IntPtr hd3 = FindWindowEx(hd2, IntPtr.Zero, null, "sub");
             //if문 넣어서
-            IntPtr hd3 = FindWindowEx(hd2, IntPtr.Zero, null, "AnglePlayer_0");
+            //LDPlayer4
+            //IntPtr hd3 = FindWindowEx(hd2, IntPtr.Zero, null, "AnglePlayer_0");
+            //LDPlayer9
+            IntPtr hd3 = FindWindowEx(hd2, IntPtr.Zero, "subWin", "sub");
 
             if (hd1 != IntPtr.Zero)
             {
@@ -734,7 +754,8 @@ namespace Devil2
                 //textBox1.AppendText("LDPlayer창을 못 찼았어요.\r\n");
                 Log(enLogLevel.Info, $"LDPlayer창을 못 찼았어요.");
             }
-        }       
+        }
+        #endregion handle
 
         //클래스로 만들고
         //오버로딩으로 만들기
