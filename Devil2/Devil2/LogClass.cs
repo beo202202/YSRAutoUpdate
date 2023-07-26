@@ -21,8 +21,8 @@ namespace Devil2
         // 필드
         //private DateTime dTime; // = DateTime.Now;        
         private enLogLevel eLevel;
-        private string LogDesc;
-        private string LogInfo;
+        //private string LogDesc;
+        //private string LogInfo;
 
         // 메서드를 하나 만들어 기능을 제공합니다.
         public void SetText(object box, string message)
@@ -45,12 +45,13 @@ namespace Devil2
             // 전달된 매개 변수를 TextBox로 형변환 합니다.
             ListBox lBoxLog = box as ListBox;
             DateTime dTime = DateTime.Now;
-            
+
             //MessageBox.Show(lBoxLog.ToString());
 
             //ListBox lBoxLog = (ListBox) $"System.Windwos.Forms.ListBox, Items.Count: 0";
 
-            string LogInfo = $"{dTime:MM-dd hh:mm:ss.fff} [{eLevel.ToString()}] {message}";
+            //string LogInfo = $"{dTime:MM-dd hh:mm:ss.fff} [{eLevel.ToString()}] {message}";
+            string LogInfo = $"{dTime:hh:mm:ss.fff} [{eLevel.ToString()}] {message}";
 
             // as 연산자는 형변환에 성공하면 해당 타입을, 실패하면 null을 반환합니다.
             if (lBoxLog != null)
@@ -62,21 +63,22 @@ namespace Devil2
             //MessageBox.Show(box.ToString());
         }
 
-        
 
-        /*
         // 프로퍼티
+        public enLogLevel Elevel
+        {
+            get { return eLevel; }
+            set { eLevel = value; }
+        }
+        /*
+        
         public DateTime Dtime
         {
             get { return dTime; }
             set { dTime = DateTime.Now; }
         }
         
-        public enLogLevel Elevel
-        {
-            get { return eLevel; }
-            set { eLevel = value; }
-        }
+        
 
         public string Logdesc
         {
