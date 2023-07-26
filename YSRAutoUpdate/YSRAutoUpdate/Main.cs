@@ -29,6 +29,12 @@
 // 2022-08-29 자동모드를 스레드로 바꿈
 // 2022-08-29 while문을 넣으면 폼이 안보임
 
+// 2022-08-30 폼 띄우기 전에 while 문이 들어가버렸던 문제 해결
+// 2022-08-30 스레드로 나뉘었으나 Join.. 문제 생김 원인 불명
+
+
+// UI 개편, ㅇ 개편, 항상 핸들 위로, 다른 핸들 아래로 왜 자꾸 다른 거 위로 올라가나
+
 // 스레드로 바꾸면 while로 멈춤이 없으려나? 프로그램 활성화 비활성화 맨 뒤 맨 앞 문제인가?
 
 
@@ -56,6 +62,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics; // 외부 프로그램 실행
 using System.Drawing;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -66,23 +73,23 @@ namespace YSR
     public partial class Main : Form
     {
         String AppPlayerName = ""; //저장된 값 불러올까?
+        
+        public Main()
+        {
+            InitializeComponent();
+
+            이미지받아오기();
+            //자동모드진행중();
+        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             //로그 클래스 개체 선언
             LogClass l = new LogClass();
 
-            l.Log(lboxLog, "시작되었습니다.");
+            l.Log(lboxLog, "준비완료");
             l = null;
-        }
-
-        public Main()
-        {
-            InitializeComponent();
-
-            이미지받아오기();
-            자동모드진행중();
-        }
+        }        
 
         private void 이미지받아오기()
         {
@@ -111,37 +118,7 @@ namespace YSR
                 l.Log(lboxLog, "이미지 불러오기 완료");
             }
         }
-        int indexNumber;
 
-        //int 점점점갯수;
-        string 자동모드_점점점 = "ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ";
-
-        public void 자동모드진행중()
-        {
-            // 위의 변수를 모두 전역변수로 설정하고 아래 문자열을 timer에 넣어서 indexNumber++ 돌리면 위의 움짤처럼 동작하게됩니다.
-
-            int 점점점갯수 = Math.Abs(자동모드_점점점.Length - (indexNumber % ((자동모드_점점점.Length) * 2)));
-            int 위치 = 25 + Math.Abs(자동모드_점점점.Length - (indexNumber % ((자동모드_점점점.Length) * 2)));
-
-            // Invoke를 통해 해당 Object에 대한 접근 권한을 얻기
-            // textBox1 객체에 접근하기 위해 Invoke 가 요구된다면
-            if (this.textBox1.InvokeRequired == true)
-            {
-                this.textBox1.Invoke((MethodInvoker)delegate
-                {
-                    this.textBox1.Text = string.Format("자동모드 진행 중 [ {0,9} ] {1,26}",
-                indexNumber.ToString().PadLeft(9, '0'), 자동모드_점점점.Substring(점점점갯수).PadLeft(위치, ' '));
-                });
-            }
-            else
-            {
-                this.textBox1.Text = string.Format("자동모드 진행 중 [ {0,9} ] {1,26}",
-                indexNumber.ToString().PadLeft(9, '0'), 자동모드_점점점.Substring(점점점갯수).PadLeft(위치, ' '));
-            }
-            indexNumber++;
-            //Thread.Sleep(100);
-
-        }
 
         public void 의사랑자동업데이트()
         {
@@ -168,6 +145,7 @@ namespace YSR
                 i = 0;
                 while (i == 0)
                 {
+                    //자동모드진행중();
                     i = 의사랑핸들(null, 0);
                     Delay(100);
                 }
@@ -177,6 +155,7 @@ namespace YSR
                 i = 0;
                 while (i == 0)
                 {
+                    //자동모드진행중();
                     i += 의사랑핸들("[안내] 아래 내용을 반드시 확인해 주시기  바랍니다.", 1);
                     i += 의사랑핸들("질문", 0);
                     if (i > 0)
@@ -195,7 +174,7 @@ namespace YSR
                     Delay(100);
                 }
                 else
-                {               
+                {
                     l.Log(lboxLog, "창 찾는 중...3");
                     // 4개 창 모두 없을 때 반복문 나온다.
                     i = 0;
@@ -204,6 +183,7 @@ namespace YSR
                         || (FindWindow(null, "질문") != null)
                         || (FindWindow("TMessageForm", "정보") != null))
                     {
+                        //자동모드진행중();
                         i = 0;
                         i += 의사랑핸들("질문", 1);
                         i += 의사랑핸들("정보", 1);
@@ -258,7 +238,7 @@ namespace YSR
             l = null;
         }
 
-        
+
 
         //비트맵 배열 선언
         List<Bitmap> bitMapList = new List<Bitmap>();
@@ -507,7 +487,7 @@ namespace YSR
                 }
             }
             catch (OpenCvSharp.OpenCVException)
-            {                
+            {
                 l.Log(lboxLog, $"searchIMG\\찾기오류\\32비트,24비트PNG추정");
             }
             catch (Exception e)
@@ -517,6 +497,21 @@ namespace YSR
             return i;
         }
 
+        public System.Threading.Timer myTimer;
+        //스레드 타이머 시작
+        public void fn_start(TimerCallback callback, int starttime, int sendtime)
+        {
+            myTimer = new System.Threading.Timer(callback, null, starttime, sendtime);
+        }
+        //스레드 타이머 종료
+        public void fn_stop()
+        {
+            myTimer.Dispose();
+        }
+
+        string TState1;
+        string TState2;
+
         #region Button Click
         // 의사랑 자동 업데이트
         public void button9_Click(object sender, EventArgs e)
@@ -525,24 +520,107 @@ namespace YSR
             Button btn = sender as Button;
             l.Log(lboxLog, $"{btn.Text} 버튼 Click");
 
-            Thread thread0 = new Thread(() => 의사랑자동업데이트());
-            Thread thread1 = new Thread(() => 자동모드진행중());
+            Thread thread1 = new Thread(() => 의사랑자동업데이트());
+            Thread thread2 = new Thread(() => 자동모드진행중());
+            thread2.IsBackground = true;
+
             if (radioButton1.Checked)
             {
-                thread0.Start();
+                // 스레드가 살아있거나 동작 중이라면
+                if (TState1 == "Running")
+                {
+                    //스레드 중지
+                    try
+                    {
+                        thread1.Abort();
+                        //thread1.Join();
+                    }
+                        catch{ }
+                    TState1 = "Stopped";
+                    try
+                    {
+                        thread2.Abort();
+                        //thread2.Join();
+                    }
+                    catch
+                    { }
+                    TState2 = "Stopped";
+                    l.Log(lboxLog, TState1);
+                    l.Log(lboxLog, TState2);
+                }
+                else
+                {
+                    l.Log(lboxLog, TState1);
+                    l.Log(lboxLog, TState2);
+                    thread1.Start();
+                    TState1 = "Running";
+                    thread2.Start();
+                    TState2 = "Running";
+                    l.Log(lboxLog, TState1);
+                    l.Log(lboxLog, TState2);
+                    //l.Log(lboxLog, thread1.ThreadState.ToString());
+                    //l.Log(lboxLog, thread2.ThreadState.ToString());
+                }
                 //의사랑자동업데이트();
             }
             else if (radioButton2.Checked)
             {
-                
-                    thread1.Start();
-                    //자동모드진행중();
-                                
+                l.Log(lboxLog, thread1.ThreadState.ToString());
+                l.Log(lboxLog, thread2.ThreadState.ToString());
+                //l.Log(lboxLog, CurrentThread.ToString());
+
+                //thread1.Abort();
+                //thread1.Join();
+                //thread2.Abort();
+                //thread2.Join();
+
+                //자동모드진행중();
+
+                //fn_start(자동모드진행중, 100, 500);
+
+
+                //자동모드진행중();
+
             }
         }
         #endregion Button Click
 
+        int indexNumber;
 
+        //int 점점점갯수;
+        string 자동모드_점점점 = "ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ";
+
+        public void 자동모드진행중()
+        {
+            // 위의 변수를 모두 전역변수로 설정하고 아래 문자열을 timer에 넣어서 indexNumber++ 돌리면 위의 움짤처럼 동작하게됩니다.
+
+            while (true)
+            {
+                int 점점점갯수 = Math.Abs(자동모드_점점점.Length - (indexNumber % ((자동모드_점점점.Length) * 2)));
+                int 위치 = 18 + Math.Abs(자동모드_점점점.Length - (indexNumber % ((자동모드_점점점.Length) * 2)));
+
+                // Invoke를 통해 해당 Object에 대한 접근 권한을 얻기
+                // textBox1 객체에 접근하기 위해 Invoke 가 요구된다면
+                if (this.textBox1.InvokeRequired == true)
+                {
+                    this.textBox1.Invoke((MethodInvoker)delegate
+                    {
+                        this.textBox1.Text = string.Format("자동모드 진행 중 [ {0,9} ] {1,20}",
+                    indexNumber.ToString().PadLeft(9, '0'), 자동모드_점점점.Substring(점점점갯수).PadLeft(위치, ' '));
+                    });
+                }
+                else
+                {
+                    this.textBox1.Text = string.Format("자동모드 진행 중 [ {0,9} ] {1,26}",
+                    indexNumber.ToString().PadLeft(9, '0'), 자동모드_점점점.Substring(점점점갯수).PadLeft(위치, ' '));
+                }
+                indexNumber++;
+                //Delay(100);
+                Thread.Sleep(100);
+            }
+
+
+        }
 
         #region handle
         public int 의사랑핸들(string APN, int i) // *의사랑핸들
@@ -689,7 +767,7 @@ namespace YSR
                     }
                     break;
 
-                case "업데이트 정보":                    
+                case "업데이트 정보":
                     AppPlayerName = "업데이트 정보"; //앱플레이어: 의사랑_업데이트 정보
                     hd = FindWindow("TUpdateToolHistory", AppPlayerName);
                     hd1 = FindWindowEx(hd, IntPtr.Zero, "TPanel", "");

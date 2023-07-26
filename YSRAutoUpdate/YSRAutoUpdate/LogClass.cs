@@ -70,9 +70,22 @@ namespace YSR
             // as 연산자는 형변환에 성공하면 해당 타입을, 실패하면 null을 반환합니다.
             if (lBoxLog != null)
             {
+                if (lBoxLog.InvokeRequired == true)
+                {
+                    lBoxLog.Invoke((MethodInvoker)delegate
+                    {
+                        lBoxLog.Items.Insert(0, string.Format("{0}{1}", Log1.PadRight(15), Log2));
+                        Delay(100);
+                    });
+                }
+                else
+                {
+                    lBoxLog.Items.Insert(0, string.Format("{0}{1}", Log1.PadRight(15), Log2));
+                    Delay(100);
+                }
                 //lBoxLog.Items.Insert(0, LogInfo);
-                lBoxLog.Items.Insert(0, string.Format("{0}{1}", Log1.PadRight(15), Log2));
-                Delay(100);
+                //lBoxLog.Items.Insert(0, string.Format("{0}{1}", Log1.PadRight(15), Log2));
+                //Delay(100);
                 //lBoxLog.Text = message;
                 //MessageBox.Show(LogInfo);
             }
