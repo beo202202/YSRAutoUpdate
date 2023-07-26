@@ -1,12 +1,7 @@
-﻿using System;
-using System.ComponentModel;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using OpenCvSharp;
+﻿using OpenCvSharp;
 using OpenCvSharp.XFeatures2D;
+using System;
+using System.Windows.Forms;
 
 namespace Feature_Matching
 {
@@ -14,7 +9,7 @@ namespace Feature_Matching
     {
         public Form1()
         {
-           // InitializeComponent();
+            // InitializeComponent();
         }
 
         private void Form1_Load(object sender, EventArgs e)

@@ -1,14 +1,16 @@
 ﻿//2022-01-16 포스트 캡쳐 기능
 //2022-08-16 환경설정 xml 일부 저장기능
 
-//2022-08-18 로그가 실행이 드디어 됨. 그러나 너무 길어진 거 같음. 그럴바에 메인에 로그 넣는게 낫지 않나
-
+// 2022-08-18 로그가 실행이 드디어 됨. 그러나 너무 길어진 거 같음. 그럴바에 메인에 로그 넣는게 낫지 않나
 // 2022-08-19 비활성 마우스 입력이 안되는 것 같다.
-//텍스트만 썼는데도 불구하고 메모리가 조금씩 올라간다 해결 방법은?
-
+// 2022-08-19 텍스트만 썼는데도 불구하고 메모리가 조금씩 올라간다 해결 방법은?
 // 2022-08-22 질문창 Y가 클릭이 안되어서 SIK (키보드 입력으로 대체) PostMessage 로 해도 되는 것인가?
 // 2022-08-22 키보드 입력 대신 SendMessage 버튼 클릭으로 대체
+// 2022-08-24 32비트로 이미지 교체 완료, 이미지 비교 시 32비트로 비교를 해야하는데 24비트는 안된다. 캡처 도구 로만 캡처하자(알캡처, 포토샵 안됨 ㅠ.ㅠ)
+// 2022-08-24 24비트로 비교하려면 비트 변환을 해야한다.
+// 2022-08-24 AppPlayerName을 쓰는 지역변수가 있었기에 변경 해주니 전역변수로 공유 할 수 있었다.
 
+// NuGet 패키지 정리하여 용량을 줄이기 (필수는 제외, 예.OpenCV)
 //업데이트 정보창에서 자동 클릭 
 
 //의사랑 창을 찾는데 상대 포인트위치가 안됨 ㅠ.ㅠ 
@@ -24,26 +26,30 @@
 //시작버튼을 눌렀을 때 저장된 값을 불러와 변수에 저장하기
 //SetForm에서 로그 쓰는 방법 public 써야하나? 클래스 따로 만들어서 해야하나?
 
+using OpenCvSharp;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Runtime.InteropServices;
 using System.Diagnostics; // 외부 프로그램 실행
-using OpenCvSharp;
-using System.IO;
-using OpenCvSharp.Detail;
-using Devil2;
+using System.Drawing;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace Devil2
 {
     public partial class Main : Form
     {
+        //앱플레이어 선언
+        //String AppPlayerName = "LDPlayer";
+        //String AppPlayerName = "BlueStacks";
+        String AppPlayerName = ""; //저장된 값 불러올까?
+        //앱플레이어 고정 해야함
+        //앱플레이어 크기를 저정할 변수
+        //double full_width = 0;
+        //double full_height = 0;
+        //앱플레이어 지정한 크기
+        //double pix_width = 830;
+        //double pix_height = 553;
+
         //panel 선언
         //ucPanel.ucPanel1 ucPan1 = new ucPanel.ucPanel1();
         //ucPanel.ucPanel2 ucPan2 = new ucPanel.ucPanel2();
@@ -177,17 +183,7 @@ namespace Devil2
             l = null;
         }
 
-        //앱플레이어 선언
-        //String AppPlayerName = "LDPlayer";
-        //String AppPlayerName = "BlueStacks";
-        String AppPlayerName = ""; //저장된 값 불러오기
-        //앱플레이어 고정 해야함
-        //앱플레이어 크기를 저정할 변수
-        //double full_width = 0;
-        //double full_height = 0;
-        //앱플레이어 지정한 크기
-        //double pix_width = 830;
-        //double pix_height = 553;
+        
 
         //비트맵 배열 선언
         List<Bitmap> bitMapList = new List<Bitmap>();
@@ -364,7 +360,9 @@ namespace Devil2
         {
             //로그 클래스 개체 선언
             LogClass l = new LogClass();
-            
+
+            l.Log(lboxLog, "AppPlayerName :" + AppPlayerName);
+
             int i = 0;
             try
             {
@@ -416,9 +414,8 @@ namespace Devil2
                     //찾을 이미지 선언
                     using (Mat FindMat = OpenCvSharp.Extensions.BitmapConverter.ToMat(bitMapList[a]))
                     //스크린 이미지에서 FindMat 이미지를 찾아라
-                    
-                        
-                    using (Mat res = ScreenMat.MatchTemplate(FindMat, TemplateMatchModes.CCoeffNormed)) // ** 여기서 오류가 난다.
+                    using (Mat res = ScreenMat.MatchTemplate(FindMat, TemplateMatchModes.CCoeffNormed))
+                    // 32비트로 해야하는데 24비트인지 확인해야함
                     {
                         //찾은 이미지의 유사도를 담을 더블형 최대 최소 값을 선언합니다.
                         double minval, maxval = 0;
@@ -448,16 +445,18 @@ namespace Devil2
                 else
                 {
                     //플레이어를 못찾을경우
-                    //textBox1.AppendText("앱플레이어 못 찾았어요" + a + "." + "\r\n");
                     l.Log(lboxLog, $"앱플레이어 못 찾았어요" + a + ".");
                     i = 0;
                     return i;
                 }
             }
-            catch
+            catch (OpenCvSharp.OpenCVException)
+            {                
+                l.Log(lboxLog, $"searchIMG\\찾기오류\\32비트,24비트PNG추정");
+            }
+            catch (Exception e)
             {
-                //textBox1.AppendText("찾기오류\\searchIMG.\r\n");
-                l.Log(lboxLog, $"찾기오류\\searchIMG");
+                l.Log(lboxLog, e.ToString());
             }
             return i;
         }
@@ -1038,7 +1037,7 @@ namespace Devil2
 
 
         //이미지 찾기4
-        private void button4_Click(object sender, EventArgs e)
+        public void button4_Click(object sender, EventArgs e)
         {
             //로그 클래스 개체 선언
             LogClass l = new LogClass();
@@ -1050,7 +1049,6 @@ namespace Devil2
             l.Log(lboxLog, $"{btn.Text} 버튼 Click");
 
             의사랑핸들("질문", 0);
-            AppPlayerName = "질문";
             b = "이미지찾기";
             i = searchIMG(3, b);
             if (i == 1)
@@ -1219,7 +1217,7 @@ namespace Devil2
             {
                 while (radioButton3.Checked)
                 {
-                    의사랑핸들("", 0);
+                    의사랑핸들(null, 0);
 
                     i = 의사랑핸들("질문", 0);
                     if (i == 1)
@@ -1247,7 +1245,7 @@ namespace Devil2
             }
             else if (radioButton4.Checked)
             {
-                의사랑핸들("", 0);
+                의사랑핸들(null, 0);
                 l.Log(lboxLog, $"의사랑2012 업데이트 창");
             }
             else if (radioButton5.Checked)
@@ -1259,7 +1257,7 @@ namespace Devil2
         }
 
         // 의사랑 테스트
-        private void button9_Click(object sender, EventArgs e)
+        public void button9_Click(object sender, EventArgs e)
         {
             //로그 클래스 개체 선언
             LogClass l = new LogClass();
@@ -1282,8 +1280,21 @@ namespace Devil2
 
                 Delay(3000);
 
+                의사랑핸들("질문", 0);
+                b = "이미지찾기";
+                i = searchIMG(3, b);
+                if (i == 1)
+                {
+                    l.Log(lboxLog, $"찾음");
+                }
+                Delay(500);
+
+
+                // 의사랑핸들(TfmMain, "") [의사랑2012] 업데이트 창이 뜨거나 질문창이 뜨거나 정보창이 뜰때까지 while
+
                 b = "테스트1";
-                i = searchIMG(3, b); //다시 한 번 실행하시겠습니까? 이미지 검색 여기서 문제인듯
+                의사랑핸들("질문", 0);
+                i = searchIMG(3, b); //다시 한 번 실행하시겠습니까? (질문창) 이미지 검색 여기서 문제인듯
                 if (i == 1)
                 {
                     의사랑핸들("질문", 2); // "아니오" 버튼 클릭
@@ -1295,10 +1306,10 @@ namespace Devil2
                     의사랑핸들("업데이트 정보", 1); // 업데이트 정보 창에서 '전체실행' 버튼 클릭
 
                     // 4개 창 모두 없을 때 반복문 나온다.
-                    while((FindWindow("TUpdateToolHistory", "업데이트 정보") != null) 
-                        || (FindWindow(null, "질문") != null) 
+                    while ((FindWindow("TUpdateToolHistory", "업데이트 정보") != null)
+                        || (FindWindow(null, "질문") != null)
                         || (FindWindow(null, "[안내] 아래 내용을 반드시 확인해 주시기 바랍니다.") != null)
-                        || (FindWindow("TMessageForm", "정보") != null) )
+                        || (FindWindow("TMessageForm", "정보") != null))
                     {
                         의사랑핸들("질문", 1);
                         의사랑핸들("[안내] 아래 내용을 반드시 확인해 주시기  바랍니다.", 1);
@@ -1318,19 +1329,19 @@ namespace Devil2
 
 
         #region handle
-        public int 의사랑핸들(string AppPlayerName, int i) // *의사랑핸들
+        public int 의사랑핸들(string APN, int i) // *의사랑핸들
         {
             //로그 클래스 개체 선언
             LogClass l = new LogClass();
             int j = 0;
 
             IntPtr hd, hd1, hd2, hd3;
-            switch (AppPlayerName)
+            switch (APN)
             {
-                case "":
+                case null:
                     // 의사랑 2012 업데이트 창이 있는가
-                    AppPlayerName = "";
-                    hd = FindWindow("TfmMain", null);
+                    AppPlayerName = null;
+                    hd = FindWindow("TfmMain", AppPlayerName); //""보다 null로 해야 찾을 수 있다.
                     //IntPtr hd1 = FindWindowEx(hd, IntPtr.Zero, "TPanel", "PanClient");
                     //IntPtr hd2 = FindWindowEx(hd1, IntPtr.Zero, "TPanel", "");
                     //IntPtr hd3 = FindWindowEx(hd2, IntPtr.Zero, "TButton", "확인");
@@ -1349,7 +1360,7 @@ namespace Devil2
                     break;
                 case "질문":
                     AppPlayerName = "질문";
-                    hd = FindWindow(null, AppPlayerName); //"TMessageTagForm"
+                    hd = FindWindow(null, AppPlayerName); //"TMessageTagForm" or "TMessageForm"
                     hd1 = FindWindowEx(hd, IntPtr.Zero, "TButton", "예(&Y)");
                     hd2 = FindWindowEx(hd, IntPtr.Zero, "TButton", "아니오(&N)");
 
@@ -1365,16 +1376,19 @@ namespace Devil2
                         IntPtr lparam = new IntPtr(x | (y << 0));
                         switch (i)
                         {
+                            case 0:
+                                l.Log(lboxLog, $"버튼 클릭 안함.");
+                                break;
                             case 1:
-                                SendMessage(hd1, BM_CLICK, 0, lparam);
+                                SendMessage(hd1, BM_CLICK, 0, lparam); // 예
                                 Delay(1000);
                                 break;
                             case 2:
-                                SendMessage(hd2, BM_CLICK, 0, lparam);
+                                SendMessage(hd2, BM_CLICK, 0, lparam); // 아니오
                                 Delay(1000);
                                 break;
                             default:
-                                l.Log(lboxLog, $"오류");
+                                l.Log(lboxLog, $"의사랑핸들\\질문\\오류\\클릭값");
                                 break;
                         }
                         j = 1;
@@ -1446,9 +1460,8 @@ namespace Devil2
                         j = 0;
                     }
                     break;
-                case "업데이트 정보":
-                    //앱플레이어: 의사랑_업데이트 정보
-                    AppPlayerName = "업데이트 정보";
+                case "업데이트 정보":                    
+                    AppPlayerName = "업데이트 정보"; //앱플레이어: 의사랑_업데이트 정보
                     hd = FindWindow("TUpdateToolHistory", AppPlayerName);
                     hd1 = FindWindowEx(hd, IntPtr.Zero, "TPanel", "");
                     hd2 = FindWindowEx(hd1, IntPtr.Zero, "TPanel", "");
@@ -1480,7 +1493,7 @@ namespace Devil2
                     }
                     break;
                 default:
-                    l.Log(lboxLog, "AppPlayer 이름 오류");
+                    l.Log(lboxLog, "의사랑핸들\\오류");
                     break;
             }
             return j;

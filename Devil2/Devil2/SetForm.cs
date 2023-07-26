@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Devil2
@@ -26,7 +19,7 @@ namespace Devil2
         {
             InitializeComponent();
         }
-         
+
         private void SetForm_Load(object sender, EventArgs e)
         {
             LogClass logclass = new LogClass();
