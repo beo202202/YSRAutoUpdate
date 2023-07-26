@@ -9,6 +9,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using YSRAutoUpdate;
 using static System.Net.WebRequestMethods;
 
 namespace YSR
@@ -191,6 +192,98 @@ namespace YSR
 
             l.Log(Main.main.lboxLog, "저장하기");
             Config.SavaIniFile2();
+
+            l = null;
+        }
+
+        private void 다시로드(object sender, FormClosedEventArgs e)
+        {
+            LogClass l = new LogClass();
+
+            l.Log(Main.main.lboxLog, "다시 로드");
+
+            //l.Log(lboxLog, "환경설정1을 불러오는 중...");
+            (string sTETBLMIN, string sTETBLMAX,
+                string sTETBLPATH, string sTETBLSMIN, string sTETBLSMAX,
+            string sCHECK1, string sCHECK2, string sCHECK3, string sCHECK4, string sCHECK5,
+            string sCHECK6, string sCHECK7, string sCHECK8, string sCHECK9, string sCHECK10,
+            string sNAME1, string sNAME2, string sNAME3, string sNAME4, string sNAME5,
+            string sNAME6, string sNAME7, string sNAME8, string sNAME9, string sNAME10,
+            string sCLINIC1PATH, string sCLINIC2PATH, string sCLINIC3PATH, string sCLINIC4PATH, string sCLINIC5PATH,
+            string sCLINIC6PATH, string sCLINIC7PATH, string sCLINIC8PATH, string sCLINIC9PATH, string sCLINIC10PATH)
+            = Config.LoadIniFile0();
+
+            int COM_MIN = Convert.ToInt32(sTETBLMIN);
+            //MessageBox.Show("COM_MIN = " + COM_MIN);
+            //COM_MAX = Convert.ToInt32(comboBox2.SelectedItem);
+            int COM_MAX = Convert.ToInt32(sTETBLMAX);
+            //MessageBox.Show("COM_MAX = " + COM_MAX);
+            int labelMAX = COM_MAX - COM_MIN + 1;
+            //MessageBox.Show("labelMAX = " + labelMAX);
+            Main.main.labelProgressBar1.Maximum = labelMAX;
+
+            //+(오류) sTETBLSMIN 설정값이 지금 설정보다 높을 경우 값을 초기화 해야한다.
+            Main.main.comboBox1.Items.Clear();
+            if (COM_MIN <= 0)
+            {
+                l.Log(Main.main.lboxLog, "초기값이 설정되어 있지 않습니다.");
+                for (int i = Convert.ToInt32(sTETBLSMIN); i <= Convert.ToInt32(sTETBLSMAX); i++)
+                {
+                    Main.main.comboBox1.Items.Add(i);
+                }
+            }
+            else
+            {
+                for (int i = Convert.ToInt32(sTETBLSMIN); i <= COM_MAX; i++)
+                {
+                    Main.main.comboBox1.Items.Add(i);
+                }
+            }
+
+            if (COM_MIN < Convert.ToInt32(sTETBLSMIN))
+            {
+                l.Log(Main.main.lboxLog, "COM_MIN = " + COM_MIN + ", sTETBLSMIN = " + sTETBLSMIN);
+                if (COM_MIN <= 0)
+                {
+                    l.Log(Main.main.lboxLog, "현재값이 설정되어 있지 않습니다.");
+                }
+                else
+                {
+                    l.Log(Main.main.lboxLog, "현재 값이 설정 값 보다 작습니다.");
+                }
+                Main.main.comboBox1.SelectedIndex = 0;
+                l.Log(Main.main.lboxLog, "최소 TETBL" + Main.main.comboBox1.SelectedItem + "로 초기화되었습니다.");
+                COM_MIN = Convert.ToInt32(Main.main.comboBox1.SelectedItem);
+            }
+            else
+            {
+                Main.main.comboBox1.SelectedItem = COM_MIN;
+            }
+
+            Main.main.comboBox2.Items.Clear();
+            for (int i = Convert.ToInt32(sTETBLSMIN); i <= Convert.ToInt32(sTETBLSMAX); i++)
+            {
+                Main.main.comboBox2.Items.Add(i);
+            }
+            if (COM_MAX <= 0)
+            {
+                l.Log(Main.main.lboxLog, "현재값이 설정되어 있지 않습니다.");
+                Main.main.comboBox2.SelectedIndex = 0;
+                l.Log(Main.main.lboxLog, "최대 TETBL" + Main.main.comboBox2.SelectedItem + "로 초기화되었습니다.");
+                COM_MAX = Convert.ToInt32(Main.main.comboBox2.SelectedItem);
+            }
+            else if (Convert.ToInt32(sTETBLSMAX) < COM_MAX)
+            {
+                //MessageBox.Show("COM_MAX = " + COM_MAX + ", sTETBLSMAX = " + sTETBLSMAX);
+                l.Log(Main.main.lboxLog, "설정 값이 현재 값 보다 작습니다.");
+                Main.main.comboBox2.SelectedIndex = 0;
+                l.Log(Main.main.lboxLog, "최대 TETBL" + Main.main.comboBox2.SelectedItem + "로 초기화되었습니다.");
+                COM_MAX = Convert.ToInt32(Main.main.comboBox2.SelectedItem);
+            }
+            else
+            {
+                Main.main.comboBox2.SelectedItem = COM_MAX;
+            }
 
             l = null;
         }

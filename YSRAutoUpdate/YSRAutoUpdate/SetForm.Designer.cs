@@ -760,6 +760,7 @@
             this.ShowIcon = false;
             this.Text = "Setting";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.저장하기);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.다시로드);
             this.Shown += new System.EventHandler(this.SetForm_Shown);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

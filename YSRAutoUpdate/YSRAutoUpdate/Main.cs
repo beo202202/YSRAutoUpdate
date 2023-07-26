@@ -52,43 +52,103 @@ namespace YSR
             //로그 클래스 개체 선언
             LogClass l = new LogClass();
 
-            l.Log(lboxLog, "환경설정을 불러오는 중...");
+            l.Log(lboxLog, "환경설정1을 불러오는 중...");
+            (string sTETBLMIN, string sTETBLMAX, 
+                string sTETBLPATH, string sTETBLSMIN, string sTETBLSMAX,
+            string sCHECK1, string sCHECK2, string sCHECK3, string sCHECK4, string sCHECK5, 
+            string sCHECK6, string sCHECK7, string sCHECK8, string sCHECK9, string sCHECK10,
+            string sNAME1, string sNAME2, string sNAME3, string sNAME4, string sNAME5,
+            string sNAME6, string sNAME7, string sNAME8, string sNAME9, string sNAME10,
+            string sCLINIC1PATH, string sCLINIC2PATH, string sCLINIC3PATH, string sCLINIC4PATH, string sCLINIC5PATH,
+            string sCLINIC6PATH, string sCLINIC7PATH, string sCLINIC8PATH, string sCLINIC9PATH, string sCLINIC10PATH)
+            = Config.LoadIniFile0();
+            //Delay(1000);
+            l.Log(lboxLog, "환경설정을 불러왔습니다.");
+
+            l.Log(lboxLog, "환경설정2을 불러오는 중...");
+            //Delay(1000);
             Config.LoadIniFile();
             l.Log(lboxLog, "환경설정을 불러왔습니다.");
 
-            COM_MIN = Convert.ToInt32(comboBox1.SelectedItem);
-            COM_MAX = Convert.ToInt32(comboBox2.SelectedItem);
+            //+(오류) 현재값이 없는 초기값이라면? 콤보1,콤보2가 0이다....
+            // 콤보1 값이 0 
+            //MessageBox.Show(Convert.ToInt32(comboBox1.SelectedItem).ToString());
+            //MessageBox.Show(comboBox2.SelectedItem.ToString());
+            //COM_MIN = Convert.ToInt32(comboBox1.SelectedItem);
+            COM_MIN = Convert.ToInt32(sTETBLMIN);
+            //MessageBox.Show("COM_MIN = " + COM_MIN);
+            //COM_MAX = Convert.ToInt32(comboBox2.SelectedItem);
+            COM_MAX = Convert.ToInt32(sTETBLMAX);
+            //MessageBox.Show("COM_MAX = " + COM_MAX);
             labelMAX = COM_MAX - COM_MIN + 1;
+            //MessageBox.Show("labelMAX = " + labelMAX);
             labelProgressBar1.Maximum = labelMAX;
 
+            //+(오류) sTETBLSMIN 설정값이 지금 설정보다 높을 경우 값을 초기화 해야한다.
             comboBox1.Items.Clear();
-            for (int i = 5306; i <= COM_MAX; i++)
+            if(COM_MIN <= 0)
             {
-                comboBox1.Items.Add(i);
+                l.Log(lboxLog, "초기값이 설정되어 있지 않습니다.");
+                for (int i = Convert.ToInt32(sTETBLSMIN); i <= Convert.ToInt32(sTETBLSMAX); i++)
+                {                    
+                    comboBox1.Items.Add(i);
+                }
             }
-            comboBox1.SelectedItem = COM_MIN;
+            else
+            {
+                for (int i = Convert.ToInt32(sTETBLSMIN); i <= COM_MAX; i++)
+                {
+                    comboBox1.Items.Add(i);
+                }
+            }
+            
+            if (COM_MIN < Convert.ToInt32(sTETBLSMIN))
+            {
+                MessageBox.Show("COM_MIN = " + COM_MIN + ", sTETBLSMIN = " + sTETBLSMIN);
+                if (COM_MIN <= 0)
+                {
+                    l.Log(lboxLog, "현재값이 설정되어 있지 않습니다.");
+                }
+                else
+                {
+                    MessageBox.Show("현재 값이 설정 값 보다 작습니다.");
+                }                
+                comboBox1.SelectedIndex = 0;
+                l.Log(lboxLog, "최소 TETBL" + comboBox1.SelectedItem + "로 초기화되었습니다.");
+                COM_MIN = Convert.ToInt32(comboBox1.SelectedItem);
+            }
+            else
+            {
+                comboBox1.SelectedItem = COM_MIN;
+            }           
 
-            //comboBox1.SelectedIndex = 0;
-            //comboBox1.Text = j.ToString();
-
-            // 최상위로 설정
-            //SetWindowPos(this.Handle, HWND_TOPMOST, 0, 0, 0, 0, WINDOW_FLAGS2);
-
-            // 이벤트 핸들러 연결
-            //Config.ItemStr += new StrAddHandler(this.strADD);
-
-            //strADD("abcd");
-            //this.TopMost = true;
-            //progressBar1.Step = 20;
-
-            // 프로그레스바 값 주는 예
-            //InitProgressBar(uiLpb_1, 24);
-            //InitProgressBar(uiLpb_2, 54);
-            //InitProgressBar(uiLpb_3, 66);
-            //InitProgressBar(uiLpb_4, 98);
+            comboBox2.Items.Clear();
+            for (int i = Convert.ToInt32(sTETBLSMIN); i <= Convert.ToInt32(sTETBLSMAX); i++)
+            {
+                comboBox2.Items.Add(i);
+            }
+            if (COM_MAX <= 0)
+            {
+                l.Log(lboxLog, "현재값이 설정되어 있지 않습니다.");
+                comboBox2.SelectedIndex = 0;
+                l.Log(lboxLog, "최대 TETBL" + comboBox2.SelectedItem + "로 초기화되었습니다.");
+                COM_MAX = Convert.ToInt32(comboBox2.SelectedItem);
+            }
+            else if (Convert.ToInt32(sTETBLSMAX) < COM_MAX)
+            { 
+                //MessageBox.Show("COM_MAX = " + COM_MAX + ", sTETBLSMAX = " + sTETBLSMAX);
+                MessageBox.Show("설정 값이 현재 값 보다 작습니다.");
+                comboBox2.SelectedIndex = 0;
+                l.Log(lboxLog, "최대 TETBL" + comboBox2.SelectedItem + "로 초기화되었습니다.");
+                COM_MAX = Convert.ToInt32(comboBox2.SelectedItem);
+            }
+            else
+            {
+                comboBox2.SelectedItem = COM_MAX;
+            }
 
             l.Log(lboxLog, "준비완료");
-            l = null;
+            l = null;            
         }
 
         int labelMAX, COM_MIN, COM_MAX;
@@ -96,9 +156,33 @@ namespace YSR
         {
             LogClass l = new LogClass();
 
+            l.Log(lboxLog, "최소 TETBL" + comboBox1.SelectedItem + "를 선택하셨습니다.");
+            COM_MIN = Convert.ToInt32(comboBox1.SelectedItem);
+            COM_MAX = Convert.ToInt32(comboBox2.SelectedItem);
+            labelMAX = COM_MAX - COM_MIN + 1;
+            labelProgressBar1.Maximum = labelMAX;
+            Config.SavaIniFile();          
+
+            l = null;
+        }
+
+        private void comboBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            LogClass l = new LogClass();
+
             //MessageBox.Show(comboBox1.SelectedIndex.ToString());
             if ((Convert.ToInt32(comboBox1.SelectedItem) > 0) && (Convert.ToInt32(comboBox2.SelectedItem) > 0)) // 값이 0이하면 캔슬하기
             {
+                (string sTETBLMIN, string sTETBLMAX,
+                 string sTETBLPATH, string sTETBLSMIN, string sTETBLSMAX,
+             string sCHECK1, string sCHECK2, string sCHECK3, string sCHECK4, string sCHECK5,
+             string sCHECK6, string sCHECK7, string sCHECK8, string sCHECK9, string sCHECK10,
+             string sNAME1, string sNAME2, string sNAME3, string sNAME4, string sNAME5,
+             string sNAME6, string sNAME7, string sNAME8, string sNAME9, string sNAME10,
+             string sCLINIC1PATH, string sCLINIC2PATH, string sCLINIC3PATH, string sCLINIC4PATH, string sCLINIC5PATH,
+             string sCLINIC6PATH, string sCLINIC7PATH, string sCLINIC8PATH, string sCLINIC9PATH, string sCLINIC10PATH)
+             = Config.LoadIniFile0();
+
                 // 콤보1이 콤보2보다 크다면
                 if (Convert.ToInt32(comboBox1.SelectedItem) > Convert.ToInt32(comboBox2.SelectedItem))
                 {
@@ -106,7 +190,7 @@ namespace YSR
                     MessageBox.Show("최솟값이 최댓값보다 큽니다.");
                     //초기화하고 다시 정렬
                     comboBox1.Items.Clear();
-                    for (int i = 5306; i <= Convert.ToInt32(comboBox2.SelectedItem); i++)
+                    for (int i = Convert.ToInt32(sTETBLSMIN); i <= Convert.ToInt32(comboBox2.SelectedItem); i++)
                     {
                         comboBox1.Items.Add(i);
                     }
@@ -123,19 +207,19 @@ namespace YSR
                 }
                 else
                 {
-                    l.Log(lboxLog, "최소 TETBL" + comboBox1.SelectedItem + "를 선택하셨습니다.");
+                    //l.Log(lboxLog, "최소 TETBL" + comboBox1.SelectedItem + "를 선택하셨습니다.");
                     COM_MIN = Convert.ToInt32(comboBox1.SelectedItem);
                     COM_MAX = Convert.ToInt32(comboBox2.SelectedItem);
                     labelMAX = COM_MAX - COM_MIN + 1;
-                    Config.SavaIniFile();
                     labelProgressBar1.Maximum = labelMAX;
+                    //Config.SavaIniFile();
 
                     comboBox1.Items.Clear();
-                    for (int i = 5306; i <= COM_MAX; i++)
+                    for (int i = Convert.ToInt32(sTETBLSMIN); i <= COM_MAX; i++)
                     {
                         comboBox1.Items.Add(i);
                     }
-                    comboBox1.SelectedItem = COM_MIN;                    
+                    comboBox1.SelectedItem = COM_MIN;
                 }
             }
             l = null;
@@ -145,9 +229,33 @@ namespace YSR
         {
             LogClass l = new LogClass();
 
+            l.Log(lboxLog, "최대 TETBL" + comboBox2.SelectedItem + "를 선택하셨습니다.");
+            COM_MIN = Convert.ToInt32(comboBox1.SelectedItem);
+            COM_MAX = Convert.ToInt32(comboBox2.SelectedItem);
+            labelMAX = COM_MAX - COM_MIN + 1;
+            labelProgressBar1.Maximum = labelMAX;
+            Config.SavaIniFile();            
+
+            l = null;
+        }
+
+        private void comboBox2_MouseDown(object sender, MouseEventArgs e)
+        {
+            LogClass l = new LogClass();
+
             //MessageBox.Show(comboBox1.SelectedIndex.ToString());
             if ((Convert.ToInt32(comboBox1.SelectedItem) > 0) && (Convert.ToInt32(comboBox2.SelectedItem) > 0)) // 값이 0이하면 캔슬하기
             {
+                (string sTETBLMIN, string sTETBLMAX,
+                 string sTETBLPATH, string sTETBLSMIN, string sTETBLSMAX,
+             string sCHECK1, string sCHECK2, string sCHECK3, string sCHECK4, string sCHECK5,
+             string sCHECK6, string sCHECK7, string sCHECK8, string sCHECK9, string sCHECK10,
+             string sNAME1, string sNAME2, string sNAME3, string sNAME4, string sNAME5,
+             string sNAME6, string sNAME7, string sNAME8, string sNAME9, string sNAME10,
+             string sCLINIC1PATH, string sCLINIC2PATH, string sCLINIC3PATH, string sCLINIC4PATH, string sCLINIC5PATH,
+             string sCLINIC6PATH, string sCLINIC7PATH, string sCLINIC8PATH, string sCLINIC9PATH, string sCLINIC10PATH)
+            = Config.LoadIniFile0();
+
                 // 콤보1이 콤보2보다 크다면
                 if (Convert.ToInt32(comboBox1.SelectedItem) > Convert.ToInt32(comboBox2.SelectedItem))
                 {
@@ -155,7 +263,7 @@ namespace YSR
                     MessageBox.Show("최솟값이 최댓값보다 큽니다.");
                     //초기화하고 다시 정렬
                     comboBox1.Items.Clear();
-                    for (int i = 5306; i <= Convert.ToInt32(comboBox2.SelectedItem); i++)
+                    for (int i = Convert.ToInt32(sTETBLSMIN); i <= Convert.ToInt32(comboBox2.SelectedItem); i++)
                     {
                         comboBox1.Items.Add(i);
                     }
@@ -170,22 +278,19 @@ namespace YSR
                     Config.SavaIniFile();
                     labelProgressBar1.Maximum = labelMAX;
                 }
-                else
-                {
-                    l.Log(lboxLog, "최대 TETBL" + comboBox2.SelectedItem + "를 선택하셨습니다.");
-                    COM_MIN = Convert.ToInt32(comboBox1.SelectedItem);
-                    COM_MAX = Convert.ToInt32(comboBox2.SelectedItem);
-                    labelMAX = COM_MAX - COM_MIN + 1;
-                    Config.SavaIniFile();
-                    labelProgressBar1.Maximum = labelMAX;
+                
+                COM_MIN = Convert.ToInt32(comboBox1.SelectedItem);
+                COM_MAX = Convert.ToInt32(comboBox2.SelectedItem);
+                labelMAX = COM_MAX - COM_MIN + 1;
+                labelProgressBar1.Maximum = labelMAX;
+                //Config.SavaIniFile();
 
-                    comboBox1.Items.Clear();
-                    for (int i = 5306; i <= COM_MAX; i++)
-                    {
-                        comboBox1.Items.Add(i);
-                    }
-                    comboBox1.SelectedItem = COM_MIN;
+                comboBox2.Items.Clear();
+                for (int i = Convert.ToInt32(sTETBLSMIN); i <= Convert.ToInt32(sTETBLSMAX); i++)
+                {
+                    comboBox2.Items.Add(i);
                 }
+                comboBox2.SelectedItem = COM_MAX;
             }
         }
 
@@ -198,86 +303,6 @@ namespace YSR
         private void comboBox4_SelectionChangeCommitted(object sender, EventArgs e) // 값을 사용자가 선택할 경우에
         {
             Config.SavaIniFile();
-        }
-
-        //안쓰는 함수
-        private void comboBox1_SelectedIndexChanged(object sender, System.EventArgs e)
-        {
-            //MessageBox.Show(comboBox1.SelectedIndex.ToString());
-            if ((Convert.ToInt32(comboBox1.SelectedItem) > 0) && (Convert.ToInt32(comboBox2.SelectedItem) > 0)) // 값이 0이하면 캔슬하기
-            {
-                // 콤보1이 콤보2보다 크다면
-                if (Convert.ToInt32(comboBox1.SelectedItem) > Convert.ToInt32(comboBox2.SelectedItem))
-                {
-                    MessageBox.Show("최소값이 최대값보다 큽니다.");
-                    //초기화하고 다시 정렬
-                    comboBox1.Items.Clear();
-                    for (int i = 5306; i <= Convert.ToInt32(comboBox2.SelectedItem); i++)
-                    {
-                        comboBox1.Items.Add(i);
-                    }                    
-                    Delay(1000);
-                    // 콤보1 초기값 설정
-                    comboBox1.SelectedIndex = 0;
-                }
-                else
-                {
-                    COM_MIN = Convert.ToInt32(comboBox1.SelectedItem);
-                    COM_MAX = Convert.ToInt32(comboBox2.SelectedItem);
-                    labelMAX = COM_MAX - COM_MIN + 1;
-                    Config.SavaIniFile();
-                    labelProgressBar1.Maximum = labelMAX;
-                }
-            }        
-        }
-
-        private void comboBox2_SelectedIndexChanged(object sender, System.EventArgs e)
-        {
-            int j = comboBox1.SelectedIndex;
-            //MessageBox.Show(comboBox1.SelectedIndex.ToString());
-            //MessageBox.Show("테스트1");
-            //MessageBox.Show(Convert.ToInt32(comboBox1.SelectedItem).ToString());
-            //MessageBox.Show(Convert.ToInt32(comboBox2.SelectedItem).ToString());
-            if ((Convert.ToInt32(comboBox1.SelectedItem) > 0) && (Convert.ToInt32(comboBox2.SelectedItem) > 0)) // 값이 0이하면 캔슬하기
-            {
-                //MessageBox.Show("테스트2");
-                // 콤보1이 콤보2보다 크다면
-                if (Convert.ToInt32(comboBox1.SelectedItem) > Convert.ToInt32(comboBox2.SelectedItem))
-                {
-                    MessageBox.Show("최소값이 최대값보다 큽니다.");
-                    //초기화하고 다시 정렬
-                    comboBox1.Items.Clear();
-                    for (int i = 5306; i <= Convert.ToInt32(comboBox2.SelectedItem); i++)
-                    {
-                        comboBox1.Items.Add(i);
-                    }
-                    //Delay(1000);
-                    // 콤보1 초기값 설정
-                    comboBox1.SelectedIndex = 0;
-                }
-                else
-                {
-                    comboBox1.Items.Clear();
-                    for (int i = 5306; i <= Convert.ToInt32(comboBox2.SelectedItem); i++)
-                    {
-                        comboBox1.Items.Add(i);
-                    }
-                    // 콤보1 저장값 불러오기
-                    comboBox1.SelectedIndex = j;
-
-                    COM_MIN = Convert.ToInt32(comboBox1.SelectedItem);
-                    COM_MAX = Convert.ToInt32(comboBox2.SelectedItem);
-                    labelMAX = COM_MAX - COM_MIN + 1;
-                    Config.SavaIniFile();
-                    labelProgressBar1.Maximum = labelMAX;
-                }
-            }
-        }
-
-        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //MessageBox.Show("뭐가 문제냐");
-            //Config.SavaIniFile();
         }
 
         //private void strADD(string str)
@@ -1112,7 +1137,6 @@ namespace YSR
             }
         }
 
-        
 
         public void 자동모드진행중()
         {

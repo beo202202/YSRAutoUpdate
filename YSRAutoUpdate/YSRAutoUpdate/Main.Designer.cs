@@ -177,192 +177,24 @@
             this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox2.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "5306",
-            "5307",
-            "5308",
-            "5309",
-            "5310",
-            "5311",
-            "5312",
-            "5313",
-            "5314",
-            "5315",
-            "5316",
-            "5317",
-            "5318",
-            "5319",
-            "5320",
-            "5321",
-            "5322",
-            "5323",
-            "5324",
-            "5325",
-            "5326",
-            "5327",
-            "5328",
-            "5329",
-            "5330",
-            "5331",
-            "5332",
-            "5333",
-            "5334",
-            "5335",
-            "5336",
-            "5337",
-            "5338",
-            "5339",
-            "5340",
-            "5341",
-            "5342",
-            "5343",
-            "5344",
-            "5345",
-            "5346",
-            "5347",
-            "5348",
-            "5349",
-            "5350",
-            "5351",
-            "5352",
-            "5353",
-            "5354",
-            "5355",
-            "5356",
-            "5357",
-            "5358",
-            "5359",
-            "5360",
-            "5361",
-            "5362",
-            "5363",
-            "5364",
-            "5365",
-            "5366",
-            "5367",
-            "5368",
-            "5369",
-            "5370",
-            "5371",
-            "5372",
-            "5373",
-            "5374",
-            "5375",
-            "5376",
-            "5377",
-            "5378",
-            "5379",
-            "5380",
-            "5381",
-            "5382",
-            "5383",
-            "5384",
-            "5385",
-            "5386",
-            "5387",
-            "5388",
-            "5389"});
             this.comboBox2.Location = new System.Drawing.Point(354, 20);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(66, 20);
             this.comboBox2.TabIndex = 26;
             this.comboBox2.SelectionChangeCommitted += new System.EventHandler(this.comboBox2_SelectionChangeCommitted);
+            this.comboBox2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.comboBox2_MouseDown);
             // 
             // comboBox1
             // 
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "5306",
-            "5307",
-            "5308",
-            "5309",
-            "5310",
-            "5311",
-            "5312",
-            "5313",
-            "5314",
-            "5315",
-            "5316",
-            "5317",
-            "5318",
-            "5319",
-            "5320",
-            "5321",
-            "5322",
-            "5323",
-            "5324",
-            "5325",
-            "5326",
-            "5327",
-            "5328",
-            "5329",
-            "5330",
-            "5331",
-            "5332",
-            "5333",
-            "5334",
-            "5335",
-            "5336",
-            "5337",
-            "5338",
-            "5339",
-            "5340",
-            "5341",
-            "5342",
-            "5343",
-            "5344",
-            "5345",
-            "5346",
-            "5347",
-            "5348",
-            "5349",
-            "5350",
-            "5351",
-            "5352",
-            "5353",
-            "5354",
-            "5355",
-            "5356",
-            "5357",
-            "5358",
-            "5359",
-            "5360",
-            "5361",
-            "5362",
-            "5363",
-            "5364",
-            "5365",
-            "5366",
-            "5367",
-            "5368",
-            "5369",
-            "5370",
-            "5371",
-            "5372",
-            "5373",
-            "5374",
-            "5375",
-            "5376",
-            "5377",
-            "5378",
-            "5379",
-            "5380",
-            "5381",
-            "5382",
-            "5383",
-            "5384",
-            "5385",
-            "5386",
-            "5387",
-            "5388",
-            "5389"});
             this.comboBox1.Location = new System.Drawing.Point(262, 20);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(66, 20);
             this.comboBox1.TabIndex = 25;
             this.comboBox1.SelectionChangeCommitted += new System.EventHandler(this.comboBox1_SelectionChangeCommitted);
+            this.comboBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.comboBox1_MouseDown);
             // 
             // radioButton3
             // 
@@ -504,9 +336,9 @@
             this.label6.Location = new System.Drawing.Point(161, 0);
             this.label6.Margin = new System.Windows.Forms.Padding(0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(61, 30);
+            this.label6.Size = new System.Drawing.Size(65, 30);
             this.label6.TabIndex = 5;
-            this.label6.Text = "v0.941";
+            this.label6.Text = "v0.944";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label6.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label6_MouseDown);
             // 
@@ -671,7 +503,6 @@
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button9;
-        private YSRAutoUpdate.LabelProgressBar labelProgressBar1;
         private YSRAutoUpdate.LabelProgressBar labelProgressBar2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
@@ -692,6 +523,7 @@
         public System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button button3;
         public System.Windows.Forms.ListBox lboxLog;
+        public YSRAutoUpdate.LabelProgressBar labelProgressBar1;
     }
 }
 

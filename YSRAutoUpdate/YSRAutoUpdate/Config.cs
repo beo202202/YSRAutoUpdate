@@ -132,23 +132,12 @@ namespace YSR
         //false 틀리지않다 true 틀리다 
         public static bool bCheck = false;
 
-        public static void LoadIniFile0()
+        public static (string, string, string, string, string, string, string, string, string, string, string, string,
+            string, string, string, string, string, string, string, string, string, string,
+            string, string, string, string, string, string, string, string, string, string, 
+            string, string, string) LoadIniFile0()
         {
             StringBuilder Buf = new StringBuilder(1024);
-            //Main m = new Main();
-
-            ///<summary>
-            /// LAYOUT
-            ///</summary>
-            GetPrivateProfileString("LAYOUT", "OPASITY", "100", Buf, 1024, sINIPath);
-            //sTETBLMIN = Buf.ToString();            
-            sOPASITY = Buf.ToString();
-            Main.main.trackBar1.Value = Convert.ToInt32(sOPASITY);
-
-            GetPrivateProfileString("LAYOUT", "TOP", "false", Buf, 1024, sINIPath);
-            //sTETBLMIN = Buf.ToString();            
-            sTOP = Buf.ToString();
-            Main.main.checkBox1.Checked = Convert.ToBoolean(sTOP);
 
             ///<summary>
             /// TETBL
@@ -163,137 +152,155 @@ namespace YSR
             //MessageBox.Show(sTETBLMAX);
             Main.main.comboBox2.SelectedItem = sTETBLMAX = Buf.ToString();
 
-            GetPrivateProfileString("TETBL", "NAME", "서울안과", Buf, 1024, sINIPath);
-            //sTETBLNAME = Buf.ToString();
-            //MessageBox.Show(sTETBLNAME);
-            Main.main.comboBox3.SelectedItem = sTETBLNAME = Buf.ToString();
-
-            GetPrivateProfileString("TETBL", "WINDOW", "기본", Buf, 1024, sINIPath);
-            //sTETBLNAME = Buf.ToString();
-            //MessageBox.Show(sTETBLNAME);
-            Main.main.comboBox4.SelectedItem = sTETBLWINDOW = Buf.ToString();
-
-
             ///<summary>
             /// TETBL2
             ///</summary>
             GetPrivateProfileString("TETBL2", "PATH", @"C:\", Buf, 1024, sINIPath);
-            SetForm.setform.textBox1.Text = sTETBLPATH = Buf.ToString();
+            sTETBLPATH = Buf.ToString();
+            //SetForm.setform.textBox1.Text = sTETBLPATH = Buf.ToString();
 
             GetPrivateProfileString("TETBL2", "sMIN", "5306", Buf, 1024, sINIPath);
-            SetForm.setform.textBox2.Text = sTETBLSMIN = Buf.ToString();
+            sTETBLSMIN = Buf.ToString();
+            //SetForm.setform.textBox2.Text = sTETBLSMIN = Buf.ToString();
 
             GetPrivateProfileString("TETBL2", "sMAX", "5389", Buf, 1024, sINIPath);
-            SetForm.setform.textBox3.Text = sTETBLSMAX = Buf.ToString();
+            sTETBLSMAX = Buf.ToString();
+            //SetForm.setform.textBox3.Text = sTETBLSMAX = Buf.ToString();
 
             ///<summary>
             /// CLINIC CHECK
             ///</summary>
             GetPrivateProfileString("CLINICCHECK", "CHECK1", "false", Buf, 1024, sINIPath);
             sCHECK1 = Buf.ToString();
-            SetForm.setform.checkBox1.Checked = Convert.ToBoolean(sCHECK1);
+            //SetForm.setform.checkBox1.Checked = Convert.ToBoolean(sCHECK1);
 
             GetPrivateProfileString("CLINICCHECK", "CHECK2", "false", Buf, 1024, sINIPath);
             sCHECK2 = Buf.ToString();
-            SetForm.setform.checkBox2.Checked = Convert.ToBoolean(sCHECK2);
+            //SetForm.setform.checkBox2.Checked = Convert.ToBoolean(sCHECK2);
 
             GetPrivateProfileString("CLINICCHECK", "CHECK3", "false", Buf, 1024, sINIPath);
             sCHECK3 = Buf.ToString();
-            SetForm.setform.checkBox3.Checked = Convert.ToBoolean(sCHECK3);
+            //SetForm.setform.checkBox3.Checked = Convert.ToBoolean(sCHECK3);
 
             GetPrivateProfileString("CLINICCHECK", "CHECK4", "false", Buf, 1024, sINIPath);
             sCHECK4 = Buf.ToString();
-            SetForm.setform.checkBox4.Checked = Convert.ToBoolean(sCHECK4);
+            //SetForm.setform.checkBox4.Checked = Convert.ToBoolean(sCHECK4);
 
             GetPrivateProfileString("CLINICCHECK", "CHECK5", "false", Buf, 1024, sINIPath);
             sCHECK5 = Buf.ToString();
-            SetForm.setform.checkBox5.Checked = Convert.ToBoolean(sCHECK5);
+            //SetForm.setform.checkBox5.Checked = Convert.ToBoolean(sCHECK5);
 
             GetPrivateProfileString("CLINICCHECK", "CHECK6", "false", Buf, 1024, sINIPath);
             sCHECK6 = Buf.ToString();
-            SetForm.setform.checkBox6.Checked = Convert.ToBoolean(sCHECK6);
+            //SetForm.setform.checkBox6.Checked = Convert.ToBoolean(sCHECK6);
 
             GetPrivateProfileString("CLINICCHECK", "CHECK7", "false", Buf, 1024, sINIPath);
             sCHECK7 = Buf.ToString();
-            SetForm.setform.checkBox7.Checked = Convert.ToBoolean(sCHECK7);
+            //SetForm.setform.checkBox7.Checked = Convert.ToBoolean(sCHECK7);
 
             GetPrivateProfileString("CLINICCHECK", "CHECK8", "false", Buf, 1024, sINIPath);
             sCHECK8 = Buf.ToString();
-            SetForm.setform.checkBox8.Checked = Convert.ToBoolean(sCHECK8);
+            //SetForm.setform.checkBox8.Checked = Convert.ToBoolean(sCHECK8);
 
             GetPrivateProfileString("CLINICCHECK", "CHECK9", "false", Buf, 1024, sINIPath);
             sCHECK9 = Buf.ToString();
-            SetForm.setform.checkBox9.Checked = Convert.ToBoolean(sCHECK9);
+            //SetForm.setform.checkBox9.Checked = Convert.ToBoolean(sCHECK9);
 
             GetPrivateProfileString("CLINICCHECK", "CHECK10", "false", Buf, 1024, sINIPath);
             sCHECK10 = Buf.ToString();
-            SetForm.setform.checkBox10.Checked = Convert.ToBoolean(sCHECK10);
+            //SetForm.setform.checkBox10.Checked = Convert.ToBoolean(sCHECK10);
 
             ///<summary>
             /// CLINIC NAME
             ///</summary>
             GetPrivateProfileString("CLINICNAME", "sNAME1", "", Buf, 1024, sINIPath);
-            SetForm.setform.textBox4.Text = sNAME1 = Buf.ToString();
+            sNAME1 = Buf.ToString();
+            //SetForm.setform.textBox4.Text = sNAME1 = Buf.ToString();
 
             GetPrivateProfileString("CLINICNAME", "sNAME2", "", Buf, 1024, sINIPath);
-            SetForm.setform.textBox5.Text = sNAME2 = Buf.ToString();
+            sNAME2 = Buf.ToString();
+            //SetForm.setform.textBox5.Text = sNAME2 = Buf.ToString();
 
             GetPrivateProfileString("CLINICNAME", "sNAME3", "", Buf, 1024, sINIPath);
-            SetForm.setform.textBox6.Text = sNAME3 = Buf.ToString();
+            sNAME3 = Buf.ToString();
+            //SetForm.setform.textBox6.Text = sNAME3 = Buf.ToString();
 
             GetPrivateProfileString("CLINICNAME", "sNAME4", "", Buf, 1024, sINIPath);
-            SetForm.setform.textBox7.Text = sNAME4 = Buf.ToString();
+            sNAME4 = Buf.ToString();
+            //SetForm.setform.textBox7.Text = sNAME4 = Buf.ToString();
 
             GetPrivateProfileString("CLINICNAME", "sNAME5", "", Buf, 1024, sINIPath);
-            SetForm.setform.textBox8.Text = sNAME5 = Buf.ToString();
+            sNAME5 = Buf.ToString();
+            //SetForm.setform.textBox8.Text = sNAME5 = Buf.ToString();
 
             GetPrivateProfileString("CLINICNAME", "sNAME6", "", Buf, 1024, sINIPath);
-            SetForm.setform.textBox9.Text = sNAME6 = Buf.ToString();
+            sNAME6 = Buf.ToString();
+            //SetForm.setform.textBox9.Text = sNAME6 = Buf.ToString();
 
             GetPrivateProfileString("CLINICNAME", "sNAME7", "", Buf, 1024, sINIPath);
-            SetForm.setform.textBox10.Text = sNAME7 = Buf.ToString();
+            sNAME7 = Buf.ToString();
+            //SetForm.setform.textBox10.Text = sNAME7 = Buf.ToString();
 
             GetPrivateProfileString("CLINICNAME", "sNAME8", "", Buf, 1024, sINIPath);
-            SetForm.setform.textBox11.Text = sNAME8 = Buf.ToString();
+            sNAME8 = Buf.ToString();
+            //SetForm.setform.textBox11.Text = sNAME8 = Buf.ToString();
 
             GetPrivateProfileString("CLINICNAME", "sNAME9", "", Buf, 1024, sINIPath);
-            SetForm.setform.textBox12.Text = sNAME9 = Buf.ToString();
+            sNAME9 = Buf.ToString();
+            //SetForm.setform.textBox12.Text = sNAME9 = Buf.ToString();
 
             GetPrivateProfileString("CLINICNAME", "sNAME10", "", Buf, 1024, sINIPath);
-            SetForm.setform.textBox13.Text = sNAME10 = Buf.ToString();
+            sNAME10 = Buf.ToString();
+            //SetForm.setform.textBox13.Text = sNAME10 = Buf.ToString();
 
             ///<summary>
             /// CLINIC PATH
             ///</summary>
             GetPrivateProfileString("CLINICPATH", "sCLINIC1PATH", "", Buf, 1024, sINIPath);
-            SetForm.setform.textBox14.Text = sCLINIC1PATH = Buf.ToString();
+            sCLINIC1PATH = Buf.ToString();
+            //SetForm.setform.textBox14.Text = sCLINIC1PATH = Buf.ToString();
 
             GetPrivateProfileString("CLINICPATH", "sCLINIC2PATH", "", Buf, 1024, sINIPath);
-            SetForm.setform.textBox15.Text = sCLINIC2PATH = Buf.ToString();
+            sCLINIC2PATH = Buf.ToString();
+            //SetForm.setform.textBox15.Text = sCLINIC2PATH = Buf.ToString();
 
             GetPrivateProfileString("CLINICPATH", "sCLINIC3PATH", "", Buf, 1024, sINIPath);
-            SetForm.setform.textBox16.Text = sCLINIC3PATH = Buf.ToString();
+            sCLINIC3PATH = Buf.ToString();
+            //SetForm.setform.textBox16.Text = sCLINIC3PATH = Buf.ToString();
 
             GetPrivateProfileString("CLINICPATH", "sCLINIC4PATH", "", Buf, 1024, sINIPath);
-            SetForm.setform.textBox17.Text = sCLINIC4PATH = Buf.ToString();
+            sCLINIC4PATH = Buf.ToString();
+            //SetForm.setform.textBox17.Text = sCLINIC4PATH = Buf.ToString();
 
             GetPrivateProfileString("CLINICPATH", "sCLINIC5PATH", "", Buf, 1024, sINIPath);
-            SetForm.setform.textBox18.Text = sCLINIC5PATH = Buf.ToString();
+            sCLINIC5PATH = Buf.ToString();
+            //SetForm.setform.textBox18.Text = sCLINIC5PATH = Buf.ToString();
 
             GetPrivateProfileString("CLINICPATH", "sCLINIC6PATH", "", Buf, 1024, sINIPath);
-            SetForm.setform.textBox19.Text = sCLINIC6PATH = Buf.ToString();
+            sCLINIC6PATH = Buf.ToString();
+            //SetForm.setform.textBox19.Text = sCLINIC6PATH = Buf.ToString();
 
             GetPrivateProfileString("CLINICPATH", "sCLINIC7PATH", "", Buf, 1024, sINIPath);
-            SetForm.setform.textBox20.Text = sCLINIC7PATH = Buf.ToString();
+            sCLINIC7PATH = Buf.ToString();
+            //SetForm.setform.textBox20.Text = sCLINIC7PATH = Buf.ToString();
 
             GetPrivateProfileString("CLINICPATH", "sCLINIC8PATH", "", Buf, 1024, sINIPath);
-            SetForm.setform.textBox21.Text = sCLINIC8PATH = Buf.ToString();
+            sCLINIC8PATH = Buf.ToString();
+            //SetForm.setform.textBox21.Text = sCLINIC8PATH = Buf.ToString();
 
             GetPrivateProfileString("CLINICPATH", "sCLINIC9PATH", "", Buf, 1024, sINIPath);
-            SetForm.setform.textBox22.Text = sCLINIC9PATH = Buf.ToString();
+            sCLINIC9PATH = Buf.ToString();
+            //SetForm.setform.textBox22.Text = sCLINIC9PATH = Buf.ToString();
 
             GetPrivateProfileString("CLINICPATH", "sCLINIC10PATH", "", Buf, 1024, sINIPath);
-            SetForm.setform.textBox23.Text = sCLINIC10PATH = Buf.ToString();
+            sCLINIC10PATH = Buf.ToString();
+            //SetForm.setform.textBox23.Text = sCLINIC10PATH = Buf.ToString();
+
+            return (sTETBLMIN, sTETBLMAX, sTETBLPATH, sTETBLSMIN, sTETBLSMAX,
+            sCHECK1, sCHECK2, sCHECK3, sCHECK4, sCHECK5, sCHECK6, sCHECK7, sCHECK8, sCHECK9, sCHECK10,
+            sNAME1, sNAME2, sNAME3, sNAME4, sNAME5, sNAME6, sNAME7, sNAME8, sNAME9, sNAME10,
+            sCLINIC1PATH, sCLINIC2PATH, sCLINIC3PATH, sCLINIC4PATH, sCLINIC5PATH,
+            sCLINIC6PATH, sCLINIC7PATH, sCLINIC8PATH, sCLINIC9PATH, sCLINIC10PATH);
         }
 
         public static void LoadIniFile()
@@ -321,11 +328,13 @@ namespace YSR
             //sTETBLMIN = Buf.ToString();
             //MessageBox.Show(sTETBLMIN);
             Main.main.comboBox1.SelectedItem = sTETBLMIN = Buf.ToString();
+            //MessageBox.Show(sTETBLMIN);
 
             GetPrivateProfileString("TETBL", "MAX", "5389", Buf, 1024, sINIPath);
             //sTETBLMAX = Buf.ToString();
             //MessageBox.Show(sTETBLMAX);
             Main.main.comboBox2.SelectedItem = sTETBLMAX = Buf.ToString();
+            //MessageBox.Show(sTETBLMAX);
 
             GetPrivateProfileString("TETBL", "NAME", "서울안과", Buf, 1024, sINIPath);
             //sTETBLNAME = Buf.ToString();
