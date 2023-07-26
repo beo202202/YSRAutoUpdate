@@ -71,7 +71,7 @@ namespace YSR
             if (lBoxLog != null)
             {
                 //lBoxLog.Items.Insert(0, LogInfo);
-                lBoxLog.Items.Insert(0, string.Format("{0}{1}", Log1.PadRight(18), Log2));
+                lBoxLog.Items.Insert(0, string.Format("{0}{1}", Log1.PadRight(15), Log2));
                 Delay(100);
                 //lBoxLog.Text = message;
                 //MessageBox.Show(LogInfo);

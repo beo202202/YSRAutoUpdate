@@ -23,6 +23,15 @@
 // 2022-08-26 'YSRAutoUpdate' 로 바꾸었다.
 // 2022-08-26 로그 출력 문자들을 정리해보려 했으나 완성 못시켰다.
 
+// 2022-08-29 로그 폰트 문제였다.
+// 2022-08-29 post로 다시 바꾸었다. post= 쪽지만 보내기, send 바로 답장 받기
+// 2022-08-29 자동모드 진행 중 추가
+// 2022-08-29 자동모드를 스레드로 바꿈
+// 2022-08-29 while문을 넣으면 폼이 안보임
+
+// 스레드로 바꾸면 while로 멈춤이 없으려나? 프로그램 활성화 비활성화 맨 뒤 맨 앞 문제인가?
+
+
 // 설정창을 투입할까? ㅇ~ㅇ 까지 같은거
 // 로그 저장?, 자동모드 진행 중을 할까?
 
@@ -49,6 +58,7 @@ using System.Diagnostics; // 외부 프로그램 실행
 using System.Drawing;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace YSR
@@ -71,6 +81,7 @@ namespace YSR
             InitializeComponent();
 
             이미지받아오기();
+            자동모드진행중();
         }
 
         private void 이미지받아오기()
@@ -100,6 +111,37 @@ namespace YSR
                 l.Log(lboxLog, "이미지 불러오기 완료");
             }
         }
+        int indexNumber;
+
+        //int 점점점갯수;
+        string 자동모드_점점점 = "ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ";
+
+        public void 자동모드진행중()
+        {
+            // 위의 변수를 모두 전역변수로 설정하고 아래 문자열을 timer에 넣어서 indexNumber++ 돌리면 위의 움짤처럼 동작하게됩니다.
+
+            int 점점점갯수 = Math.Abs(자동모드_점점점.Length - (indexNumber % ((자동모드_점점점.Length) * 2)));
+            int 위치 = 25 + Math.Abs(자동모드_점점점.Length - (indexNumber % ((자동모드_점점점.Length) * 2)));
+
+            // Invoke를 통해 해당 Object에 대한 접근 권한을 얻기
+            // textBox1 객체에 접근하기 위해 Invoke 가 요구된다면
+            if (this.textBox1.InvokeRequired == true)
+            {
+                this.textBox1.Invoke((MethodInvoker)delegate
+                {
+                    this.textBox1.Text = string.Format("자동모드 진행 중 [ {0,9} ] {1,26}",
+                indexNumber.ToString().PadLeft(9, '0'), 자동모드_점점점.Substring(점점점갯수).PadLeft(위치, ' '));
+                });
+            }
+            else
+            {
+                this.textBox1.Text = string.Format("자동모드 진행 중 [ {0,9} ] {1,26}",
+                indexNumber.ToString().PadLeft(9, '0'), 자동모드_점점점.Substring(점점점갯수).PadLeft(위치, ' '));
+            }
+            indexNumber++;
+            //Thread.Sleep(100);
+
+        }
 
         public void 의사랑자동업데이트()
         {
@@ -127,7 +169,7 @@ namespace YSR
                 while (i == 0)
                 {
                     i = 의사랑핸들(null, 0);
-                    Delay(1000);
+                    Delay(100);
                 }
                 //lBoxLog.Items.Insert()
 
@@ -139,9 +181,10 @@ namespace YSR
                     i += 의사랑핸들("질문", 0);
                     if (i > 0)
                     {
+                        Delay(100);
                         break;
                     }
-                    Delay(1000);
+                    Delay(100);
                 }
 
                 j = searchIMG(3, "이미지찾기"); //다시 한 번 실행하시겠습니까? (질문창)                 // b를 지우고 핸들을 아예 넣어버릴까?
@@ -149,9 +192,10 @@ namespace YSR
                 {
                     의사랑핸들("질문", 2); // "아니오" 버튼 클릭
                     //l.Log(lboxLog, "2");
+                    Delay(100);
                 }
                 else
-                {
+                {               
                     l.Log(lboxLog, "창 찾는 중...3");
                     // 4개 창 모두 없을 때 반복문 나온다.
                     i = 0;
@@ -168,7 +212,7 @@ namespace YSR
                         {
                             break;
                         }
-                        Delay(500);
+                        Delay(100);
                     }
                 }
                 l.Log(lboxLog, "pass");
@@ -208,8 +252,8 @@ namespace YSR
                 //IntPtr lparam = new IntPtr(x | (y << 16));
 
                 //플레이어 핸들에 클릭 이벤트를 전달합니다.
-                //SendMessage(hwnd_child, WM_LBUTTONDOWN, 1, lparam);
-                //SendMessage(hwnd_child, WM_LBUTTONUP, 0, lparam);
+                //PostMessage(hwnd_child, WM_LBUTTONDOWN, 1, lparam);
+                //PostMessage(hwnd_child, WM_LBUTTONUP, 0, lparam);
             }
             l = null;
         }
@@ -304,8 +348,8 @@ namespace YSR
                     IntPtr lparam = new IntPtr(x | (y << 0));
 
                     //플레이어 핸들에 클릭 이벤트를 전달합니다.
-                    SendMessage(hwnd_child, WM_LBUTTONDOWN, 1, lparam);
-                    SendMessage(hwnd_child, WM_LBUTTONUP, 0, lparam);
+                    PostMessage(hwnd_child, WM_LBUTTONDOWN, 1, lparam);
+                    PostMessage(hwnd_child, WM_LBUTTONUP, 0, lparam);
                     //Delay(100);
 
                     //textBox1.AppendText("클릭" + "X= " + x + "  Y = " + y + "\r\n");
@@ -322,8 +366,8 @@ namespace YSR
                     IntPtr lparam = new IntPtr(x | (y << 0));
 
                     //플레이어 핸들에 클릭 이벤트를 전달합니다.
-                    SendMessage(hwnd_child, WM_LBUTTONDOWN, 1, lparam);
-                    SendMessage(hwnd_child, WM_LBUTTONUP, 0, lparam);
+                    PostMessage(hwnd_child, WM_LBUTTONDOWN, 1, lparam);
+                    PostMessage(hwnd_child, WM_LBUTTONUP, 0, lparam);
 
                     //textBox1.AppendText("클릭" + "X= " + x + "  Y = " + y + "\r\n");
                 }
@@ -341,8 +385,8 @@ namespace YSR
                     l.Log(lboxLog, "입력이 되나.");
 
                     //플레이어 핸들에 클릭 이벤트를 전달합니다.
-                    SendMessage(hwnd_child, WM_LBUTTONDOWN, 1, lparam);
-                    SendMessage(hwnd_child, WM_LBUTTONUP, 0, lparam);
+                    PostMessage(hwnd_child, WM_LBUTTONDOWN, 1, lparam);
+                    PostMessage(hwnd_child, WM_LBUTTONUP, 0, lparam);
 
                     //textBox1.AppendText("클릭" + "X= " + x + "  Y = " + y + "\r\n");
                 }
@@ -357,8 +401,8 @@ namespace YSR
                     l.Log(lboxLog, "입력이 되나.");
 
                     //플레이어 핸들에 클릭 이벤트를 전달합니다.
-                    SendMessage(hwnd_child, WM_LBUTTONDOWN, 1, lparam);
-                    SendMessage(hwnd_child, WM_LBUTTONUP, 0, lparam);
+                    PostMessage(hwnd_child, WM_LBUTTONDOWN, 1, lparam);
+                    PostMessage(hwnd_child, WM_LBUTTONUP, 0, lparam);
 
                     //textBox1.AppendText("클릭" + "X= " + x + "  Y = " + y + "\r\n");
                 }
@@ -481,7 +525,20 @@ namespace YSR
             Button btn = sender as Button;
             l.Log(lboxLog, $"{btn.Text} 버튼 Click");
 
-            의사랑자동업데이트();
+            Thread thread0 = new Thread(() => 의사랑자동업데이트());
+            Thread thread1 = new Thread(() => 자동모드진행중());
+            if (radioButton1.Checked)
+            {
+                thread0.Start();
+                //의사랑자동업데이트();
+            }
+            else if (radioButton2.Checked)
+            {
+                
+                    thread1.Start();
+                    //자동모드진행중();
+                                
+            }
         }
         #endregion Button Click
 
@@ -542,12 +599,12 @@ namespace YSR
                                 //l.Log(lboxLog, $"버튼 클릭 안함.");
                                 break;
                             case 1:
-                                SendMessage(hd1, BM_CLICK, 0, lparam); // 예
+                                PostMessage(hd1, BM_CLICK, 0, lparam); // 예
                                 l.Log(lboxLog, $"(예) 버튼 클릭");
                                 //Delay(1000);
                                 break;
                             case 2:
-                                SendMessage(hd2, BM_CLICK, 0, lparam); // 아니오
+                                PostMessage(hd2, BM_CLICK, 0, lparam); // 아니오
                                 l.Log(lboxLog, $"(아니오) 버튼 클릭");
                                 //Delay(1000);
                                 break;
@@ -583,7 +640,7 @@ namespace YSR
                         {
                             //l.Log(lboxLog, $"(확인) 버튼 클릭1");
                             IntPtr lparam = new IntPtr(x | (y << 16));
-                            SendMessage(hd1, BM_CLICK, 0, lparam);
+                            PostMessage(hd1, BM_CLICK, 0, lparam);
                             l.Log(lboxLog, $"(확인) 버튼 클릭");
                             //Delay(1000);
                         }
@@ -618,7 +675,7 @@ namespace YSR
                         if (i == 1)
                         {
                             IntPtr lparam = new IntPtr(x | (y << 0));
-                            SendMessage(hd3, BM_CLICK, 0, lparam);
+                            PostMessage(hd3, BM_CLICK, 0, lparam);
                             l.Log(lboxLog, $"(확인) 버튼 클릭.");
                             //Delay(1000);
                         }
@@ -653,7 +710,7 @@ namespace YSR
                         if (i == 1)
                         {
                             IntPtr lparam = new IntPtr(x | (y << 0));
-                            SendMessage(hd3, BM_CLICK, 0, lparam);
+                            PostMessage(hd3, BM_CLICK, 0, lparam);
                             l.Log(lboxLog, $"(전체실행) 버튼 클릭.");
                             //Delay(1000);
                         }
