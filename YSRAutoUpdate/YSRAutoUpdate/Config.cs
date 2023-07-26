@@ -21,7 +21,11 @@ namespace YSR
         public static string sINIPath = Environment.CurrentDirectory + "\\Config.ini";
         //@"C:\범범조조
         //\Config.ini"; // Environment.CurrentDirectory + "\\Config.ini";
-               
+
+        /// <summary>
+        /// LAYOUT OPASITY
+        /// </summary>
+        public static string sOPASITY = String.Empty;
 
         /// <summary>
         /// TETBL MIN
@@ -73,9 +77,19 @@ namespace YSR
             //Main m = new Main();
 
             ///<summary>
+            /// LAYOUT
+            ///</summary>
+
+            GetPrivateProfileString("LAYOUT", "OPASITY", "100", Buf, 1024, sINIPath);
+            //sTETBLMIN = Buf.ToString();
+            //MessageBox.Show(sTETBLMIN);
+            sOPASITY = Buf.ToString();
+            Main.main.trackBar1.Value = Convert.ToInt32(sOPASITY);
+            
+            ///<summary>
             /// TETBL
             ///</summary>
-            
+
             GetPrivateProfileString("TETBL", "MIN", "5306", Buf, 1024, sINIPath);
             //sTETBLMIN = Buf.ToString();
             //MessageBox.Show(sTETBLMIN);
@@ -115,6 +129,11 @@ namespace YSR
 
         public static void SavaIniFile()
         {
+            ///<summary>
+            /// OPASTY_VALUE
+            ///</summary>
+            WritePrivateProfileString("LAYOUT", "OPASITY", Main.main.trackBar1.Value.ToString(), sINIPath);
+
             ///<summary>
             /// TETBLNumber
             ///</summary>

@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button9 = new System.Windows.Forms.Button();
-            this.lboxLog = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.comboBox4 = new System.Windows.Forms.ComboBox();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
@@ -41,82 +41,44 @@
             this.label1 = new System.Windows.Forms.Label();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.labelProgressBar1 = new YSRAutoUpdate.LabelProgressBar();
+            this.button9 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.lboxLog = new System.Windows.Forms.ListBox();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.labelProgressBar2 = new YSRAutoUpdate.LabelProgressBar();
+            this.labelProgressBar1 = new YSRAutoUpdate.LabelProgressBar();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.textBox1, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.button9, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.lboxLog, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.labelProgressBar1, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.labelProgressBar2, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.labelProgressBar2, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.labelProgressBar1, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.button9, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.textBox1, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.lboxLog, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 0);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 6;
+            this.tableLayoutPanel1.RowCount = 7;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 300F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 18F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 15F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 15F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(435, 512);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(435, 538);
             this.tableLayoutPanel1.TabIndex = 19;
-            // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.textBox1.Font = new System.Drawing.Font("Tmon몬소리 Black", 10F, System.Drawing.FontStyle.Bold);
-            this.textBox1.ForeColor = System.Drawing.Color.White;
-            this.textBox1.Location = new System.Drawing.Point(0, 301);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(0);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(435, 17);
-            this.textBox1.TabIndex = 21;
-            // 
-            // button9
-            // 
-            this.button9.BackColor = System.Drawing.Color.SandyBrown;
-            this.button9.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button9.FlatAppearance.BorderSize = 0;
-            this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button9.Font = new System.Drawing.Font("배달의민족 도현", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button9.ForeColor = System.Drawing.Color.Black;
-            this.button9.Location = new System.Drawing.Point(0, 318);
-            this.button9.Margin = new System.Windows.Forms.Padding(0);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(435, 50);
-            this.button9.TabIndex = 20;
-            this.button9.Text = "버튼";
-            this.button9.UseVisualStyleBackColor = false;
-            this.button9.Click += new System.EventHandler(this.button9_Click);
-            // 
-            // lboxLog
-            // 
-            this.lboxLog.BackColor = System.Drawing.SystemColors.MenuText;
-            this.lboxLog.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lboxLog.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lboxLog.Font = new System.Drawing.Font("Tmon몬소리 Black", 12F, System.Drawing.FontStyle.Bold);
-            this.lboxLog.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lboxLog.FormattingEnabled = true;
-            this.lboxLog.ItemHeight = 20;
-            this.lboxLog.Location = new System.Drawing.Point(0, 0);
-            this.lboxLog.Margin = new System.Windows.Forms.Padding(0);
-            this.lboxLog.Name = "lboxLog";
-            this.lboxLog.Size = new System.Drawing.Size(435, 300);
-            this.lboxLog.TabIndex = 22;
             // 
             // groupBox1
             // 
@@ -131,13 +93,46 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.radioButton2);
             this.groupBox1.Controls.Add(this.radioButton1);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(3, 401);
+            this.groupBox1.Location = new System.Drawing.Point(3, 431);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(429, 108);
+            this.groupBox1.Size = new System.Drawing.Size(429, 104);
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Location = new System.Drawing.Point(212, 75);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(45, 12);
+            this.label4.TabIndex = 30;
+            this.label4.Text = "창 옵션";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.Color.White;
+            this.label3.Location = new System.Drawing.Point(212, 49);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(65, 12);
+            this.label3.TabIndex = 29;
+            this.label3.Text = "병의원이름";
+            // 
+            // comboBox4
+            // 
+            this.comboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox4.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.comboBox4.FormattingEnabled = true;
+            this.comboBox4.Items.AddRange(new object[] {
+            "기본",
+            "최소화"});
+            this.comboBox4.Location = new System.Drawing.Point(299, 72);
+            this.comboBox4.Name = "comboBox4";
+            this.comboBox4.Size = new System.Drawing.Size(121, 20);
+            this.comboBox4.TabIndex = 28;
+            this.comboBox4.SelectionChangeCommitted += new System.EventHandler(this.comboBox4_SelectionChangeCommitted);
             // 
             // comboBox3
             // 
@@ -160,6 +155,7 @@
             // 
             // comboBox2
             // 
+            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox2.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.comboBox2.FormattingEnabled = true;
             this.comboBox2.Items.AddRange(new object[] {
@@ -255,6 +251,7 @@
             // 
             // comboBox1
             // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
@@ -406,45 +403,135 @@
             this.radioButton1.Text = "자동 업데이트";
             this.radioButton1.UseVisualStyleBackColor = true;
             // 
-            // comboBox4
+            // button9
             // 
-            this.comboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox4.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Items.AddRange(new object[] {
-            "기본",
-            "최소화"});
-            this.comboBox4.Location = new System.Drawing.Point(299, 72);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(121, 20);
-            this.comboBox4.TabIndex = 28;
-            this.comboBox4.SelectionChangeCommitted += new System.EventHandler(this.comboBox4_SelectionChangeCommitted);
+            this.button9.BackColor = System.Drawing.Color.SandyBrown;
+            this.button9.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button9.FlatAppearance.BorderSize = 0;
+            this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button9.Font = new System.Drawing.Font("배달의민족 도현", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button9.ForeColor = System.Drawing.Color.Black;
+            this.button9.Location = new System.Drawing.Point(0, 348);
+            this.button9.Margin = new System.Windows.Forms.Padding(0);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(435, 50);
+            this.button9.TabIndex = 20;
+            this.button9.Text = "버튼";
+            this.button9.UseVisualStyleBackColor = false;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
-            // label3
+            // textBox1
             // 
-            this.label3.AutoSize = true;
-            this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(212, 49);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 12);
-            this.label3.TabIndex = 29;
-            this.label3.Text = "병의원이름";
+            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.textBox1.Font = new System.Drawing.Font("Tmon몬소리 Black", 10F, System.Drawing.FontStyle.Bold);
+            this.textBox1.ForeColor = System.Drawing.Color.White;
+            this.textBox1.Location = new System.Drawing.Point(0, 331);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(0);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(435, 17);
+            this.textBox1.TabIndex = 21;
             // 
-            // label4
+            // lboxLog
             // 
-            this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(212, 75);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(45, 12);
-            this.label4.TabIndex = 30;
-            this.label4.Text = "창 옵션";
+            this.lboxLog.BackColor = System.Drawing.SystemColors.MenuText;
+            this.lboxLog.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lboxLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lboxLog.Font = new System.Drawing.Font("Tmon몬소리 Black", 12F, System.Drawing.FontStyle.Bold);
+            this.lboxLog.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lboxLog.FormattingEnabled = true;
+            this.lboxLog.ItemHeight = 20;
+            this.lboxLog.Location = new System.Drawing.Point(0, 30);
+            this.lboxLog.Margin = new System.Windows.Forms.Padding(0);
+            this.lboxLog.Name = "lboxLog";
+            this.lboxLog.Size = new System.Drawing.Size(435, 300);
+            this.lboxLog.TabIndex = 22;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.BackColor = System.Drawing.Color.DarkGray;
+            this.tableLayoutPanel2.ColumnCount = 3;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 79F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7F));
+            this.tableLayoutPanel2.Controls.Add(this.button1, 2, 0);
+            this.tableLayoutPanel2.Controls.Add(this.label5, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.trackBar1, 1, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(435, 30);
+            this.tableLayoutPanel2.TabIndex = 26;
+            this.tableLayoutPanel2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tableLayoutPanel2_MouseDown);
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.IndianRed;
+            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button1.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.button1.Location = new System.Drawing.Point(403, 0);
+            this.button1.Margin = new System.Windows.Forms.Padding(0);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(32, 30);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "X";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label5.Font = new System.Drawing.Font("배달의민족 도현", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label5.Location = new System.Drawing.Point(3, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(191, 30);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "YSRAutoUpdate";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label5.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label5_MouseDown);
+            // 
+            // trackBar1
+            // 
+            this.trackBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.trackBar1.Location = new System.Drawing.Point(343, 0);
+            this.trackBar1.Margin = new System.Windows.Forms.Padding(0);
+            this.trackBar1.Maximum = 100;
+            this.trackBar1.Minimum = 20;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.trackBar1.Size = new System.Drawing.Size(60, 30);
+            this.trackBar1.TabIndex = 2;
+            this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackBar1.Value = 20;
+            this.trackBar1.ValueChanged += new System.EventHandler(this.trackBar1_ValueChanged);
+            // 
+            // labelProgressBar2
+            // 
+            this.labelProgressBar2.CustomText = "";
+            this.labelProgressBar2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelProgressBar2.Location = new System.Drawing.Point(0, 413);
+            this.labelProgressBar2.Margin = new System.Windows.Forms.Padding(0);
+            this.labelProgressBar2.Name = "labelProgressBar2";
+            this.labelProgressBar2.ProgressColor = System.Drawing.Color.LightGreen;
+            this.labelProgressBar2.Size = new System.Drawing.Size(435, 15);
+            this.labelProgressBar2.TabIndex = 25;
+            this.labelProgressBar2.TextColor = System.Drawing.Color.Black;
+            this.labelProgressBar2.TextFont = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold);
+            this.labelProgressBar2.VisualMode = YSRAutoUpdate.ProgressBarDisplayMode.CurrProgress;
             // 
             // labelProgressBar1
             // 
             this.labelProgressBar1.CustomText = "";
             this.labelProgressBar1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelProgressBar1.Location = new System.Drawing.Point(0, 368);
+            this.labelProgressBar1.Location = new System.Drawing.Point(0, 398);
             this.labelProgressBar1.Margin = new System.Windows.Forms.Padding(0);
             this.labelProgressBar1.MarqueeAnimationSpeed = 1000;
             this.labelProgressBar1.Maximum = 84;
@@ -456,29 +543,15 @@
             this.labelProgressBar1.TextFont = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold);
             this.labelProgressBar1.VisualMode = YSRAutoUpdate.ProgressBarDisplayMode.CurrProgress;
             // 
-            // labelProgressBar2
-            // 
-            this.labelProgressBar2.CustomText = "";
-            this.labelProgressBar2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelProgressBar2.Location = new System.Drawing.Point(0, 383);
-            this.labelProgressBar2.Margin = new System.Windows.Forms.Padding(0);
-            this.labelProgressBar2.Name = "labelProgressBar2";
-            this.labelProgressBar2.ProgressColor = System.Drawing.Color.LightGreen;
-            this.labelProgressBar2.Size = new System.Drawing.Size(435, 15);
-            this.labelProgressBar2.TabIndex = 25;
-            this.labelProgressBar2.TextColor = System.Drawing.Color.Black;
-            this.labelProgressBar2.TextFont = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold);
-            this.labelProgressBar2.VisualMode = YSRAutoUpdate.ProgressBarDisplayMode.CurrProgress;
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(435, 510);
+            this.ClientSize = new System.Drawing.Size(435, 539);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Location = new System.Drawing.Point(10, 10);
             this.MaximizeBox = false;
             this.Name = "Main";
@@ -486,13 +559,16 @@
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "의사랑 자동 업데이트";
+            this.Text = "YSRAutoUpdate";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.Form_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -517,6 +593,10 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         public System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label5;
+        public System.Windows.Forms.TrackBar trackBar1;
     }
 }
 

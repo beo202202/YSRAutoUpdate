@@ -26,12 +26,20 @@ namespace YSR
             
             이미지받아오기();
 
+            환경설정();
+
             this.Load += Form_Load;
         }
 
-        private void Form_Load(object sender, EventArgs e)
-        {            
+        private void 환경설정()
+        {
+            //로그 클래스 개체 선언
+            LogClass l = new LogClass();
+
+            l.Log(lboxLog, "환경설정을 불러오는 중...");
             Config.LoadIniFile();
+            l.Log(lboxLog, "환경설정을 불러왔습니다.");
+
             COM_MIN = Convert.ToInt32(comboBox1.SelectedItem);
             COM_MAX = Convert.ToInt32(comboBox2.SelectedItem);
             labelMAX = COM_MAX - COM_MIN + 1;
@@ -55,9 +63,6 @@ namespace YSR
             //this.TopMost = true;
             //progressBar1.Step = 20;
 
-            //로그 클래스 개체 선언
-            LogClass l = new LogClass();
-
             // 프로그레스바 값 주는 예
             //InitProgressBar(uiLpb_1, 24);
             //InitProgressBar(uiLpb_2, 54);
@@ -66,6 +71,11 @@ namespace YSR
 
             l.Log(lboxLog, "준비완료");
             l = null;
+        }
+
+        private void Form_Load(object sender, EventArgs e)
+        {
+           
         }
 
         int labelMAX, COM_MIN, COM_MAX;
@@ -627,6 +637,9 @@ namespace YSR
         private const UInt32 WINDOW_FLAGS = SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE | SWP_NOOWNERZORDER;
         private const UInt32 WINDOW_FLAGS2 = SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER;
 
+        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
+        private extern static void ReleaseCapture();
+
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
@@ -959,17 +972,18 @@ namespace YSR
                 p.StartInfo.WindowStyle = ProcessWindowStyle.Minimized; //실행 됨.
                // MessageBox.Show(p.StartInfo.WindowStyle.ToString());
                 p.Start();
-                //
-
-
-
-
 
                 // 실행파일 실행
                 //Process.Start(startInfo);
                 //Process.Start(exe_name);
                 l.Log(lboxLog, exe_name + $" 실행");
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Config.SavaIniFile();
+            Application.Exit();
         }
         #endregion Button Click
 
@@ -979,7 +993,25 @@ namespace YSR
         //int 점점점갯수;
         string 자동모드_점점점 = "ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ";
 
-        
+        private void trackBar1_ValueChanged(object sender, EventArgs e)
+        {
+            //Config.SavaIniFile();
+            this.Opacity = trackBar1.Value * 0.01;            
+        }
+
+        private void tableLayoutPanel2_MouseDown(object sender, MouseEventArgs e)
+        {
+            // 마우스 다운 시 창을 움직이게
+            ReleaseCapture();
+            SendMessage(Handle, 0x112, 0xf012, IntPtr.Zero);
+        }
+
+        private void label5_MouseDown(object sender, MouseEventArgs e)
+        {
+            // 마우스 다운 시 창을 움직이게
+            ReleaseCapture();
+            SendMessage(Handle, 0x112, 0xf012, IntPtr.Zero);
+        }
 
         public void 자동모드진행중()
         {

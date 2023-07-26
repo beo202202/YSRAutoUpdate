@@ -50,6 +50,8 @@
 // 13 기존 네트워크가 있으면 종료 시키고 네트워크 실행하여 연결되는 것을 확인하고 다음으로 넘기는 것 적용.
 // 13 TETBL 최소화 시켰음.
 // 14 TETBL 최소화 기능 유무를 저장하고 불러오기 넣음.
+// 19 Custom Title Bar 구현, == > label로 타이틀명, TrackBar로 Opastiy, X버튼 = Application.Exit().
+// 19 label과 tableLayoutTable 마우스 다운 시 창(handle) move 적용.
 */
 
 // 외부 프로그램 종료가 왜 안될까?
