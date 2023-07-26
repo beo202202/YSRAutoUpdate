@@ -338,7 +338,7 @@ namespace YSR
             Main.main.comboBox2.SelectedItem = sTETBLMAX = Buf.ToString();
             //MessageBox.Show(sTETBLMAX);
 
-            GetPrivateProfileString("TETBL", "NAME", "서울안과", Buf, 1024, sINIPath);
+            GetPrivateProfileString("TETBL", "NAME", "설정이 필요합니다", Buf, 1024, sINIPath);
             //sTETBLNAME = Buf.ToString();
             //MessageBox.Show(sTETBLNAME);
             Main.main.comboBox3.SelectedItem = sTETBLNAME = Buf.ToString();

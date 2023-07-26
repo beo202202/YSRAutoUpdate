@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -89,6 +90,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.textBox2);
             this.groupBox1.Controls.Add(this.button3);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
@@ -108,8 +110,17 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
             // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(262, 98);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 21);
+            this.textBox2.TabIndex = 32;
+            this.textBox2.Visible = false;
+            // 
             // button3
             // 
+            this.button3.Enabled = false;
             this.button3.Location = new System.Drawing.Point(369, 95);
             this.button3.Margin = new System.Windows.Forms.Padding(0);
             this.button3.Name = "button3";
@@ -362,15 +373,16 @@
             this.label6.Location = new System.Drawing.Point(161, 0);
             this.label6.Margin = new System.Windows.Forms.Padding(0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(64, 30);
+            this.label6.Size = new System.Drawing.Size(63, 30);
             this.label6.TabIndex = 5;
-            this.label6.Text = "v0.948";
+            this.label6.Text = "v0.953";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label6.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label6_MouseDown);
             // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.button1.Enabled = false;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button1.Font = new System.Drawing.Font("Tmon몬소리 Black", 15F, System.Drawing.FontStyle.Bold);
             this.button1.ForeColor = System.Drawing.SystemColors.Window;
@@ -402,6 +414,7 @@
             // trackBar1
             // 
             this.trackBar1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trackBar1.Enabled = false;
             this.trackBar1.Location = new System.Drawing.Point(308, 0);
             this.trackBar1.Margin = new System.Windows.Forms.Padding(0);
             this.trackBar1.Maximum = 100;
@@ -419,6 +432,7 @@
             this.checkBox1.Appearance = System.Windows.Forms.Appearance.Button;
             this.checkBox1.BackgroundImage = global::YSRAutoUpdate.Properties.Resources.pin;
             this.checkBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.checkBox1.Enabled = false;
             this.checkBox1.FlatAppearance.BorderSize = 0;
             this.checkBox1.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
             this.checkBox1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
@@ -447,6 +461,7 @@
             // button2
             // 
             this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.button2.Enabled = false;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button2.Font = new System.Drawing.Font("Tmon몬소리 Black", 15F, System.Drawing.FontStyle.Bold);
             this.button2.ForeColor = System.Drawing.SystemColors.Window;
@@ -520,6 +535,7 @@
         private System.Windows.Forms.Button button3;
         public System.Windows.Forms.ListBox lboxLog;
         public YSRAutoUpdate.LabelProgressBar labelProgressBar1;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }
 
