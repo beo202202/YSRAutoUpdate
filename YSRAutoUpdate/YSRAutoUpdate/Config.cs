@@ -38,9 +38,12 @@ namespace YSR
         /// </summary>
         public static string sTETBLNAME = String.Empty;
 
+        /// <summary>
+        /// TETBL WINDOW
+        /// </summary>
+        public static string sTETBLWINDOW = String.Empty;
 
-
-
+        
         /// <summary>
         /// FTP IP
         /// </summary>
@@ -83,25 +86,31 @@ namespace YSR
             //MessageBox.Show(sTETBLMAX);
             Main.main.comboBox2.SelectedItem = sTETBLMAX = Buf.ToString();
 
-            GetPrivateProfileString("TETBL", "NAME", "의사랑공DB", Buf, 1024, sINIPath);
+            GetPrivateProfileString("TETBL", "NAME", "서울안과", Buf, 1024, sINIPath);
             //sTETBLNAME = Buf.ToString();
             //MessageBox.Show(sTETBLNAME);
             Main.main.comboBox3.SelectedItem = sTETBLNAME = Buf.ToString();
 
+            GetPrivateProfileString("TETBL", "WINDOW", "기본", Buf, 1024, sINIPath);
+            //sTETBLNAME = Buf.ToString();
+            //MessageBox.Show(sTETBLNAME);
+            Main.main.comboBox4.SelectedItem = sTETBLWINDOW = Buf.ToString();
+
+
             ///<summary>
             /// FTP
             ///</summary>
-            GetPrivateProfileString("FTP", "IP", "127.0.0.1", Buf, 1024, sINIPath);
-            sFTPIP = Buf.ToString();
+            //GetPrivateProfileString("FTP", "IP", "127.0.0.1", Buf, 1024, sINIPath);
+            //sFTPIP = Buf.ToString();
 
-            GetPrivateProfileString("FTP", "PORT", "9999", Buf, 1024, sINIPath);
-            sFTPPort = Buf.ToString();
+            //GetPrivateProfileString("FTP", "PORT", "9999", Buf, 1024, sINIPath);
+            //sFTPPort = Buf.ToString();
 
-            GetPrivateProfileString("FTP", "USER", "범범조조", Buf, 1024, sINIPath);
-            sFTPUser = Buf.ToString();
+            //GetPrivateProfileString("FTP", "USER", "범범조조", Buf, 1024, sINIPath);
+            //sFTPUser = Buf.ToString();
 
-            GetPrivateProfileString("FTP", "PW", "범범조조", Buf, 1024, sINIPath);
-            sFTPPw = Buf.ToString();
+            //GetPrivateProfileString("FTP", "PW", "범범조조", Buf, 1024, sINIPath);
+            //sFTPPw = Buf.ToString();
         }
 
         public static void SavaIniFile()
@@ -112,22 +121,23 @@ namespace YSR
             WritePrivateProfileString("TETBL", "MIN", Main.main.comboBox1.SelectedItem.ToString(), sINIPath);
             WritePrivateProfileString("TETBL", "MAX", Main.main.comboBox2.SelectedItem.ToString(), sINIPath);
             WritePrivateProfileString("TETBL", "NAME", Main.main.comboBox3.SelectedItem.ToString(), sINIPath);
+            WritePrivateProfileString("TETBL", "WINDOW", Main.main.comboBox4.SelectedItem.ToString(), sINIPath);
 
             ///<summary>
             /// UpdateResume
             ///</summary>
             // 업데이트 이력을 하려 했으나 각각의 데이터베이스 정보를 알 수 없었다...
 
-            ///<summary>
-            /// FTP
-            ///</summary>
-            WritePrivateProfileString("FTP", "IP", sFTPIP, sINIPath);
+            /////<summary>
+            ///// FTP
+            /////</summary>
+            //WritePrivateProfileString("FTP", "IP", sFTPIP, sINIPath);
 
-            WritePrivateProfileString("FTP", "PORT", sFTPPort, sINIPath);
+            //WritePrivateProfileString("FTP", "PORT", sFTPPort, sINIPath);
 
-            WritePrivateProfileString("FTP", "USER", sFTPUser, sINIPath);
+            //WritePrivateProfileString("FTP", "USER", sFTPUser, sINIPath);
 
-            WritePrivateProfileString("FTP", "PW", sFTPPw, sINIPath);
+            //WritePrivateProfileString("FTP", "PW", sFTPPw, sINIPath);
         }
 
         public static void WriteUpdatingInfo(bool b)

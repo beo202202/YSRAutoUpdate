@@ -161,6 +161,11 @@ namespace YSR
             Config.SavaIniFile();
         }
 
+        private void comboBox4_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            Config.SavaIniFile();
+        }
+
         //안쓰는 함수
         private void comboBox1_SelectedIndexChanged(object sender, System.EventArgs e)
         {
@@ -405,10 +410,10 @@ namespace YSR
                         }
                         this.textBox1.Text = clinic.PadLeft(45) + "DB와 연결이 되었습니다.";
                         l.Log(lboxLog, clinic + "DB와 연결이 되었습니다.");
-                        Delay(500);
+                        //Delay(1000);
                     });
                 }
-                Delay(1000);
+                Delay(2000);
 
                 // DB 비활성화 및 최소화 할 때까지 기다리기
             }
@@ -434,18 +439,24 @@ namespace YSR
                 //Process.Start(exe_name);
                 l.Log(lboxLog, exe_name2 + A + $" 실행");
 
-
-
                 //프로세스 생성
                 Process p = new Process();
 
                 p.StartInfo.FileName = exe_name+exe_name2+A+".exe";
 
-                p.StartInfo.WindowStyle = ProcessWindowStyle.Minimized; // 최소화로 실행
+                // 기본과 최소화 로 구분
+                if (this.textBox1.InvokeRequired == true)
+                {
+                    this.comboBox4.Invoke((MethodInvoker)delegate
+                    {
+                        if(this.comboBox4.SelectedItem == "최소화")
+                        {
+                            p.StartInfo.WindowStyle = ProcessWindowStyle.Minimized; // 최소화로 실행
+                        }                        
+                    });
+                }        
                                                                         
                 p.Start();
-
-
 
                 // 의사랑핸들("TfmMain", "") [의사랑2012] 업데이트 창이 뜨거나 질문창이 뜨거나 정보창이 뜰때까지 while
                 //l.Log(lboxLog, "창 찾는 중...1");
@@ -967,6 +978,8 @@ namespace YSR
 
         //int 점점점갯수;
         string 자동모드_점점점 = "ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ";
+
+        
 
         public void 자동모드진행중()
         {

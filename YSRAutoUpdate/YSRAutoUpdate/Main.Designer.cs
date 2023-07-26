@@ -41,6 +41,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.labelProgressBar1 = new YSRAutoUpdate.LabelProgressBar();
             this.labelProgressBar2 = new YSRAutoUpdate.LabelProgressBar();
             this.tableLayoutPanel1.SuspendLayout();
@@ -117,6 +120,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.comboBox4);
             this.groupBox1.Controls.Add(this.comboBox3);
             this.groupBox1.Controls.Add(this.comboBox2);
             this.groupBox1.Controls.Add(this.comboBox1);
@@ -146,7 +152,7 @@
             "다나의원",
             "손정형외과",
             "인성의원"});
-            this.comboBox3.Location = new System.Drawing.Point(299, 58);
+            this.comboBox3.Location = new System.Drawing.Point(299, 46);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(121, 20);
             this.comboBox3.TabIndex = 27;
@@ -241,7 +247,7 @@
             "5387",
             "5388",
             "5389"});
-            this.comboBox2.Location = new System.Drawing.Point(354, 19);
+            this.comboBox2.Location = new System.Drawing.Point(354, 20);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(66, 20);
             this.comboBox2.TabIndex = 26;
@@ -347,7 +353,7 @@
             this.radioButton3.AutoSize = true;
             this.radioButton3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.radioButton3.ForeColor = System.Drawing.Color.White;
-            this.radioButton3.Location = new System.Drawing.Point(6, 62);
+            this.radioButton3.Location = new System.Drawing.Point(6, 72);
             this.radioButton3.Name = "radioButton3";
             this.radioButton3.Size = new System.Drawing.Size(65, 16);
             this.radioButton3.TabIndex = 24;
@@ -358,7 +364,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(334, 22);
+            this.label2.Location = new System.Drawing.Point(334, 28);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(14, 12);
             this.label2.TabIndex = 20;
@@ -379,7 +385,7 @@
             this.radioButton2.AutoSize = true;
             this.radioButton2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.radioButton2.ForeColor = System.Drawing.Color.White;
-            this.radioButton2.Location = new System.Drawing.Point(6, 40);
+            this.radioButton2.Location = new System.Drawing.Point(6, 47);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(59, 16);
             this.radioButton2.TabIndex = 18;
@@ -392,13 +398,47 @@
             this.radioButton1.Checked = true;
             this.radioButton1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.radioButton1.ForeColor = System.Drawing.Color.White;
-            this.radioButton1.Location = new System.Drawing.Point(6, 18);
+            this.radioButton1.Location = new System.Drawing.Point(6, 23);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(99, 16);
             this.radioButton1.TabIndex = 18;
             this.radioButton1.TabStop = true;
             this.radioButton1.Text = "자동 업데이트";
             this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // comboBox4
+            // 
+            this.comboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox4.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.comboBox4.FormattingEnabled = true;
+            this.comboBox4.Items.AddRange(new object[] {
+            "기본",
+            "최소화"});
+            this.comboBox4.Location = new System.Drawing.Point(299, 72);
+            this.comboBox4.Name = "comboBox4";
+            this.comboBox4.Size = new System.Drawing.Size(121, 20);
+            this.comboBox4.TabIndex = 28;
+            this.comboBox4.SelectionChangeCommitted += new System.EventHandler(this.comboBox4_SelectionChangeCommitted);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.Color.White;
+            this.label3.Location = new System.Drawing.Point(212, 49);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(65, 12);
+            this.label3.TabIndex = 29;
+            this.label3.Text = "병의원이름";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Location = new System.Drawing.Point(212, 75);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(45, 12);
+            this.label4.TabIndex = 30;
+            this.label4.Text = "창 옵션";
             // 
             // labelProgressBar1
             // 
@@ -474,6 +514,9 @@
         public System.Windows.Forms.ComboBox comboBox2;
         public System.Windows.Forms.ComboBox comboBox1;
         public System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        public System.Windows.Forms.ComboBox comboBox4;
     }
 }
 
