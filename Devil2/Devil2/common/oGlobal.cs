@@ -18,5 +18,7 @@ namespace Devil2
         Error,
     }
 
+    //공통 선언
+    // UserControl에서 Main으로 Log를 전달 하기 위한 Delegate
     public delegate void delLogSender(object oSender, enLogLevel eLevel, string strLog);
 }
