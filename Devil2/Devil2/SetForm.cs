@@ -12,9 +12,9 @@ namespace Devil2
 {
     public partial class SetForm : Form
     {
-        public event delLogSender eLogSender;
-        //Main Log = new Main();
-        LogClass logclass = new LogClass();
+        //panel 선언
+        ucPanel.ucPanel1 ucPan1 = new ucPanel.ucPanel1();
+        ucPanel.ucPanel2 ucPan2 = new ucPanel.ucPanel2();
 
         //private string strLocalFolder = Application.ExecutablePath.Substring(0, Application.ExecutablePath.LastIndexOf('\\'));
         //static 잘 모르겠당.
@@ -29,6 +29,8 @@ namespace Devil2
          
         private void SetForm_Load(object sender, EventArgs e)
         {
+            LogClass logclass = new LogClass();
+
             //값 불러오기
             //값 표현하기
             //XML Read
@@ -85,6 +87,8 @@ namespace Devil2
 
         private void button1_Click(object sender, EventArgs e)
         {
+            LogClass logclass = new LogClass();
+
             Button btn = sender as Button;
 
             logclass.Log(enLogLevel.Info, $"{btn.Text} 버튼 Click");

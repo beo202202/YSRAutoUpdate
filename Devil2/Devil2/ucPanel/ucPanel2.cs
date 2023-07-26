@@ -12,8 +12,6 @@ namespace Devil2.ucPanel
 {
     public partial class ucPanel2 : UserControl
     {
-        public event delLogSender eLogSender;
-
         public ucPanel2()
         {
             InitializeComponent();
@@ -21,7 +19,7 @@ namespace Devil2.ucPanel
 
         private void Save_Click(object sender, EventArgs e)
         {
-            eLogSender("ucPanel2 Button", enLogLevel.Info, "Button Click");
+            //eLogSender("ucPanel2 Button", enLogLevel.Info, "Button Click");
         }
     }
 }

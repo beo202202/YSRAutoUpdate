@@ -12,8 +12,6 @@ namespace Devil2.ucPanel
 {
     public partial class ucPanel1 : UserControl
     {
-        public event delLogSender eLogSender;
-
         public ucPanel1()
         {
             InitializeComponent();
